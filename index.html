@@ -1,148 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Slideout Demo</title>
-    <meta http-equiv="cleartype" content="on">
-    <meta name="MobileOptimized" content="320">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
-    <style>
-      body {
-        margin:0;
-        padding:0;
-        width: 100%;
-        height: 100%;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-      }
+  <title>ZOOM-Nineteen</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./custom.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="debug.css"> -->
 
-      .slideout-menu {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        z-index: 3;
-        display: none;
-        width: 300px;
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
-        background-color: rgba(238, 238, 238, 0.5);
-      }
-
-      .slideout-panel {
-        position: relative;
-        z-index: 1;
-        will-change: transform;
-      }
-
-      .slideout-open,
-      .slideout-open body,
-      .slideout-open .slideout-panel {
-        overflow: hidden;
-      }
-
-      .slideout-open .slideout-menu {
-        display: block;
-      }
-
-      .toggle-button {
-        z-index: 5;
-        position: relative;
-        left: .25em;
-        top: .25em;
-        font-size: 0.8em;
-        padding: 0.8em;
-        float: left;
-      }
-
-      #map-container {
-        position:absolute;
-        top:0;
-        bottom:0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-      }
-
-      #map {
-        position:absolute;
-        top:0;
-        bottom:0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-      }
-
-      @media screen and (min-width: 780px) {
-        .slideout-panel {
-          margin-left: 300px;
-        }
-
-        .slideout-menu {
-          display: block;
-        }
-
-        .toggle-button {
-          display: none;
-        }
-
-        #map-container {
-          width: calc(100% - 300px);
-        }
-      }
-
-      #panel {
-        height: 100%;
-      }
-    </style>
-  </head>
   <body>
-
-    <nav id="menu">
-    </nav>
-
-    <div id="map-container">
-      <button class="toggle-button">☰</button>
-      <div id="map" class="map" data-slideout-ignore>
+      <div class="cf">
+        <div class="fr w-100 w-80-l ">
+          <div class="outline bg-white " id="map"></div>
+        </div>
+        <div class="fr w-100 w-20-l pa1 ">
+            <div class="branding">
+              <img  class="detroit_logo" src="./assets/logos/grayscale.png"/>
+              <span class="fw7 f3">ZOOM-19</span>
+            </div>
+            <div id="current_view">
+              <legend class="fw7 mb2 ph1">Currently Viewing: <span></span></legend>
+            <!--legend class="fw7 mb2 ph1" id="selected"></legend-->
+            <div class="checklist">
+              <form class="pv3">
+                <!-- <fieldset id="datasets" class="bn"> -->
+                  <!--legend class="fw7 mb2 ph1">Available Datasets</legend-->
+                  <label for="permits" class="lh-copy">
+                    <div class="flex items-center mb2 custom_checkbox">
+                      <img src="./assets/building-15.svg" height="35px" class="ph2" />
+                      <span class="label_name">Building Permits <span id="permit_count"></span></span>
+                      <input class="mr2 ph2" type="checkbox" id="permits" value="permits">                    
+                    </div>
+                  </label>
+                  <label for="demos" class="lh-copy">
+                    <div class="flex items-center custom_checkbox mb2">
+                      <img src="./assets/cross-15.svg" height="35px" class="ph2" />
+                      <span class="label_name">Demolitions <span id="demo_count"></span></span>
+                      <input class="mr2 ph2" type="checkbox" id="demos" value="demos">
+                    </div>
+                  </label>
+                  <label for="scf" class="lh-copy">
+                    <div class="flex items-center custom_checkbox mb2">
+                      <img src="./assets/information-15.svg" height="35px" class="ph2" />
+                      <span class="label_name">Improve Detroit <span id="scf_count"></span></span>
+                      <input class="mr2 ph2" type="checkbox" id="scf" value="scf">
+                    </div>
+                  </label>
+                  <label for="bizcert" class="lh-copy">
+                    <div class="flex items-center custom_checkbox mb2">
+                      <img src="./assets/suitcase-15.svg" height="35px" class="ph2" /><span class="label_name">Business Certification Register <span id="bizcert_count"></span></span>
+                      <input class="mr2 ph2" type="checkbox" id="bizcert" value="bizcert">
+                    </div>
+                  </label>
+                  <label for="blight" class="lh-copy">
+                    <div class="flex items-center custom_checkbox mb2">
+                      <img src="./assets/waste-basket-15.svg" height="35px" class="ph2" />
+                      <span class="label_name">Blight Violations <span id="blight_count"></span></span>
+                      <input class="mr2 ph2" type="checkbox" id="blight" value="blight">
+                    </div>
+                  </label>
+                  <label for="mcmatch" class="lh-copy">
+                    <div class="flex items-center custom_checkbox mb2">
+                      <img src="./assets/bank-15.svg" height="35px" class="ph2" />
+                      <span class="label_name">Motor City Match <span id="mcmatch_count"></span></span>
+                      <input class="mr2 ph2" type="checkbox" id="mcmatch" value="mcmatch">
+                    </div>
+                  </label>
+                  <label for="crime" class="lh-copy">
+                    <div class="flex items-center custom_checkbox mb2">
+                      <img src="./assets/fire-station-15.svg" height="35px" class="ph2" />
+                      <span class="label_name">2016 Arsons <span id="mcmatch_count"></span></span>
+                      <input class="mr2 ph2" type="checkbox" id="crime" value="crime">
+                    </div>
+                  </label>
+                <!-- </fieldset> -->
+              </form>
+            </div>
+        </div>
       </div>
     </div>
-
-    <script>
-      var thisSlideout = new Slideout({
-        'panel': document.getElementById('map-container'),
-        'menu': document.getElementById('menu'),
-        'padding': 300,
-        'tolerance': 70
-      });
-
-      // Toggle button
-      document.querySelector('.toggle-button').addEventListener('click', function() {
-        thisSlideout.toggle();
-      });
-
-      mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
-
-      // make a map object
-      var map = new mapboxgl.Map({
-          container: 'map',
-          style: 'mapbox://styles/cityofdetroit/cix0w7n08000v2qpb2q15raq1',
-          zoom: 10.8,
-          center: [-83.091, 42.350],
-          // :triangular_ruler:
-          bearing: -1.25,
-          minZoom: 9,
-          maxBounds: [
-              [-83.611, 42.100],
-              [-82.511, 42.600]
-          ]
-      });
-
+    <script src="./scripts.js">
     </script>
-
+    <script src = "./bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
   </body>
 </html>

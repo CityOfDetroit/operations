@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title> </title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <!-- <link rel="stylesheet" href="debug.css"> -->
+
+  <body>
+    <div class="mw-100 center ph1-ns">
+      <div class="cf ph2-ns">
+        <div class="fl w-100 pa1">
+          <div class="bg-lightest-blue pa2">
+            <span class="fw7 f3">Neighborhood Viewer</span>
+          </div>
+        </div>
+      </div>
+      <div class="cf ph2-ns h-75">
+        <div class="fl w-100 w-70-l pa1 h-75">
+          <div class="outline bg-white h-75" id="map"></div>
+        </div>
+        <div class="fl w-100 w-30-l pa1 h-75">
+            <legend class="fw7 mb2 ph1" id="selected"></legend>
+            <form class="pv3">
+              <!-- <fieldset id="datasets" class="bn"> -->
+                <legend class="fw7 mb2 ph1">Currently Viewing: <span id="curview"></span></legend>
+                <legend class="fw7 mb2 ph1">Available Datasets</legend>
+                <div class="flex items-center mb2">
+                  <img src="./assets/building-15.svg" height="35px" class="ph2" />
+                  <input class="mr2 ph2" type="checkbox" id="permits" value="permits">
+                  <label for="permits" class="lh-copy">Building Permits <span id="permit_count"></span></label>
+                </div>
+                <div class="flex items-center mb2">
+                  <img src="./assets/cross-15.svg" height="35px" class="ph2" />
+                  <input class="mr2 ph2" type="checkbox" id="demos" value="demos">
+                  <label for="demos" class="lh-copy">Demolitions <span id="demo_count"></span></label>
+                </div>
+                <div class="flex items-center mb2">
+                  <img src="./assets/information-15.svg" height="35px" class="ph2" />
+                  <input class="mr2 ph2" type="checkbox" id="scf" value="scf">
+                  <label for="scf" class="lh-copy">Improve Detroit <span id="scf_count"></span></label>
+                </div>
+                <div class="flex items-center mb2">
+                  <img src="./assets/suitcase-15.svg" height="35px" class="ph2" />
+                  <input class="mr2 ph2" type="checkbox" id="bizcert" value="bizcert">
+                  <label for="bizcert" class="lh-copy">Business Certification Register <span id="bizcert_count"></span></label>
+                </div>
+                <div class="flex items-center mb2">
+                  <img src="./assets/waste-basket-15.svg" height="35px" class="ph2" />
+                  <input class="mr2 ph2" type="checkbox" id="blight" value="blight">
+                  <label for="blight" class="lh-copy">Blight Violations <span id="blight_count"></span></label>
+                </div>
+                <div class="flex items-center mb2">
+                  <img src="./assets/bank-15.svg" height="35px" class="ph2" />
+                  <input class="mr2 ph2" type="checkbox" id="mcmatch" value="mcmatch">
+                  <label for="mcmatch" class="lh-copy">Motor City Match <span id="mcmatch_count"></span></label>
+                </div>
+                <div class="flex items-center mb2">
+                  <img src="./assets/fire-station-15.svg" height="35px" class="ph2" />
+                  <input class="mr2 ph2" type="checkbox" id="crime" value="crime">
+                  <label for="crime" class="lh-copy">2016 Arsons <span id="mcmatch_count"></span></label>
+                </div>
+              <!-- </fieldset> -->
+            </form>
+        </div>
+      </div>
+    </div>
+    <script src = "./bundle.js"></script>
+  </body>
+</html>
