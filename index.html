@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Slideout Demo</title>
+    <meta http-equiv="cleartype" content="on">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        width: 100%;
+        height: 100%;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+      }
+
+      .slideout-menu {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 3;
+        display: none;
+        width: 300px;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        background-color: rgba(238, 238, 238, 0.5);
+      }
+
+      .slideout-panel {
+        position: relative;
+        z-index: 1;
+        will-change: transform;
+      }
+
+      .slideout-open,
+      .slideout-open body,
+      .slideout-open .slideout-panel {
+        overflow: hidden;
+      }
+
+      .slideout-open .slideout-menu {
+        display: block;
+      }
+
+      .toggle-button {
+        z-index: 5;
+        position: relative;
+        left: .25em;
+        top: .25em;
+        font-size: 0.8em;
+        padding: 0.8em;
+        float: left;
+      }
+
+      #map-container {
+        position:absolute;
+        top:0;
+        bottom:0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      @media screen and (min-width: 780px) {
+        .slideout-panel {
+          margin-left: 300px;
+        }
+
+        .slideout-menu {
+          display: block;
+        }
+
+        .toggle-button {
+          display: none;
+        }
+
+        #map-container {
+          width: calc(100% - 300px);
+        }
+      }
+
+      #panel {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <nav id="menu">
+    </nav>
+
+    <div id="map-container">
+      <button class="toggle-button">☰</button>
+      <div id="map" class="map" data-slideout-ignore>
+      </div>
+    </div>
+
+    <script>
+      var thisSlideout = new Slideout({
+        'panel': document.getElementById('map-container'),
+        'menu': document.getElementById('menu'),
+        'padding': 300,
+        'tolerance': 70
+      });
+
+      // Toggle button
+      document.querySelector('.toggle-button').addEventListener('click', function() {
+        thisSlideout.toggle();
+      });
+
+      mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
+
+      // make a map object
+      var map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/cityofdetroit/cix0w7n08000v2qpb2q15raq1',
+          zoom: 10.8,
+          center: [-83.091, 42.350],
+          // :triangular_ruler:
+          bearing: -1.25,
+          minZoom: 9,
+          maxBounds: [
+              [-83.611, 42.100],
+              [-82.511, 42.600]
+          ]
+      });
+
+    </script>
+
+  </body>
+</html>
