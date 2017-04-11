@@ -1,0 +1,190 @@
+      body {
+        margin:0;
+        padding:0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 1.5em;
+        color:#4e4e4e;
+      }
+      img{
+        max-width: 100%;
+        height: auto;
+      }
+
+      .stroke{
+        text-shadow:
+          -1px -1px 0 #000,  
+          1px -1px 0 #000,
+          -1px 1px 0 #000,
+          1px 1px 0 #000;
+       }
+
+      #menu{
+        height: 100vh !important;
+        background: rgb(183,205,194);
+        border-right: 2px groove rgba(0,59,73,0.6) !important
+      }
+      .branding{
+        padding: 15px;
+        margin: 0 auto;
+      }
+      .branding img{
+        max-width: 135px;
+        padding: 5px 0 0 5px;
+        margin: 0 auto;
+        vertical-align: middle;
+      }
+      .branding h1{
+        display: inline-block;
+        width: 110px;
+        vertical-align: text-top;
+        margin: 0px;
+        font-size: 1em;
+        margin-left:-10px;
+        color: #003B49;
+      }
+/*--Accordion Styles--*/
+
+  button {
+      margin: 0;
+      padding: 0;
+      background: inherit;
+      border: inherit;
+      font: inherit;
+      outline: none;
+      width: 100%;
+      display: block;
+      text-align: left;
+      color: inherit;
+  }
+  div[data-content]{
+  }
+  div[data-content] article {
+      border: none;
+      padding:0px;
+  }
+/*--Tab Sytles--*/
+    ul.tabs{
+      margin: 0px;
+      padding: 0px;
+      list-style: none;
+    }
+    ul.tabs li{
+      background: none;
+      display: inline-block;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    ul.tabs li.current{
+      background: rgba(255,255,255, 0.75);
+      font-size: 0.8em;
+    }
+
+    .tab-content{
+      display: none;
+      background: rgba(255,255,255, 0.75);
+      padding: 15px;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .tab-content.current{
+      display: inherit;
+    }
+/*--List Styles--*/
+    .me-select li.selected{
+      box-shadow: inset 0 0 0 40px rgba(39,153,137,0.25);
+    }
+    .me-select label{
+      font-size: 1em;
+    }
+    .me-select label::before{
+      content: '';
+      border: 2px solid rgba(78,78,78, 0.8);
+    }
+    .me-select input[type="checkbox"]:checked + label::after{
+      color: #279989;
+    }
+/*--Slideout Sytles--*/
+      .slideout-menu {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 3;
+        display: none;
+        width: 300px;
+        /*overflow-y: scroll;*/
+        -webkit-overflow-scrolling: touch;
+        background-color: rgba(238, 238, 238, 0.5);
+      }
+
+      .slideout-panel {
+        position: relative;
+        z-index: 1;
+        will-change: transform;
+      }
+
+      .slideout-open,
+      .slideout-open body,
+      .slideout-open .slideout-panel {
+        overflow: hidden;
+      }
+
+      .slideout-open .slideout-menu {
+        display: block;
+      }
+
+      .toggle-button {
+        z-index: 5;
+        position: relative;
+        left: .25em;
+        top: .25em;
+        font-size: 0.8em;
+        padding: 0.8em;
+        float: left;
+      }
+
+      #map-container {
+        position:absolute;
+        top:0;
+        bottom:0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      @media screen and (min-width: 780px) {
+        .slideout-panel {
+          margin-left: 300px;
+        }
+
+        .slideout-menu {
+          display: block;
+        }
+
+        .toggle-button {
+          display: none;
+        }
+
+        #map-container {
+          width: calc(100% - 300px);
+        }
+      }
+
+      #panel {
+        height: 100%;
+      }

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Slideout Demo</title>
+    <title>Zoom Nineteen</title>
     <meta http-equiv="cleartype" content="on">
     <meta name="MobileOptimized" content="320">
     <meta name="HandheldFriendly" content="True">
@@ -11,99 +11,58 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href='./css/jquery.scrollbar.css' rel='stylesheet' />
+    <link href='./css/jquery.accordion.css' rel='stylesheet' />
+    <link rel="stylesheet" type="text/css" href="./css/component.css" />
+    <link href='./css/styles.css' rel='stylesheet' />
     <style>
-      body {
-        margin:0;
-        padding:0;
-        width: 100%;
-        height: 100%;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-      }
-
-      .slideout-menu {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        z-index: 3;
-        display: none;
-        width: 300px;
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
-        background-color: rgba(238, 238, 238, 0.5);
-      }
-
-      .slideout-panel {
-        position: relative;
-        z-index: 1;
-        will-change: transform;
-      }
-
-      .slideout-open,
-      .slideout-open body,
-      .slideout-open .slideout-panel {
-        overflow: hidden;
-      }
-
-      .slideout-open .slideout-menu {
-        display: block;
-      }
-
-      .toggle-button {
-        z-index: 5;
-        position: relative;
-        left: .25em;
-        top: .25em;
-        font-size: 0.8em;
-        padding: 0.8em;
-        float: left;
-      }
-
-      #map-container {
-        position:absolute;
-        top:0;
-        bottom:0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-      }
-
-      #map {
-        position:absolute;
-        top:0;
-        bottom:0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-      }
-
-      @media screen and (min-width: 780px) {
-        .slideout-panel {
-          margin-left: 300px;
-        }
-
-        .slideout-menu {
-          display: block;
-        }
-
-        .toggle-button {
-          display: none;
-        }
-
-        #map-container {
-          width: calc(100% - 300px);
-        }
-      }
-
-      #panel {
-        height: 100%;
-      }
+      @import url('https://fonts.googleapis.com/css?family=Open+Sans');
     </style>
   </head>
   <body>
 
-    <nav id="menu">
+    <nav id="menu" class="">
+      <div class="branding">
+        <img src="./img/logos/green.png"/>
+        <h1 class="">Commercial Corridors</h1>
+      </div>
+
+      <ul class="tabs">
+        <li class="tab-link current" data-tab="commercial-tab">Commercial</li>
+      </ul>
+
+      <div id="commercial-tab" class="tab-content current">
+            <div data-content class="me-select">
+              <article>
+                  <ul id="me-select-list" class="">
+                    <li class="">
+                        <input type="checkbox" id="dumping"/>
+                      <label for="dumping">
+                        Illegal Dumping
+                      </label>
+                    </li>
+                    <li class="">
+                        <input type="checkbox" id="trees"/>
+                      <label for="trees">
+                        Tree Issues
+                      </label>
+                    </li>
+                    <li class="">
+                        <input type="checkbox" id="basin"/>
+                      <label for="basin">
+                        Catch Basin
+                      </label>
+                    </li>
+                    <li class="">
+                        <input type="checkbox" id="other"/>
+                      <label for="other">
+                        Other Issues
+                      </label>
+                    </li>
+                  </ul>
+              </article>
+            </div>
     </nav>
 
     <div id="map-container">
@@ -111,7 +70,35 @@
       <div id="map" class="map" data-slideout-ignore>
       </div>
     </div>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/magicselection.js"></script>
+    <script src="./js/modernizr.custom.js"></script>
+    <script src="./js/jquery.accordion.js"></script>
+    <script src="./js/jquery.scrollbar.min.js"></script>
+    <script>
+      (function() {
+        var selList = document.getElementById( 'me-select-list' ),
+          items = selList.querySelectorAll( 'li' );
+        
+        // fill the initial checked elements (mozilla)
+        [].slice.call( items ).forEach( function( el ) {
+          el.parentNode.className = el.checked ? 'selected' : '';
+        } );
 
+        function checkUncheck( el ) {
+          el.parentNode.className = el.checked ? '' : 'selected';
+          el.checked = !el.checked;
+        }
+
+        new magicSelection( selList.querySelectorAll( 'li > input[type="checkbox"]' ), {
+          onSelection : function( el ) { checkUncheck( el ); },
+          onClick : function( el ) {
+            el.parentNode.className = el.checked ? 'selected' : '';
+          }
+        } );
+
+      } )();
+    </script>
     <script>
       var thisSlideout = new Slideout({
         'panel': document.getElementById('map-container'),
@@ -143,6 +130,6 @@
       });
 
     </script>
-
+    <script src="./js/scripts.js"></script>
   </body>
 </html>
