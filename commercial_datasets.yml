@@ -1,0 +1,41 @@
+- mcmatch:
+    display_name: Motor City Match
+    ago_path: MotorCityMatch_Grants/FeatureServer/0
+    datetime_column: permit_issued
+    location_column: site_location
+    value_column: estimated_cost
+    aggregate: sum
+    icon: star
+    where: bld_permit_type not in ('Dismantle', 'Erection Of Signs')  NONRES
+    popup:
+      Ticket Number: ticket_number
+      Violation Code: violation_code
+      Issuing Agency: agency_name
+      Ticket Issued Date: ticket_issued_date
+      Hearing Date: hearing_date
+- greenlight:
+    display_name: Project Greenlight
+    ago_path: Marihuana_Facility_Applications/FeatureServer/0
+    datetime_column: permit_issued
+    location_column: site_location
+    value_column: estimated_cost
+    aggregate: sum
+    icon: bicycle
+    where: bld_permit_type not in ('Dismantle', 'Erection Of Signs')
+    popup:
+      Name: Business_Name
+      Address: Address
+      Launched: Zip_Code
+# - mcmatch:
+#     display_name: Motor City Match
+#     ago_path: MotorCityMatch_Grants/FeatureServer/0
+#     datetime_column: permit_issued
+#     location_column: site_location
+#     value_column: estimated_cost
+#     aggregate: sum
+#     icon: wrench
+#     where: bld_permit_type not in ('Dismantle', 'Erection Of Signs')
+#     popup:
+#       Name: name
+#       Address: address
+#       Launched: active
