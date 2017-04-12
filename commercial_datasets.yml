@@ -1,41 +1,68 @@
 - mcmatch:
-    display_name: Motor City Match
+    display_name: Motor City Match Grantees
     ago_path: MotorCityMatch_Grants/FeatureServer/0
-    datetime_column: permit_issued
-    location_column: site_location
-    value_column: estimated_cost
+    datetime_column: award_start_date
+    location_column: business_address
+    value_column: cash_grant_amount
     aggregate: sum
     icon: star
-    where: bld_permit_type not in ('Dismantle', 'Erection Of Signs')  NONRES
+    where: all
     popup:
-      Ticket Number: ticket_number
-      Violation Code: violation_code
-      Issuing Agency: agency_name
-      Ticket Issued Date: ticket_issued_date
-      Hearing Date: hearing_date
+      Name: business_name
+      Address: business_address
+      Award: award_cohort
+      Cash Grant Amount: cash_grant_amount
 - greenlight:
-    display_name: Project Greenlight
-    ago_path: Marihuana_Facility_Applications/FeatureServer/0
-    datetime_column: permit_issued
-    location_column: site_location
-    value_column: estimated_cost
+    display_name: Project Greenlight Partners
+    ago_path: ProjectGreenlight/FeatureServer/0
+    datetime_column: Date_Business_License_Renewed
+    location_column: Address
+    value_column: none
     aggregate: sum
     icon: bicycle
-    where: bld_permit_type not in ('Dismantle', 'Erection Of Signs')
+    where: all
     popup:
-      Name: Business_Name
       Address: Address
-      Launched: Zip_Code
-# - mcmatch:
-#     display_name: Motor City Match
-#     ago_path: MotorCityMatch_Grants/FeatureServer/0
-#     datetime_column: permit_issued
-#     location_column: site_location
-#     value_column: estimated_cost
-#     aggregate: sum
-#     icon: wrench
-#     where: bld_permit_type not in ('Dismantle', 'Erection Of Signs')
+      Business: Corporate_Entity
+      Status: Status
+- mortgages:
+    display_name: 2016 Mortgages
+    ago_path: SalesMLS2016/FeatureServer/0
+    datetime_column: Close_Date
+    location_column: FullAddress
+    value_column: Sale_Price
+    aggregate: sum
+    icon: circle
+    where: all
+    popup:
+      Address: FullAddress 
+      Sale Price: Sale_Price
+      List Price: Original_List_Price
+      Close Date: Close_Date
+# - comminspections:
+#     display_name: Commercial Inspections
+#     ago_path: 
+#     datetime_column:
+#     location_column:
+#     value_column:
+#     aggregate:
+#     icon: building
+#     where:
 #     popup:
-#       Name: name
-#       Address: address
-#       Launched: active
+#       Name:
+#       Address:
+# - bldgpermits:
+#     display_name: Commercial Building Permits
+#     ago_path: 
+#     datetime_column:
+#     location_column:
+#     value_column:
+#     aggregate:
+#     icon: building
+#     where:
+#     popup:
+#       Name:
+#       Address:
+
+
+
