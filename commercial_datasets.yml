@@ -44,7 +44,7 @@
       Close Date: Close_Date
 - nonrespermits:
     display_name: Commercial Building Permits
-    display_name: Permit
+    unit: Permit
     url: https://data.detroitmi.gov/resource/but4-ky7y.geojson?residential=NON-RESIDENTIAL&$where=bld_permit_type%20not%20in%20(%27Dismantle%27)&$select=site_location,permit_no,estimated_cost,bld_permit_type,bld_permit_desc,fdicn_description,contractor_last_name,site_address
     datetime_column: permit_issued
     location_column: site_location
