@@ -1,6 +1,6 @@
 - mcmatch:
     display_name: Motor City Match Grantees
-    ago_path: MotorCityMatch_Grants/FeatureServer/0
+    url: http://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/MotorCityMatch_Grants/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=4&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token=
     datetime_column: award_start_date
     location_column: business_address
     value_column: cash_grant_amount
@@ -14,7 +14,7 @@
       Cash Grant Amount: cash_grant_amount
 - greenlight:
     display_name: Project Greenlight Partners
-    ago_path: ProjectGreenlight/FeatureServer/0
+    url: http://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=4&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token=
     datetime_column: Date_Business_License_Renewed
     location_column: Address
     value_column: none
@@ -27,7 +27,7 @@
       Status: Status
 - mortgages:
     display_name: 2016 Mortgages
-    ago_path: SalesMLS2016/FeatureServer/0
+    url: http://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=4&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token=
     datetime_column: Close_Date
     location_column: FullAddress
     value_column: Sale_Price

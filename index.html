@@ -160,19 +160,20 @@
 
       map.on('load', function(){
         var commercial_data = YAML.load('./commercial_datasets.yml')
-        var ago_root = 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/'
-        var query_none_str = '/query?where=0%3D1&outFields=*&outSR=4326&returnGeometry=true&geometryPrecision=4&f=geojson'
-        var query_str = '/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=5&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token='
+        // var ago_root = 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/'
+        // var query_none_str = '/query?where=0%3D1&outFields=*&outSR=4326&returnGeometry=true&geometryPrecision=4&f=geojson'
+        // var query_str = '/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=5&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token='
 
         commercial_data.forEach(function(c){
           var ds_name = Object.keys(c)[0]
           data_dict[ds_name] = c
           var metadata = c[ds_name]
           all_datasets.push(ds_name)
+          console.log(metadata['url'])
           // add source
           map.addSource(ds_name, {
             type: 'geojson',
-            data: `${ago_root}${metadata['ago_path']}${query_str}`
+            data: `${metadata['url']}`
           })
           // adding style layer
           map.addLayer({
