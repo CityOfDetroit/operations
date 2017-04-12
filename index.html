@@ -150,7 +150,7 @@
       });
 
       var all_datasets = []
-      var the_data;
+      var data_dict = {}
 
       map.on('load', function(){
         var commercial_data = YAML.load('./commercial_datasets.yml')
@@ -159,8 +159,8 @@
         var query_str = '/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=5&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token='
 
         commercial_data.forEach(function(c){
-          the_data = c
           var ds_name = Object.keys(c)[0]
+          data_dict[ds_name] = c
           var metadata = c[ds_name]
           all_datasets.push(ds_name)
           // add source
@@ -189,13 +189,11 @@
               return;
           }
           var feature = features[0];
-          console.log(feature)
-          var popup = the_data[feature.layer.id]['popup']
-          console.log(popup)
+          var popup_data = data_dict[feature.layer.id][feature.layer.id]['popup']
           var html = "";
-          Object.keys(popup).forEach(function(key) {
-            console.log(key, popup[key]);
-            var value = eval(`feature.properties.${popup[key]}`)
+          Object.keys(popup_data).forEach(function(key) {
+            console.log(key, popup_data[key]);
+            var value = eval(`feature.properties.${popup_data[key]}`)
             console.log(value)
             // var value = `feature.properties.${popup[key]}`
             html += `<span><b>${key}</b></span><br/><span>${value}</span><br/>`
