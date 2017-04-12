@@ -39,27 +39,33 @@
       Sale Price: Sale_Price
       List Price: Original_List_Price
       Close Date: Close_Date
-# - comminspections:
-#     display_name: Commercial Inspections
-#     ago_path:
-#     datetime_column:
-#     location_column:
-#     value_column:
-#     aggregate:
-#     icon: building
-#     where:
-#     popup:
-#       Name:
-#       Address:
-# - bldgpermits:
-#     display_name: Commercial Building Permits
-#     ago_path:
-#     datetime_column:
-#     location_column:
-#     value_column:
-#     aggregate:
-#     icon: building
-#     where:
-#     popup:
-#       Name:
-#       Address:
+- nonrespermits:
+    display_name: Commercial Building Permits
+    url: https://data.detroitmi.gov/resource/but4-ky7y.geojson?residential=NON-RESIDENTIAL&$where=bld_permit_type%20not%20in%20(%27Dismantle%27)&$select=site_location,permit_no,estimated_cost,bld_permit_type,bld_permit_desc,fdicn_description,contractor_last_name,site_address
+    datetime_column: permit_issued
+    location_column: site_location
+    value_column: estimated_cost
+    aggregate: sum
+    icon: star-11
+    popup:
+      Address: site_address
+      Permit Number: permit_no
+      Estimated Cost: estimated_cost
+      Permit Type: bld_permit_type
+      Permit Description: bld_permit_desc
+      FDICN Description: fdicn_description
+      Contractor: contractor_last_name
+- commdemos:
+    display_name: Commercial Inspections
+    url: https://data.detroitmi.gov/resource/uzpg-2pfj.geojson?commercial=Yes
+    datetime_column: demolition_date
+    location_column: location
+    value_column: price
+    aggregate: sum
+    icon: star-11
+    where:
+    popup:
+      Address: address
+      Demo Date: demolition_date
+      Contractor: contractor_name
+      Price: price
