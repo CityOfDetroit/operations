@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/component.css" />
     <link href='./css/styles.css' rel='stylesheet' />
+    <link rel="icon" href="favicon.ico" type="image" sizes="16x16">
     <style>
       @import url('https://fonts.googleapis.com/css?family=Open+Sans');
     </style>
@@ -29,13 +30,13 @@
 
       <ul class="tabs">
         <li class="tab-link current" data-tab="commercial-tab">Commercial</li>
-        <li class="tab-link current" data-tab="basemap-tab">Basemap</li>
+        <li class="tab-link" data-tab="basemap-tab">Basemap</li>
       </ul>
 
       <div id="commercial-tab" class="tab-content current">
         <div data-content class="me-select">
           <article>
-              <ul id="me-select-list" class="">
+              <ul class="me-select-list">
                 <li class="">
                   <input type="checkbox" id="nonrespermits"/>
                   <label for="nonrespermits">
@@ -71,17 +72,17 @@
         </div>
       </div>
 
-      <div id="basemap-tab" class="tab-content current">
+      <div id="basemap-tab" class="tab-content">
         <div data-content class="me-select">
           <article>
-              <ul id="me-select-list" class="">
-                <li class="">
+              <ul  class="me-select-list">
+                <li class="selected">
                   <input type="checkbox" checked="true" id="hhf"/>
                   <label for="hhf">
                     Hardest Hit Fund Zones
                   </label>
                 </li>
-                <li class="">
+                <li class="selected">
                   <input type="checkbox" checked="true" id="napfill"/>
                   <label for="napfill">
                     NAP Areas
@@ -93,7 +94,7 @@
                     DDOT Routes
                   </label>
                 </li>
-                <li class="">
+                <li class="selected">
                   <input type="checkbox" checked="true" id="parksgeojson"/>
                   <label for="parksgeojson">
                     Parks
@@ -106,17 +107,12 @@
                   </label>
                 </li>
                 <li class="">
+                <li class="selected">
                   <input type="checkbox" checked="true" id="libraries"/>
                   <label for="libraries">
                     Libraries
                   </label>
                 </li>
-                <!-- <li class="">
-                  <input type="checkbox" checked="true" id="zoninggeojson"/>
-                  <label for="zoninggeojson">
-                    Zoning
-                  </label>
-                </li> -->
               </ul>
           </article>
         </div>
@@ -131,30 +127,6 @@
     <script src="./js/jquery.js"></script>
     <script src="./js/magicselection.js"></script>
     <script src="./js/modernizr.custom.js"></script>
-    <script>
-      (function() {
-        var selList = document.getElementById( 'me-select-list' ),
-          items = selList.querySelectorAll( 'li' );
-
-        // fill the initial checked elements (mozilla)
-        [].slice.call( items ).forEach( function( el ) {
-          el.parentNode.className = el.checked ? 'selected' : '';
-        } );
-
-        function checkUncheck( el ) {
-          el.parentNode.className = el.checked ? '' : 'selected';
-          el.checked = !el.checked;
-        }
-
-        new magicSelection( selList.querySelectorAll( 'li > input[type="checkbox"]' ), {
-          onSelection : function( el ) { checkUncheck( el ); },
-          onClick : function( el ) {
-            el.parentNode.className = el.checked ? 'selected' : '';
-          }
-        } );
-
-      } )();
-    </script>
     <script>
       var thisSlideout = new Slideout({
         'panel': document.getElementById('map-container'),

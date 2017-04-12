@@ -74,29 +74,39 @@
     ul.tabs li{
       background: none;
       display: inline-block;
-      padding: 10px 15px;
+      padding: 6px 15px;
       cursor: pointer;
+      margin-bottom: -2px;
     }
 
     ul.tabs li.current{
-      background: rgba(255,255,255, 0.75);
+      background: rgb(237,242,240);
       font-size: 0.8em;
+      padding-top: 11px;
+      margin-bottom:;
+      border: 1px solid #003B49;
+      border-bottom: 0px;
     }
 
     .tab-content{
       display: none;
-      background: rgba(255,255,255, 0.75);
+      background: rgb(237,242,240);
       padding: 15px;
       height: 100vh;
       overflow: hidden;
+      border-top: 1px solid #003b49;
+      border-left: 1px solid #003B49;
     }
 
     .tab-content.current{
       display: inherit;
     }
 /*--List Styles--*/
-    .me-select li.selected{
-      box-shadow: inset 0 0 0 40px rgba(39,153,137,0.25);
+    .me-select li{
+      margin:10px auto;
+    }
+    .me-select li.selected label{
+      background: rgba(39,153,137,0.25);
     }
     .me-select label{
       font-size: 1em;
