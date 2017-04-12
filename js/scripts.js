@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+	//Tab Switch Function
 	$('ul.tabs li').click(function(){
 		var tab_id = $(this).attr('data-tab');
 
@@ -8,7 +9,7 @@ $(document).ready(function(){
 
 		$(this).addClass('current');
 		$("#"+tab_id).addClass('current');
-	})
+	});
 
 	$('input').click(function(){
 		// set the visible layout property
@@ -19,7 +20,17 @@ $(document).ready(function(){
 		else{
 			map.setLayoutProperty(this.id, "visibility", "none")
 		}
-	})
+	});
+
+	//Checklist Select Class Toggle
+	$('.me-select-list li > input').click(function(){
+		var $target_li = $(this).closest('li');
+		if($target_li.hasClass('selected')){
+			$target_li.removeClass('selected');
+		}else{
+			$target_li.addClass('selected');
+		}
+	});
 
 	// $('.scrollbar-macosx').scrollbar();
 	// $('#only-one [data-accordion]').accordion({
