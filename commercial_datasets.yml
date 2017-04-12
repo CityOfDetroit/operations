@@ -19,7 +19,7 @@
     location_column: Address
     value_column: none
     aggregate: sum
-    icon: bicycle-15
+    icon: telephone-15
     where: all
     popup:
       Address: Address
@@ -32,7 +32,7 @@
     location_column: FullAddress
     value_column: Sale_Price
     aggregate: sum
-    icon: bank-11
+    icon: home-11
     where: all
     popup:
       Address: FullAddress
@@ -46,7 +46,7 @@
     location_column: site_location
     value_column: estimated_cost
     aggregate: sum
-    icon: star-11
+    icon: building-11
     popup:
       Address: site_address
       Permit Number: permit_no
@@ -62,7 +62,7 @@
     location_column: location
     value_column: price
     aggregate: sum
-    icon: star-11
+    icon: cross-11
     where:
     popup:
       Address: address

@@ -99,6 +99,24 @@
                     Parks
                   </label>
                 </li>
+                <li class="">
+                  <input type="checkbox" checked="true" id="schools"/>
+                  <label for="schools">
+                    Schools
+                  </label>
+                </li>
+                <li class="">
+                  <input type="checkbox" checked="true" id="libraries"/>
+                  <label for="libraries">
+                    Libraries
+                  </label>
+                </li>
+                <!-- <li class="">
+                  <input type="checkbox" checked="true" id="zoninggeojson"/>
+                  <label for="zoninggeojson">
+                    Zoning
+                  </label>
+                </li> -->
               </ul>
           </article>
         </div>
@@ -155,7 +173,7 @@
       // make a map object
       var map = new mapboxgl.Map({
           container: 'map',
-          style: 'mapbox://styles/cityofdetroit/cj1d27aie00032royj1yazj19',
+          style: 'mapbox://styles/cityofdetroit/cj1f3o7v400152ro4r6wtj6ot',
           zoom: 10.8,
           center: [-83.091, 42.350],
           // :triangular_ruler:
@@ -175,6 +193,31 @@
         // var ago_root = 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/'
         // var query_none_str = '/query?where=0%3D1&outFields=*&outSR=4326&returnGeometry=true&geometryPrecision=4&f=geojson'
         // var query_str = '/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=5&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token='
+
+        // map.addSource('zoning',{
+        //   type: 'vector',
+        //   url: 'mapbox:///cityofdetroit.zoning'
+        // })
+        //
+        // map.addLayer({
+        //   "id": "zoning",
+        //   "type": "fill",
+        //   "source": "zoning",
+        //   "layer": "zoninggeojson",
+        //   "layout": {
+        //       "visibility": "visible",
+        //   },
+        //   "paint": {
+        //       "fill-color": "#fff",
+        //       "fill-opacity": {
+        //           stops: [
+        //               [8, 0.2],
+        //               [11, 0.1],
+        //               [17, 0.01]
+        //           ]
+        //       }
+        //   }
+        // });
 
         commercial_data.forEach(function(c){
           var ds_name = Object.keys(c)[0]
