@@ -203,3 +203,8 @@
           max-width: 350px;
           font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
       }
+
+      .popup-title {
+        font-size: 1.1em;
+        border-bottom: 1px dotted;
+      }

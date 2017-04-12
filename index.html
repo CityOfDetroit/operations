@@ -223,7 +223,7 @@
           }
           var feature = features[0];
           var popup_data = data_dict[feature.layer.id][feature.layer.id]['popup']
-          var html = "";
+          var html = `<span class="popup-title"><b>${data_dict[feature.layer.id][feature.layer.id]['unit']}</b></span><br />`;
           Object.keys(popup_data).forEach(function(key) {
             console.log(key, popup_data[key]);
             var value = eval(`feature.properties.${popup_data[key]}`)

@@ -1,5 +1,6 @@
 - mcmatch:
     display_name: Motor City Match Grantees
+    unit: Motor City Match Grantee
     url: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/MotorCityMatch_Grants/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=4&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token=
     datetime_column: award_start_date
     location_column: business_address
@@ -14,6 +15,7 @@
       Cash Grant Amount: cash_grant_amount
 - greenlight:
     display_name: Project Greenlight Partners
+    unit: Project Greenlight Location
     url: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=4&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token=
     datetime_column: Date_Business_License_Renewed
     location_column: Address
@@ -26,7 +28,8 @@
       Business: Corporate_Entity
       Status: Status
 - mortgages:
-    display_name: 2016 Mortgages
+    display_name: 2016 MLS Sales
+    unit: Home Sale
     url: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=4&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token=
     datetime_column: Close_Date
     location_column: FullAddress
@@ -41,6 +44,7 @@
       Close Date: Close_Date
 - nonrespermits:
     display_name: Commercial Building Permits
+    display_name: Permit
     url: https://data.detroitmi.gov/resource/but4-ky7y.geojson?residential=NON-RESIDENTIAL&$where=bld_permit_type%20not%20in%20(%27Dismantle%27)&$select=site_location,permit_no,estimated_cost,bld_permit_type,bld_permit_desc,fdicn_description,contractor_last_name,site_address
     datetime_column: permit_issued
     location_column: site_location
@@ -56,7 +60,8 @@
       FDICN Description: fdicn_description
       Contractor: contractor_last_name
 - commdemos:
-    display_name: Commercial Inspections
+    display_name: Commercial Demolitions
+    unit: Demolition
     url: https://data.detroitmi.gov/resource/uzpg-2pfj.geojson?commercial=Yes
     datetime_column: demolition_date
     location_column: location
