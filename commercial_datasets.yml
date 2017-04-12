@@ -35,13 +35,13 @@
     icon: circle
     where: all
     popup:
-      Address: FullAddress 
+      Address: FullAddress
       Sale Price: Sale_Price
       List Price: Original_List_Price
       Close Date: Close_Date
 # - comminspections:
 #     display_name: Commercial Inspections
-#     ago_path: 
+#     ago_path:
 #     datetime_column:
 #     location_column:
 #     value_column:
@@ -53,7 +53,7 @@
 #       Address:
 # - bldgpermits:
 #     display_name: Commercial Building Permits
-#     ago_path: 
+#     ago_path:
 #     datetime_column:
 #     location_column:
 #     value_column:
@@ -63,6 +63,3 @@
 #     popup:
 #       Name:
 #       Address:
-
-
-

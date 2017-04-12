@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+
 	$('ul.tabs li').click(function(){
 		var tab_id = $(this).attr('data-tab');
 
@@ -8,6 +8,15 @@ $(document).ready(function(){
 
 		$(this).addClass('current');
 		$("#"+tab_id).addClass('current');
+	})
+
+	$('input').click(function(){
+		if(this.checked){
+			map.setLayoutProperty(this.id, "visibility", "visible")
+		}
+		else{
+			map.setLayoutProperty(this.id, "visibility", "none")
+		}
 	})
 
 	$('.scrollbar-macosx').scrollbar();
