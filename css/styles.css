@@ -15,7 +15,7 @@
 
       .stroke{
         text-shadow:
-          -1px -1px 0 #000,  
+          -1px -1px 0 #000,
           1px -1px 0 #000,
           -1px 1px 0 #000,
           1px 1px 0 #000;
@@ -47,7 +47,7 @@
       }
 /*--Accordion Styles--*/
 
-  button {
+  /*button {
       margin: 0;
       padding: 0;
       background: inherit;
@@ -58,7 +58,7 @@
       display: block;
       text-align: left;
       color: inherit;
-  }
+  }*/
   div[data-content]{
   }
   div[data-content] article {
@@ -197,4 +197,9 @@
 
       #panel {
         height: 100%;
+      }
+
+      .mapboxgl-popup {
+          max-width: 350px;
+          font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
       }
