@@ -11,6 +11,8 @@ $(document).ready(function(){
 	})
 
 	$('input').click(function(){
+		// set the visible layout property
+		// we could extend this to populate the dynamic legend..
 		if(this.checked){
 			map.setLayoutProperty(this.id, "visibility", "visible")
 		}

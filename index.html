@@ -37,15 +37,21 @@
           <article>
               <ul id="me-select-list" class="">
                 <li class="">
-                  <input type="checkbox" id="permits"/>
-                  <label for="permits">
-                    Building Permits
+                  <input type="checkbox" id="mcmatch"/>
+                  <label for="mcmatch">
+                    Motor City Match Grantees
                   </label>
                 </li>
                 <li class="">
-                  <input type="checkbox" id="mcmatch"/>
-                  <label for="permits">
-                    Building Permits
+                  <input type="checkbox" id="greenlight"/>
+                  <label for="greenlight">
+                    Project Greenlight
+                  </label>
+                </li>
+                <li class="">
+                  <input type="checkbox" id="mortgages"/>
+                  <label for="mortgages">
+                    2016 MLS Sales
                   </label>
                 </li>
               </ul>
@@ -58,25 +64,25 @@
           <article>
               <ul id="me-select-list" class="">
                 <li class="">
-                  <input type="checkbox" id="hhf"/>
+                  <input type="checkbox" checked="true" id="hhf"/>
                   <label for="hhf">
                     Hardest Hit Fund Zones
                   </label>
                 </li>
                 <li class="">
-                  <input type="checkbox" id="napstroke"/>
+                  <input type="checkbox" checked="true" id="napstroke"/>
                   <label for="napstroke">
                     NAP Areas
                   </label>
                 </li>
                 <li class="">
-                  <input type="checkbox" id="ddotgeojson"/>
+                  <input type="checkbox" checked="true" id="ddotgeojson"/>
                   <label for="ddotgeojson">
                     DDOT Routes
                   </label>
                 </li>
                 <li class="">
-                  <input type="checkbox" id="parksgeojson"/>
+                  <input type="checkbox" checked="true" id="parksgeojson"/>
                   <label for="parksgeojson">
                     Parks
                   </label>
@@ -174,8 +180,8 @@
               "type": "symbol",
               "source": ds_name,
               "layout": {
-                "visibility": "visible",
-                "icon-image": `${metadata['icon']}-15`,
+                "visibility": "none",
+                "icon-image": `${metadata['icon']}`,
                 "icon-ignore-placement": true,
                 "icon-padding": 0
               }

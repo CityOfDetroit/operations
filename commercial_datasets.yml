@@ -5,7 +5,7 @@
     location_column: business_address
     value_column: cash_grant_amount
     aggregate: sum
-    icon: star
+    icon: star-15
     where: all
     popup:
       Name: business_name
@@ -19,7 +19,7 @@
     location_column: Address
     value_column: none
     aggregate: sum
-    icon: bicycle
+    icon: bicycle-15
     where: all
     popup:
       Address: Address
@@ -32,7 +32,7 @@
     location_column: FullAddress
     value_column: Sale_Price
     aggregate: sum
-    icon: circle
+    icon: bank-11
     where: all
     popup:
       Address: FullAddress
