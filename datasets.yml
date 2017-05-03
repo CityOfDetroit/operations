@@ -12,9 +12,11 @@
       f: pgeojson
   layers:
     - name: on_contract
+      display: Land Contract Sale
       filter: ["==", "Land_Contract_YN", "TRUE"]
       icon: cross-11
     - name: normal_sale
+      display: Non-Contract Sale
       filter: ["==", "Land_Contract_YN", "FALSE"]
       icon: home-11
   popup:
@@ -36,12 +38,15 @@
       f: pgeojson
   layers:
     - name: type_tree
+      display: Trees
       filter: ["==", "issue_type", "Tree Issue"]
       icon:
-    - name: type_basin
+    - name: type_basin 
+      display: Blocked Catch Basins
       filter: ["==", "issue_type", "Blocked Catch Basin"]
       icon:
     - name: type_dumping
+      display: Illegal Dumping
       filter: ["==", "issue_type", "Illegal Dumping / Illegal Dump Sites"]
       icon:
   popup:
@@ -65,9 +70,11 @@
       f: pgeojson
   layers:
     - name: status_green
+      display: Green Status
       filter: ["==", "Status", "Green"]
       icon: 
     - name: status_yellow
+      display: Yellow status
       filter: ["==", "Status", "Yellow"]
       icon:
   popup:
@@ -88,9 +95,11 @@
       f: pgeojson
   layers:
     - name: type_residential
+      display: Residential
       filter: ["==", "residential", "RESIDENTIAL"]
       icon: 
     - name: type_commercial
+      display: Commercial
       filter: ["==", "residential", "NON-RESIDENTIAL"]
       icon: 
   popup:
@@ -114,8 +123,13 @@
       f: pgeojson 
   layers: 
     - name: grantee 
+      display: Cash Grantees
       filter: []
       icon: star-15
+    - name: sites 
+      display: Available Sites
+      filter: []
+      icon:
   popup:
     Name: business_name
     Address: business_address
