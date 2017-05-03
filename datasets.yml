@@ -3,7 +3,7 @@
   unit: Home Sale
   source:
     type: geojson-esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=4&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0
     params:
       where: "1=1"
       outSR: 4326
@@ -21,4 +21,103 @@
     Address: FullAddress
     Sale Price: Sale_Price
     List Price: Original_List_Price
-    Close Date: Close_Date
+    Close Date: Close_Dateam
+- name: Improve Detroit Issues
+  slug: improve_detroit
+  unit: Issue
+  source:
+    type: geojson-esri
+    endpoint: need-to-copy-over-from-socrata
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: '*'
+      geometryPrecision: 4
+      f: pgeojson
+  layers:
+    - name: type_tree
+      filter: ["==", "issue_type", "Tree Issue"]
+      icon:
+    - name: type_basin
+      filter: ["==", "issue_type", "Blocked Catch Basin"]
+      icon:
+    - name: type_dumping
+      filter: ["==", "issue_type", "Illegal Dumping / Illegal Dump Sites"]
+      icon:
+  popup:
+    Issue Type: issue_type
+    Ticket Status: ticket_status
+    Issue Description: issue_description
+    Created At: ticket_created_date_time
+    Last Updated At: ticket_last_updated_date_time
+    Closed At: ticket_closed_date_time
+- name: Project GreenLight Partners
+  slug: project_greenlight
+  unit: Business Partner
+  source:
+    type: geojson-esri
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: '*'
+      geometryPrecision: 4
+      f: pgeojson
+  layers:
+    - name: status_green
+      filter: ["==", "Status", "Green"]
+      icon: 
+    - name: status_yellow
+      filter: ["==", "Status", "Yellow"]
+      icon:
+  popup:
+    Address: Address
+    Business: Corporate_Entity
+    Status: Status
+- name: Building Permits
+  slug: building_permits
+  unit: Permit
+  source:
+    type: geojson-esri
+    endpoint: http://gis.detroitmi.gov/arcgis/rest/services/Socrata/Building_Permits/MapServer/0
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: '*'
+      geometryPrecision: 4
+      f: pgeojson
+  layers:
+    - name: type_residential
+      filter: ["==", "residential", "RESIDENTIAL"]
+      icon: 
+    - name: type_commercial
+      filter: ["==", "residential", "NON-RESIDENTIAL"]
+      icon: 
+  popup:
+    Address: site_address
+    Permit Number: permit_no
+    Permit Type: bld_permit_type
+    Permit Description: bld_permit_desc
+    Contractor: contractor_last_name
+    Estimated Cost: estimated_cost
+- name: Motor City Match Grantees
+  slug: mcm
+  unit: Grantee
+  source:
+    type: geojson-esri
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/MotorCityMatch_Grants/FeatureServer/0
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: '*'
+      geometryPrecision: 4
+      f: pgeojson 
+  layers: 
+    - name: grantee 
+      filter: []
+      icon: star-15
+  popup:
+    Name: business_name
+    Address: business_address
+    Award: award_cohort
+    Cash Grant Amount: cash_grant_amount
