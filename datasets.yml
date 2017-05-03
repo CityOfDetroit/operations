@@ -1,0 +1,24 @@
+- name: 2016 MLS Sales
+  slug: mls_sales
+  unit: Home Sale
+  source:
+    type: geojson-esri
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=4&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: '*'
+      geometryPrecision: 4
+      f: pgeojson
+  layers:
+    - name: on_contract
+      filter: ["==", "Land_Contract_YN", "TRUE"]
+      icon: cross-11
+    - name: normal_sale
+      filter: ["==", "Land_Contract_YN", "FALSE"]
+      icon: home-11
+  popup:
+    Address: FullAddress
+    Sale Price: Sale_Price
+    List Price: Original_List_Price
+    Close Date: Close_Date

@@ -166,82 +166,54 @@
       var data_dict = {}
 
       map.on('load', function(){
-        var commercial_data = YAML.load('./commercial_datasets.yml')
-        // var ago_root = 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/'
-        // var query_none_str = '/query?where=0%3D1&outFields=*&outSR=4326&returnGeometry=true&geometryPrecision=4&f=geojson'
-        // var query_str = '/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=5&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token='
-
-        // map.addSource('zoning',{
-        //   type: 'vector',
-        //   url: 'mapbox:///cityofdetroit.zoning'
-        // })
-        //
-        // map.addLayer({
-        //   "id": "zoning",
-        //   "type": "fill",
-        //   "source": "zoning",
-        //   "layer": "zoninggeojson",
-        //   "layout": {
-        //       "visibility": "visible",
-        //   },
-        //   "paint": {
-        //       "fill-color": "#fff",
-        //       "fill-opacity": {
-        //           stops: [
-        //               [8, 0.2],
-        //               [11, 0.1],
-        //               [17, 0.01]
-        //           ]
-        //       }
-        //   }
-        // });
-
-        commercial_data.forEach(function(c){
-          var ds_name = Object.keys(c)[0]
-          data_dict[ds_name] = c
-          var metadata = c[ds_name]
-          all_datasets.push(ds_name)
-          console.log(metadata['url'])
-          // add source
-          map.addSource(ds_name, {
+        var datasets = YAML.load('./datasets.yml')
+        // loop through datasets
+        datasets.forEach(function(c){
+          // add the source for each dataset
+          map.addSource(c['slug'], {
             type: 'geojson',
-            data: `${metadata['url']}`
+            data: c['source']['endpoint']
           })
-          // adding style layer
-          map.addLayer({
-              "id": ds_name,
+          // loop through the layers to be added for each dataset
+          c['layers'].forEach(function(l){
+            // add it to all_datasets
+            all_datasets.push(c['slug'].concat('_', l.name))
+            map.addLayer({
+              "id": c['slug'].concat('_', l.name),
               "type": "symbol",
-              "source": ds_name,
+              "source": c['slug'],
+              "filter": l['filter'],
               "layout": {
-                "visibility": "none",
-                "icon-image": `${metadata['icon']}`,
+                "visibility": "visible",
+                "icon-image": l['icon'],
                 "icon-ignore-placement": true,
                 "icon-padding": 0
               }
-          });
+            })
+          })
         })
 
-        // add listener
+        // on single-click, let's add a pop up if
         map.on('click', function(e){
           var features = map.queryRenderedFeatures(e.point, { layers: all_datasets });
           if (!features.length) {
               return;
           }
           var feature = features[0];
-          var popup_data = data_dict[feature.layer.id][feature.layer.id]['popup']
-          var html = `<span class="popup-title"><b>${data_dict[feature.layer.id][feature.layer.id]['unit']}</b></span><br />`;
-          Object.keys(popup_data).forEach(function(key) {
-            console.log(key, popup_data[key]);
-            var value = eval(`feature.properties.${popup_data[key]}`)
-            console.log(value)
-            // var value = `feature.properties.${popup[key]}`
+          var selected_ds = datasets.filter(function(d){
+            return feature['layer']['source'] == d['slug']
+          })[0]
+          var popup_template = selected_ds['popup']
+
+          var html = `<span class="popup-title"><b>${selected_ds['unit']}</b></span><br />`;
+          Object.keys(popup_template).forEach(function(key){
+            var value = eval(`feature.properties.${popup_template[key]}`)
             html += `<span><b>${key}</b></span><br/><span>${value}</span><br/>`
-          });
-          console.log(html)
+          })
           var popup = new mapboxgl.Popup()
-              .setLngLat(feature.geometry.coordinates)
-              .setHTML(html)
-              .addTo(map);
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML(html)
+            .addTo(map)
         })
 
       })

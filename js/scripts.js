@@ -32,8 +32,8 @@ $(document).ready(function(){
 		}
 	});
 
-	// $('.scrollbar-macosx').scrollbar();
-	// $('#only-one [data-accordion]').accordion({
-	// 	"transitionSpeed": 400
-	// });
+	$('.scrollbar-macosx').scrollbar();
+	$('#only-one [data-accordion]').accordion({
+		"transitionSpeed": 400
+	});
 })
