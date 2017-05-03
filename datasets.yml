@@ -3,7 +3,7 @@
   unit: Home Sale
   source:
     type: geojson-esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0/query
     params:
       where: "1=1"
       outSR: 4326
@@ -56,7 +56,7 @@
   unit: Business Partner
   source:
     type: geojson-esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0/query
     params:
       where: "1=1"
       outSR: 4326
@@ -79,7 +79,7 @@
   unit: Permit
   source:
     type: geojson-esri
-    endpoint: http://gis.detroitmi.gov/arcgis/rest/services/Socrata/Building_Permits/MapServer/0
+    endpoint: http://gis.detroitmi.gov/arcgis/rest/services/Socrata/Building_Permits/MapServer/0/query
     params:
       where: "1=1"
       outSR: 4326
@@ -105,7 +105,7 @@
   unit: Grantee
   source:
     type: geojson-esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/MotorCityMatch_Grants/FeatureServer/0
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/MotorCityMatch_Grants/FeatureServer/0/query
     params:
       where: "1=1"
       outSR: 4326

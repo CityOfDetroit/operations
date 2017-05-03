@@ -163,16 +163,19 @@
       });
 
       var all_datasets = []
-      var data_dict = {}
 
       map.on('load', function(){
         var datasets = YAML.load('./datasets.yml')
         // loop through datasets
         datasets.forEach(function(c){
+          // reduce params to a URI escaped query string
+          var query_str = Object.keys(c['source']['params']).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(c['source']['params'][k])}`).join('&');
           // add the source for each dataset
+          console.log(c['source']['endpoint'])
+          console.log(query_str)
           map.addSource(c['slug'], {
             type: 'geojson',
-            data: c['source']['endpoint']
+            data: c['source']['endpoint'].concat('?', query_str)
           })
           // loop through the layers to be added for each dataset
           c['layers'].forEach(function(l){
