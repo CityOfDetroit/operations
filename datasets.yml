@@ -35,13 +35,13 @@
       outSR: 4326
       outFields: '*'
       geometryPrecision: 4
-      f: pgeojson
+      f: geojson
   layers:
     - name: type_tree
       display: Trees
       filter: ["==", "issue_type", "Tree Issue"]
       icon:
-    - name: type_basin 
+    - name: type_basin
       display: Blocked Catch Basins
       filter: ["==", "issue_type", "Blocked Catch Basin"]
       icon:
@@ -67,12 +67,12 @@
       outSR: 4326
       outFields: '*'
       geometryPrecision: 4
-      f: pgeojson
+      f: geojson
   layers:
     - name: status_green
       display: Green Status
       filter: ["==", "Status", "Green"]
-      icon: 
+      icon:
     - name: status_yellow
       display: Yellow status
       filter: ["==", "Status", "Yellow"]
@@ -92,16 +92,16 @@
       outSR: 4326
       outFields: '*'
       geometryPrecision: 4
-      f: pgeojson
+      f: geojson
   layers:
     - name: type_residential
       display: Residential
       filter: ["==", "residential", "RESIDENTIAL"]
-      icon: 
+      icon:
     - name: type_commercial
       display: Commercial
       filter: ["==", "residential", "NON-RESIDENTIAL"]
-      icon: 
+      icon:
   popup:
     Address: site_address
     Permit Number: permit_no
@@ -120,7 +120,7 @@
       outSR: 4326
       outFields: '*'
       geometryPrecision: 4
-      f: pgeojson
+      f: geojson
   layers:
     - name: for_sale
       display: Available for Sale
@@ -143,13 +143,13 @@
       outSR: 4326
       outFields: '*'
       geometryPrecision: 4
-      f: pgeojson 
-  layers: 
-    - name: grantee 
+      f: geojson 
+  layers:
+    - name: grantee
       display: Cash Grantees
       filter: []
       icon: star-15
-    - name: sites 
+    - name: sites
       display: Available Sites
       filter: []
       icon:

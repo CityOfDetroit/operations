@@ -175,6 +175,7 @@
         neighborhoods = json
       })
 
+      var sources = []
       var interactive_layers = []
       var selected_neighborhoods = []
       var selected_geometry = null
@@ -221,7 +222,7 @@
         });
 
         map.addLayer({
-          "id": "thisnthat",
+          "id": boundary_filter + "_selected",
           "type": "line",
           "source": boundary_filter,
           "filter": ["in", "slug", ""],
@@ -276,6 +277,7 @@
           // reduce params to a URI escaped query string
           var query_str = Object.keys(c['source']['params']).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(c['source']['params'][k])}`).join('&');
           // add the source for each dataset
+          sources.push(c)
           map.addSource(c['slug'], {
             type: 'geojson',
             // endpoint + ? + query_string
@@ -327,6 +329,7 @@
         map.on('dblclick', function(e){
           // get the neighborhoods we clicked on
           var features = map.queryRenderedFeatures(e.point, { layers: [boundary_filter + '_fill']})
+          // find
           var index_of_clicked = selected_neighborhoods.indexOf(features[0]['properties']['slug'])
           console.log(index_of_clicked)
           if (index_of_clicked >= 0) {
@@ -340,11 +343,29 @@
           selected_geometry = turf.simplify(turf.union.apply(this, filtered_neighborhoods), 0.001, false)
           var arcGeometry = Terraformer.ArcGIS.convert(selected_geometry['geometry'])
           // this is the one we want to pass to Esri endpoints!
-          console.log(arcGeometry)
-          map.setFilter('thisnthat', ["in", "slug"].concat(selected_neighborhoods))
-
+          selected_geometry = arcGeometry
+          console.log(JSON.stringify(selected_geometry))
+          map.setFilter(boundary_filter + '_selected', ["in", "slug"].concat(selected_neighborhoods))
+          console.log(updateDatasets())
         })
 
+        function updateDatasets() {
+          // loop through our sources!
+          sources.forEach(function(s){
+            // assign some additional parameters for the query
+            s['source']['params']['geometryType'] = 'esriGeometryPolygon'
+            // here is where we pass the ArcJSON
+            s['source']['params']['geometry'] = JSON.stringify(selected_geometry)
+            s['source']['params']['spatialRel'] = 'esriSpatialRelIntersects'
+            s['source']['params']['inSR'] = '4326'
+            // create the querystring
+            var query_str = Object.keys(s['source']['params']).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(s['source']['params'][k])}`).join('&');
+            // this is the URL
+            var filtered_ds_url = s['source']['endpoint'].concat('?', query_str)
+            // update the data source
+            map.getSource(s['slug']).setData(filtered_ds_url)
+          })
+        }
       })
 
     </script>
