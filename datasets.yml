@@ -109,6 +109,29 @@
     Permit Description: bld_permit_desc
     Contractor: contractor_last_name
     Estimated Cost: estimated_cost
+- name: City-Owned Commercial Properties
+  slug: pdd_comm_4sale
+  unit: Property
+  source:
+    type: geojson-esri
+    endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/pdd_comm_4sale_april2017/FeatureServer/0/query
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: '*'
+      geometryPrecision: 4
+      f: pgeojson
+  layers:
+    - name: for_sale
+      display: Available for Sale
+      filter: ["==", "avail_for_sale", "Yes"]
+      icon:
+  popup:
+    Address: Address
+    Ownership: Ownership
+    Occupancy Status: Occupancy
+    Property Type: property_type
+    Zoning Type: zoning_type
 - name: Motor City Match Grantees
   slug: mcm
   unit: Grantee
