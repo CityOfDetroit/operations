@@ -10,6 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <script src='https://unpkg.com/terraformer@1.0.7'></script>
+    <script src='https://unpkg.com/terraformer-arcgis-parser@1.0.5'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/yamljs/0.2.9/yaml.js" integrity="sha256-GRn6x6hwUerbJb4I789gu+K5PI1YuaNzCBT6sZi3trI=" crossorigin="anonymous"></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -152,6 +155,7 @@
           container: 'map',
           style: 'mapbox://styles/cityofdetroit/cj1f3o7v400152ro4r6wtj6ot',
           zoom: 10.8,
+          doubleClickZoom: false,
           center: [-83.091, 42.350],
           // :triangular_ruler:
           bearing: -1.25,
@@ -162,32 +166,132 @@
           ]
       });
 
-      var all_datasets = []
+      // load the neighborhoods GeoJSON for use
+      var neighborhoods_url = 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Neighborhoods/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson'
+      var neighborhoods = null
+      fetch(neighborhoods_url).then(function(response){
+        return response.json()
+      }).then(function(json){
+        neighborhoods = json
+      })
+
+      var interactive_layers = []
+      var selected_neighborhoods = []
+      var selected_geometry = null
 
       map.on('load', function(){
+        // loading the filterable boundary
+        var boundary_filter = 'neighborhoods'
+        // store currently selected geometry here:
+        var geometry_filter = null
+
+        // add boundary source
+        map.addSource(boundary_filter, {
+          "type": 'geojson',
+          "data": "https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Neighborhoods/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson"
+        });
+        // add line & fill layer
+        map.addLayer({
+          "id": boundary_filter + "_line",
+          "type": "line",
+          "source": boundary_filter,
+          "layout": {
+            "visibility": "visible",
+            "line-join": "round"
+          },
+          "paint": {
+              "line-color": "#189aca",
+              "line-opacity": {
+                  stops: [
+                      [8, 1],
+                      [11, 0.5],
+                      [16, 0.05],
+                      [18, 0.01]
+                  ]
+              },
+              "line-width": {
+                  stops: [
+                      [8, 0.1],
+                      [11, 1.5],
+                      [13, 5],
+                      [22, 18]
+                  ]
+              }
+          }
+        });
+
+        map.addLayer({
+          "id": "thisnthat",
+          "type": "line",
+          "source": boundary_filter,
+          "filter": ["in", "slug", ""],
+          "layout": {
+            "visibility": "visible",
+            "line-join": "round"
+          },
+          "paint": {
+              "line-color": "yellow",
+              "line-opacity": {
+                  stops: [
+                      [8, 1],
+                      [11, 0.5],
+                      [16, 0.05],
+                      [18, 0.01]
+                  ]
+              },
+              "line-width": {
+                  stops: [
+                      [8, 0.1],
+                      [11, 1.5],
+                      [13, 5],
+                      [22, 18]
+                  ]
+              }
+          }
+        });
+
+        map.addLayer({
+          "id": boundary_filter + "_fill",
+          "type": "fill",
+          "source": boundary_filter,
+          "layout": {
+              "visibility": "visible",
+          },
+          "paint": {
+              "fill-color": "#fff",
+              "fill-opacity": {
+                  stops: [
+                      [8, 0.2],
+                      [11, 0.1],
+                      [17, 0.01]
+                  ]
+              }
+          }
+        });
+
         var datasets = YAML.load('./datasets.yml')
         // loop through datasets
+        // to-do: generate the sidebar UI here
         datasets.forEach(function(c){
           // reduce params to a URI escaped query string
           var query_str = Object.keys(c['source']['params']).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(c['source']['params'][k])}`).join('&');
           // add the source for each dataset
-          console.log(c['source']['endpoint'])
-          console.log(query_str)
           map.addSource(c['slug'], {
             type: 'geojson',
+            // endpoint + ? + query_string
             data: c['source']['endpoint'].concat('?', query_str)
           })
           // loop through the layers to be added for each dataset
           c['layers'].forEach(function(l){
             // add it to all_datasets
-            all_datasets.push(c['slug'].concat('_', l.name))
+            interactive_layers.push(c['slug'].concat('_', l.name))
             map.addLayer({
               "id": c['slug'].concat('_', l.name),
               "type": "symbol",
               "source": c['slug'],
               "filter": l['filter'],
               "layout": {
-                "visibility": "visible",
+                "visibility": "none",
                 "icon-image": l['icon'],
                 "icon-ignore-placement": true,
                 "icon-padding": 0
@@ -198,7 +302,7 @@
 
         // on single-click, let's add a pop up if
         map.on('click', function(e){
-          var features = map.queryRenderedFeatures(e.point, { layers: all_datasets });
+          var features = map.queryRenderedFeatures(e.point, { layers: interactive_layers });
           if (!features.length) {
               return;
           }
@@ -217,6 +321,28 @@
             .setLngLat(feature.geometry.coordinates)
             .setHTML(html)
             .addTo(map)
+        })
+
+        // on double-click, that's your geometry filter right there
+        map.on('dblclick', function(e){
+          // get the neighborhoods we clicked on
+          var features = map.queryRenderedFeatures(e.point, { layers: [boundary_filter + '_fill']})
+          var index_of_clicked = selected_neighborhoods.indexOf(features[0]['properties']['slug'])
+          console.log(index_of_clicked)
+          if (index_of_clicked >= 0) {
+            selected_neighborhoods.splice(index_of_clicked, 1)
+          } else {
+            selected_neighborhoods.push(features[0]['properties']['slug'])
+          }
+          var filtered_neighborhoods = neighborhoods['features'].filter(function(f){
+            return selected_neighborhoods.indexOf(f['properties']['slug']) >= 0;
+          })
+          selected_geometry = turf.simplify(turf.union.apply(this, filtered_neighborhoods), 0.001, false)
+          var arcGeometry = Terraformer.ArcGIS.convert(selected_geometry['geometry'])
+          // this is the one we want to pass to Esri endpoints!
+          console.log(arcGeometry)
+          map.setFilter('thisnthat', ["in", "slug"].concat(selected_neighborhoods))
+
         })
 
       })
