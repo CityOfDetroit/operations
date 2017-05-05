@@ -223,8 +223,8 @@
               "line-color": "#189aca",
               "line-opacity": {
                   stops: [
-                      [8, 0.75],
-                      [11, 0.4],
+                      [8, 0.5],
+                      [11, 0.2],
                       [16, 0.04],
                       [18, 0.01]
                   ]
@@ -290,7 +290,6 @@
         });
 
         var datasets = YAML.load('./datasets.yml')
-        console.log(datasets)
         // loop through datasets
         // to-do: generate the sidebar UI here
         datasets.forEach(function(c){
@@ -373,13 +372,11 @@
           var filtered_neighborhoods = neighborhoods['features'].filter(function(f){
             return selected_neighborhoods.indexOf(f['properties']['slug']) >= 0;
           })
-          // selected_geometry = (turf.union.apply(this, filtered_neighborhoods))
           selected_geometry = turf.simplify(turf.union.apply(this, filtered_neighborhoods), 0.0005, false)
           // this is the one we want to pass to Esri endpoints!
           arc_geometry = Terraformer.ArcGIS.convert(selected_geometry['geometry'])
           map.setFilter(boundary_filter + '_selected', ["in", "slug"].concat(selected_neighborhoods))
           updateDatasets()
-          window.setTimeout(updateCounts(), 3000);
         })
 
         function updateDatasets() {
@@ -395,24 +392,35 @@
             var query_str = Object.keys(s['source']['params']).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(s['source']['params'][k])}`).join('&');
             // this is the URL
             var filtered_ds_url = s['source']['endpoint'].concat('?', query_str)
-            // update the data source
-            map.getSource(s['slug']).setData(filtered_ds_url)
-          })
-        }
 
-        // this doesn't work yet
-        function updateCounts() {
-          sources.forEach(function(s){
-            console.log(s['slug'])
-            var features = map.querySourceFeatures(s['slug'])
-            $('#mls_sales_counts').html(features.length)
+            // fetch the new dataset
+            fetch(filtered_ds_url).then(function(response){
+              return response.json()
+            }).then(function(json){
+              // give the new data to the map source
+              map.getSource(s['slug']).setData(json)
+              // loop through the individual layers of each source
+              s['layers'].forEach(function(l){
+                // get the category and value to filter the new data on
+                var category = l['filter'][1]
+                var category_value = l['filter'][2]
+                // filter the data
+                var filtered = json.features.filter(function(f){
+                  return eval(`f.properties.${category}`) == category_value
+                })
+                // make the span ID to update
+                var span_to_update = s['slug'].concat('_', l['name'], '_count')
+                // update the layer count span with the length of the filtered dataset
+                // $('#' + span_to_update).html(filtered.length)
+                console.log(span_to_update, filtered.length)
+              })
+            })
           })
         }
 
         $('#datasets-tab input').click(function(){
           // set the visible layout property
           // we could extend this to populate the dynamic legend..
-          console.log(this.id)
           var this_source = this.id
           var layers = interactive_layers.filter(function(l){
             return l.startsWith(this_source)
