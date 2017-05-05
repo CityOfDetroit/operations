@@ -11,17 +11,6 @@ $(document).ready(function(){
 		$("#"+tab_id).addClass('current');
 	});
 
-	$('input').click(function(){
-		// set the visible layout property
-		// we could extend this to populate the dynamic legend..
-		if(this.checked){
-			map.setLayoutProperty(this.id, "visibility", "visible")
-		}
-		else{
-			map.setLayoutProperty(this.id, "visibility", "none")
-		}
-	});
-
 	//Checklist Select Class Toggle
 	$('.me-select-list li > input').click(function(){
 		var $target_li = $(this).closest('li');
