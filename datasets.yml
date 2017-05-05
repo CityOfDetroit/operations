@@ -109,29 +109,59 @@
     Permit Description: bld_permit_desc
     Contractor: contractor_last_name
     Estimated Cost: estimated_cost
-# - name: City-Owned Commercial Properties
-#   slug: pdd_comm_4sale
-#   unit: Property
-#   source:
-#     type: geojson-esri
-#     endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/pdd_comm_4sale_april2017/FeatureServer/0/query
-#     params:
-#       where: "1=1"
-#       outSR: 4326
-#       outFields: '*'
-#       geometryPrecision: 4
-#       f: geojson
-#   layers:
-#     - name: for_sale
-#       display: Available for Sale
-#       filter: ["==", "avail_for_sale", "Yes"]
-#       icon:
-#   popup:
-#     Address: Address
-#     Ownership: Ownership
-#     Occupancy Status: Occupancy
-#     Property Type: property_type
-#     Zoning Type: zoning_type
+- name: City-Owned Commercial Properties
+  slug: pdd_comm_4sale
+  unit: Property
+  source:
+    type: geojson-esri
+    endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/pdd_comm_4sale_april2017/FeatureServer/0/query
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: '*'
+      geometryPrecision: 4
+      f: geojson
+  layers:
+    - name: for_sale
+      display: Available for Sale
+      filter: ["==", "avail_for_sale", "Yes"]
+      icon:
+  popup:
+    Address: Address
+    Ownership: Ownership
+    Occupancy Status: Occupancy
+    Property Type: property_type
+    Zoning Type: zoning_type
+- name: Blight Violations
+  slug: blight
+  unit: Ticket
+  source:
+    type: geojson-esri
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/BlightViolations/FeatureServer/0/query
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: '*'
+      geometryPrecision: 4
+      f: geojson
+  layers:
+    - name: graffiti
+      display: Graffiti
+      filter:  ["==", "violation_code", "9-1-111"]
+      icon: star-15
+    - name: vehicles
+      display: Abandoned Vehicles
+      filter: ["==", "violation_code", "9-1-110(a)"]
+      icon: star-15
+  popup:
+    Ticket Number: ticket_number
+    Issuing Agency: agency_name
+    Violator Name: violator_name
+    Issue Date: ticket_issued_date
+    Hearing Date: hearing_date
+    Violation Code: violation_code
+    Violation Description: violation_description
+    Disposition: disposition
 # - name: Motor City Match Grantees
 #   slug: mcm
 #   unit: Grantee
