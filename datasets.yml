@@ -40,15 +40,15 @@
     - name: type_tree
       display: Trees
       filter: ["==", "issue_type", "Tree Issue"]
-      icon: cross-11
+      icon: tree-issue-11
     - name: type_basin
       display: Blocked Catch Basins
       filter: ["==", "issue_type", "Blocked Catch Basin"]
-      icon: home-11
+      icon: catch-basin-11
     - name: type_dumping
       display: Illegal Dumping
       filter: ["==", "issue_type", "Illegal Dumping / Illegal Dump Sites"]
-      icon: building-11
+      icon: illegal-dumping-11
   popup:
     Issue Type: issue_type
     Ticket Status: ticket_sta
@@ -72,11 +72,11 @@
     - name: status_green
       display: Green Status
       filter: ["==", "Status", "Green"]
-      icon: home-11
+      icon: green-light-green-11
     - name: status_yellow
       display: Yellow status
       filter: ["==", "Status", "Yellow"]
-      icon: cross-11
+      icon: green-light-yellow-11
   popup:
     Address: Address
     Business: Corporate_Entity
@@ -97,11 +97,11 @@
     - name: type_residential
       display: Residential
       filter: ["==", "residential", "RESIDENTIAL"]
-      icon: home-11
+      icon: permit-residential-11
     - name: type_commercial
       display: Commercial
       filter: ["==", "residential", "NON-RESIDENTIAL"]
-      icon: building-11
+      icon: permit-commercial-11
   popup:
     Address: site_address
     Permit Number: permit_no
@@ -125,7 +125,7 @@
     - name: for_sale
       display: Available for Sale
       filter: ["==", "avail_for_sale", "Yes"]
-      icon: cross-11
+      icon: commercial-sale-11
   popup:
     Address: Address
     Ownership: Ownership
@@ -148,11 +148,11 @@
     - name: graffiti
       display: Graffiti
       filter:  ["==", "VIOLATIO_3", "9-1-111"]
-      icon: cross-11
+      icon: blight-graffiti-11
     - name: vehicles
       display: Abandoned Vehicles
       filter: ["==", "VIOLATIO_3", "9-1-110(a)"]
-      icon: cross-11
+      icon: blight-auto-11
   popup:
     Ticket Number: TICKET_NUM
     Issuing Agency: AGENCY_NAM
@@ -178,11 +178,11 @@
     - name: residential
       display: Residential
       filter: ["==", "Comm_Bldg", "No"]
-      icon: cross-11
+      icon: residential-demo-11
     - name: non_residential
       display: Non-Residential
       filter: ["==", "Comm_Bldg", "Yes"]
-      icon: building-11
+      icon: commercial-demo-11
   popup:
     Address: Address
     Contractor: Contractor
