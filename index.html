@@ -45,6 +45,7 @@
                   <label for="mls_sales">
                     2016 MLS Sales
                   </label>
+                  <span id="mls_sales_counts">0</span>
                 </li>
               </ul>
           </article>
@@ -205,9 +206,10 @@
         });
 
         map.addLayer({
-          "id": "selected_selected",
+          "id": boundary_filter + "_selected",
           "type": "line",
-          "source": 'selected',
+          "source": boundary_filter,
+          "filter": ["in", "slug", ""],
           "layout": {
             "visibility": "visible",
             "line-join": "round"
@@ -312,9 +314,8 @@
         map.on('dblclick', function(e){
           // get the neighborhoods we clicked on
           var features = map.queryRenderedFeatures(e.point, { layers: [boundary_filter + '_fill']})
-          // find
+          // find index of clicked neighborhood
           var index_of_clicked = selected_neighborhoods.indexOf(features[0]['properties']['slug'])
-          console.log(index_of_clicked)
           if (index_of_clicked >= 0) {
             selected_neighborhoods.splice(index_of_clicked, 1)
           } else {
@@ -326,12 +327,9 @@
           selected_geometry = turf.simplify(turf.union.apply(this, filtered_neighborhoods), 0.001, false)
           // this is the one we want to pass to Esri endpoints!
           arc_geometry = Terraformer.ArcGIS.convert(selected_geometry['geometry'])
-          console.log(turf.featureCollection(selected_geometry))
-          console.log(JSON.stringify(turf.featureCollection(selected_geometry)))
-          map.getSource('selected').setData(turf.featureCollection(selected_geometry))
-          // map.setFilter(boundary_filter + '_selected', ["in", "slug"].concat(selected_neighborhoods))
-          // console.log(updateDatasets())
+          map.setFilter(boundary_filter + '_selected', ["in", "slug"].concat(selected_neighborhoods))
           updateDatasets()
+          window.setTimeout(updateCounts(), 3000);
         })
 
         function updateDatasets() {
@@ -352,18 +350,23 @@
           })
         }
 
+        // this doesn't work yet
+        function updateCounts() {
+          sources.forEach(function(s){
+            console.log(s['slug'])
+            var features = map.querySourceFeatures(s['slug'])
+            $('#mls_sales_counts').html(features.length)
+          })
+        }
+
         $('#commercial-tab input').click(function(){
           // set the visible layout property
           // we could extend this to populate the dynamic legend..
-          console.log(interactive_layers)
-          console.log(this.id)
           var layers = interactive_layers.filter(function(l){
             return l.startsWith('mls_sales')
           })
-          console.log(layers)
           if(this.checked){
             layers.forEach(function(l){
-              console.log(l)
               map.setLayoutProperty(l, "visibility", "visible")
             })
           }
