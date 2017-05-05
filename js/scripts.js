@@ -21,8 +21,9 @@ $(document).ready(function(){
 		}
 	});
 
-	$('.scrollbar-macosx').scrollbar();
+	/*$('.scrollbar-macosx').scrollbar();
 	$('#only-one [data-accordion]').accordion({
 		"transitionSpeed": 400
 	});
+	*/
 })

@@ -27,11 +27,11 @@
         border-right: 2px groove rgba(0,59,73,0.6) !important
       }
       .branding{
-        padding: 15px;
+        padding: 5px 15px 20px 15px;
         margin: 0 auto;
       }
       .branding img{
-        max-width: 135px;
+        max-width: 100px;
         padding: 5px 0 0 5px;
         margin: 0 auto;
         vertical-align: middle;
@@ -68,6 +68,7 @@
 /*--Tab Sytles--*/
     ul.tabs{
       margin: 0px;
+      margin-bottom: 1px;
       padding: 0px;
       list-style: none;
     }
@@ -77,15 +78,17 @@
       padding: 6px 15px;
       cursor: pointer;
       margin-bottom: -2px;
+      font-size: 0.9em;
     }
 
     ul.tabs li.current{
       background: rgb(237,242,240);
       font-size: 0.8em;
       padding-top: 11px;
-      margin-bottom:;
       border: 1px solid #003B49;
       border-bottom: 0px;
+      border-radius: 5px 5px 0px  0px;
+      font-weight: bold;
     }
 
     .tab-content{
@@ -103,20 +106,43 @@
     }
 /*--List Styles--*/
     .me-select li{
-      margin:10px auto;
+      margin:0px auto;
     }
-    .me-select li.selected label{
+    .me-select-list > li{
+      padding-bottom: 5px;
+    }
+    .me-select li.selected{
       background: rgba(39,153,137,0.25);
     }
     .me-select label{
-      font-size: 1em;
+      font-size: 0.75em;
+      padding:5px 0px 10px 35px;
     }
     .me-select label::before{
       content: '';
       border: 2px solid rgba(78,78,78, 0.8);
+      border-radius: 5px;
+      width: 20px;
+      height: 20px;
     }
     .me-select input[type="checkbox"]:checked + label::after{
       color: #279989;
+      line-height: 20px;
+      font-weight: 600;
+    }
+    .me-select ul.sublist{
+      padding-left: 35px;
+      margin-top:-5px;
+    }
+    .sublist li{
+      line-height: 20px;
+    }
+    .sublist li span{
+      font-size: 0.65em;
+      padding:0px 0px 10px 25px;
+    }
+    .sublist li span.count{
+      padding-left:5px;
     }
 /*--Slideout Sytles--*/
       .slideout-menu {
