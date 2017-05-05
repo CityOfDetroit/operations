@@ -29,6 +29,7 @@
       <div class="branding">
         <img src="./img/logos/green.png"/>
         <h1 class="">Neighborhoods</h1>
+        <p id="current_selected">double click a neighborhood </p>
       </div>
 
       <ul class="tabs">
@@ -364,6 +365,7 @@
           var features = map.queryRenderedFeatures(e.point, { layers: [boundary_filter + '_fill']})
           // find index of clicked neighborhood
           selected_neighborhoods = features[0]['properties']['slug']
+          $('#current_selected').html(features[0]['properties']['name'])
           console.log(selected_neighborhoods)
           // var index_of_clicked = selected_neighborhoods.indexOf(features[0]['properties']['slug'])
           // if (index_of_clicked >= 0) {
