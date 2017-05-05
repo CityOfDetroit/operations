@@ -14,11 +14,11 @@
     - name: on_contract
       display: Land Contract Sale
       filter: ["==", "Land_Contract_YN", "TRUE"]
-      icon: cross-11
+      icon: land-contract-15
     - name: normal_sale
       display: Non-Contract Sale
       filter: ["==", "Land_Contract_YN", "FALSE"]
-      icon: home-11
+      icon: non-contract-15
   popup:
     Address: FullAddress
     Sale Price: Sale_Price
@@ -29,7 +29,7 @@
   unit: Issue
   source:
     type: geojson-esri
-    endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/ImproveDetroit/FeatureServer/0/query
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/ImproveDetroit/FeatureServer/0/query
     params:
       where: "issue_type in ('Tree Issue', 'Blocked Catch Basin', 'Illegal Dumping / Illegal Dump Sites') and (ticket_cre like '%/2017%')"
       outSR: 4326

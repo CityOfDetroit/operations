@@ -28,8 +28,7 @@
     <nav id="menu" class="">
       <div class="branding">
         <img src="./img/logos/green.png"/>
-        <h1 class="">Neighborhoods</h1>
-        <p id="current_selected">double click a neighborhood </p>
+        <h1 class="">Neighborhoods<br/><span id="current_selected"></span></h1>
       </div>
 
       <ul class="tabs">
@@ -46,24 +45,53 @@
                   <label for="blight">
                     Blight Violations
                   </label>
+                  <ul class="sublist">
+                    <li style="background: url('img/non-contract-15.svg') no-repeat">
+                      <span>Graffiti<span id="blight_graffiti_count">()</span></span>
+                    </li>
+                    <li style="background: url('img/land-contract-15.svg') no-repeat">
+                      <span>Abandoned Vehicles<span id="blight_vehicles_count">()</span></span>
+                    </li>
+                  </ul>
                 </li>
                 <li class="">
                   <input type="checkbox" id="building_permits"/>
                   <label for="building_permits">
                     Building Permits
                   </label>
+                  <ul class="sublist">
+                    <li style="background: url('img/non-contract-15.svg') no-repeat">
+                      <span>Residential<span id="building_permits_type_residential_count">()</span></span>
+                    </li>
+                    <li style="background: url('img/land-contract-15.svg') no-repeat">
+                      <span>Commercial<span id="building_permits_type_commercial_count">()</span></span>
+                    </li>
+                  </ul>
                 </li>
                 <li class="">
                   <input type="checkbox" id="pdd_comm_4sale"/>
                   <label for="pdd_comm_4sale">
                     City-Owned Commercial
                   </label>
+                  <ul class="sublist">
+                    <li style="background: url('img/non-contract-15.svg') no-repeat">
+                      <span>Available For Sale<span id="pdd_comm_4sale_for_sale_count">()</span></span>
+                    </li>
+                  </ul>
                 </li>
                 <li class="">
                   <input type="checkbox" id="demo"/>
                   <label for="demo">
                     Demolitions
                   </label>
+                  <ul class="sublist">
+                    <li style="background: url('img/non-contract-15.svg') no-repeat">
+                      <span>Residential<span id="demo_residential_count">()</span></span>
+                    </li>
+                    <li style="background: url('img/land-contract-15.svg') no-repeat">
+                      <span>Non-Residential<span id="demo_non_residential_count">()</span></span>
+                    </li>
+                  </ul>
                 </li>
                 <li class="">
                   <input type="checkbox" id="mls_sales"/>
@@ -72,10 +100,10 @@
                   </label>
                   <ul class="sublist">
                     <li style="background: url('img/non-contract-15.svg') no-repeat">
-                      <span>Non-Contract<span class="count">(12340)</span></span>
+                      <span>Non-Contract<span id="mls_sales_normal_sale_count">()</span></span>
                     </li>
                     <li style="background: url('img/land-contract-15.svg') no-repeat">
-                      <span>Land Contract<span class="count">(5570)</span></span>
+                      <span>Land Contract<span id="mls_sales_on_contract_count">()</span></span>
                     </li>
                   </ul>
                 </li>
@@ -84,12 +112,31 @@
                   <label for="improve_detroit">
                     Improve Detroit
                   </label>
+                  <ul class="sublist">
+                    <li style="background: url('img/non-contract-15.svg') no-repeat">
+                      <span>Catch Basin<span id="improve_detroit_type_basin_count">()</span></span>
+                    </li>
+                    <li style="background: url('img/non-contract-15.svg') no-repeat">
+                      <span>Illegal Dumping<span id="improve_detroit_type_dumping_count">()</span></span>
+                    </li>
+                    <li style="background: url('img/land-contract-15.svg') no-repeat">
+                      <span>Tree Issue<span id="improve_detroit_type_tree_count">()</span></span>
+                    </li>
+                  </ul>
                 </li>
                 <li class="">
                   <input type="checkbox" id="project_greenlight"/>
                   <label for="project_greenlight">
                     Project Greenlight
                   </label>
+                  <ul class="sublist">
+                    <li style="background: url('img/non-contract-15.svg') no-repeat">
+                      <span>Active<span id="project_greenlight_status_green_count">()</span></span>
+                    </li>
+                    <li style="background: url('img/land-contract-15.svg') no-repeat">
+                      <span>Pipeline<span id="project_greenlight_status_yellow_count">()</span></span>
+                    </li>
+                  </ul>
                 </li>
               </ul>
           </article>
@@ -174,7 +221,7 @@
       // make a map object
       var map = new mapboxgl.Map({
           container: 'map',
-          style: 'mapbox://styles/cityofdetroit/cj1f3o7v400152ro4r6wtj6ot',
+          style: 'mapbox://styles/cityofdetroit/cj2c3zqfi002f2rpaj5febru0',
           zoom: 10.8,
           doubleClickZoom: false,
           center: [-83.091, 42.350],
@@ -426,7 +473,7 @@
                 // make the span ID to update
                 var span_to_update = s['slug'].concat('_', l['name'], '_count')
                 // update the layer count span with the length of the filtered dataset
-                // $('#' + span_to_update).html(filtered.length)
+                $('#' + span_to_update).html('('+filtered.length+')')
                 console.log(span_to_update, filtered.length)
               })
             })
