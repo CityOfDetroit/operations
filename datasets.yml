@@ -72,11 +72,11 @@
     - name: status_green
       display: Green Status
       filter: ["==", "Status", "Green"]
-      icon: green-light-green-11
+      icon: green-light-green-15
     - name: status_yellow
       display: Yellow status
       filter: ["==", "Status", "Yellow"]
-      icon: green-light-yellow-11
+      icon: green-light-yellow-15
   popup:
     Address: Address
     Business: Corporate_Entity
