@@ -162,6 +162,31 @@
     Violation Code: VIOLATIO_3
     Violation Description: VIOLATIO_4
     Disposition: DISPOSITIO
+- name: Demolitions
+  slug: demo
+  unit: Demolition
+  source:
+    type: geojson-esri
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Completed_Demolitions/FeatureServer/0/query
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: 'Address, Contractor, Price, Comm_Bldg'
+      geometryPrecision: 4
+      f: geojson
+  layers:
+    - name: residential
+      display: Residential
+      filter: ["==", "Comm_Bldg", "No"]
+      icon: cross-11
+    - name: non_residential
+      display: Non-Residential
+      filter: ["==", "Comm_Bldg", "Yes"]
+      icon: building-11
+  popup:
+    Address: Address
+    Contractor: Contractor
+    Price: Price
 # - name: Motor City Match Grantees
 #   slug: mcm
 #   unit: Grantee
