@@ -28,7 +28,7 @@
     <nav id="menu" class="">
       <div class="branding">
         <img src="./img/logos/green.png"/>
-        <h1 class="">Commercial Corridors</h1>
+        <h1 class="">Neighborhoods</h1>
       </div>
 
       <ul class="tabs">
@@ -41,27 +41,39 @@
           <article>
               <ul class="me-select-list">
                 <li class="">
-                  <input type="checkbox" id="mls_sales"/>
-                  <label for="mls_sales">
-                    2016 Home Sales
-                  </label>
-                </li>
-                <li class="">
-                  <input type="checkbox" id="improve_detroit"/>
-                  <label for="improve_detroit">
-                    Improve Detroit Issues
-                  </label>
-                </li>
-                <li class="">
-                  <input type="checkbox" id="project_greenlight"/>
-                  <label for="project_greenlight">
-                    Project Greenlight
+                  <input type="checkbox" id="blight"/>
+                  <label for="blight">
+                    Blight Violations
                   </label>
                 </li>
                 <li class="">
                   <input type="checkbox" id="building_permits"/>
                   <label for="building_permits">
                     Building Permits
+                  </label>
+                </li>
+                <li class="">
+                  <input type="checkbox" id="pdd_comm_4sale"/>
+                  <label for="pdd_comm_4sale">
+                    City-Owned Commercial
+                  </label>
+                </li>
+                <li class="">
+                  <input type="checkbox" id="mls_sales"/>
+                  <label for="mls_sales">
+                    Home Sales (2016)
+                  </label>
+                </li>
+                <li class="">
+                  <input type="checkbox" id="improve_detroit"/>
+                  <label for="improve_detroit">
+                    Improve Detroit
+                  </label>
+                </li>
+                <li class="">
+                  <input type="checkbox" id="project_greenlight"/>
+                  <label for="project_greenlight">
+                    Project Greenlight
                   </label>
                 </li>
               </ul>
@@ -79,14 +91,14 @@
                     Public Ownership
                   </label>
                 </li>
-                <li class="selected">
-                  <input type="checkbox" checked="true" id="hhf"/>
+                <li class="">
+                  <input type="checkbox" id="hhf"/>
                   <label for="hhf">
                     Hardest Hit Fund Zones
                   </label>
                 </li>
-                <li class="selected">
-                  <input type="checkbox" checked="true" id="napfill"/>
+                <li class="">
+                  <input type="checkbox" id="napfill"/>
                   <label for="napfill">
                     NAP Areas
                   </label>
@@ -97,20 +109,20 @@
                     DDOT Routes
                   </label>
                 </li>
-                <li class="selected">
-                  <input type="checkbox" checked="true" id="parksgeojson"/>
+                <li class="">
+                  <input type="checkbox" id="parksgeojson"/>
                   <label for="parksgeojson">
                     Parks
                   </label>
                 </li>
-                <li class="selected">
-                  <input type="checkbox" checked="true" id="schools"/>
+                <li class="">
+                  <input type="checkbox" id="schools"/>
                   <label for="schools">
                     Schools
                   </label>
                 </li>
-                <li class="selected">
-                  <input type="checkbox" checked="true" id="libraries"/>
+                <li class="">
+                  <input type="checkbox" id="libraries"/>
                   <label for="libraries">
                     Libraries
                   </label>
@@ -300,7 +312,7 @@
                 "icon-ignore-placement": true,
                 "icon-padding": 0,
                 "icon-size": {
-                  stops: [[10, 0.25], [18, 2]]
+                  stops: [[9, 0.4], [15.5, 1], [18, 2]]
                 }
               },
               "paint": {
@@ -355,7 +367,8 @@
           var filtered_neighborhoods = neighborhoods['features'].filter(function(f){
             return selected_neighborhoods.indexOf(f['properties']['slug']) >= 0;
           })
-          selected_geometry = turf.simplify(turf.union.apply(this, filtered_neighborhoods), 0.001, false)
+          // selected_geometry = (turf.union.apply(this, filtered_neighborhoods))
+          selected_geometry = turf.simplify(turf.union.apply(this, filtered_neighborhoods), 0.0005, false)
           // this is the one we want to pass to Esri endpoints!
           arc_geometry = Terraformer.ArcGIS.convert(selected_geometry['geometry'])
           map.setFilter(boundary_filter + '_selected', ["in", "slug"].concat(selected_neighborhoods))
