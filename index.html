@@ -189,7 +189,7 @@
 
       var sources = []
       var interactive_layers = []
-      var selected_neighborhoods = []
+      var selected_neighborhoods = null
       var arc_geometry = null
       var selected_geometry = null
 
@@ -244,7 +244,7 @@
           "id": boundary_filter + "_selected",
           "type": "line",
           "source": boundary_filter,
-          "filter": ["in", "slug", ""],
+          "filter": ["==", "slug", ""],
           "layout": {
             "visibility": "visible",
             "line-join": "round"
@@ -363,19 +363,24 @@
           // get the neighborhoods we clicked on
           var features = map.queryRenderedFeatures(e.point, { layers: [boundary_filter + '_fill']})
           // find index of clicked neighborhood
-          var index_of_clicked = selected_neighborhoods.indexOf(features[0]['properties']['slug'])
-          if (index_of_clicked >= 0) {
-            selected_neighborhoods.splice(index_of_clicked, 1)
-          } else {
-            selected_neighborhoods.push(features[0]['properties']['slug'])
-          }
+          selected_neighborhoods = features[0]['properties']['slug']
+          console.log(selected_neighborhoods)
+          // var index_of_clicked = selected_neighborhoods.indexOf(features[0]['properties']['slug'])
+          // if (index_of_clicked >= 0) {
+          //   selected_neighborhoods.splice(index_of_clicked, 1)
+          // } else {
+          //   selected_neighborhoods.push(features[0]['properties']['slug'])
+          // }
           var filtered_neighborhoods = neighborhoods['features'].filter(function(f){
-            return selected_neighborhoods.indexOf(f['properties']['slug']) >= 0;
+            return selected_neighborhoods == f['properties']['slug']
           })
-          selected_geometry = turf.simplify(turf.union.apply(this, filtered_neighborhoods), 0.0005, false)
+          console.log(filtered_neighborhoods)
+          selected_geometry = turf.simplify(filtered_neighborhoods[0], 0.0005, false)
+          console.log(selected_geometry)
           // this is the one we want to pass to Esri endpoints!
           arc_geometry = Terraformer.ArcGIS.convert(selected_geometry['geometry'])
-          map.setFilter(boundary_filter + '_selected', ["in", "slug"].concat(selected_neighborhoods))
+          console.log(JSON.stringify(arc_geometry))
+          map.setFilter(boundary_filter + '_selected', ["==", "slug", selected_neighborhoods])
           updateDatasets()
         })
 

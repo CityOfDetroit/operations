@@ -31,7 +31,7 @@
     type: geojson-esri
     endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/ImproveDetroit/FeatureServer/0/query
     params:
-      where: "issue_type in ('Tree Issue', 'Blocked Catch Basin', 'Illegal Dumping / Illegal Dump Sites') and ((ticket_cre like '%/2016%') or (ticket_cre like '%/2017%'))"
+      where: "issue_type in ('Tree Issue', 'Blocked Catch Basin', 'Illegal Dumping / Illegal Dump Sites') and (ticket_cre like '%/2017%')"
       outSR: 4326
       outFields: 'issue_type, ticket_sta, issue_desc, ticket_cre, ticket_las, ticket_clo'
       geometryPrecision: 4
