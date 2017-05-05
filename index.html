@@ -32,20 +32,37 @@
       </div>
 
       <ul class="tabs">
-        <li class="tab-link current" data-tab="commercial-tab">Commercial</li>
+        <li class="tab-link current" data-tab="datasets-tab">Datasets</li>
         <li class="tab-link" data-tab="basemap-tab">Basemap</li>
       </ul>
 
-      <div id="commercial-tab" class="tab-content current">
+      <div id="datasets-tab" class="tab-content current">
         <div data-content class="me-select">
           <article>
               <ul class="me-select-list">
                 <li class="">
                   <input type="checkbox" id="mls_sales"/>
                   <label for="mls_sales">
-                    2016 MLS Sales
+                    2016 Home Sales
                   </label>
-                  <span id="mls_sales_counts">0</span>
+                </li>
+                <li class="">
+                  <input type="checkbox" id="improve_detroit"/>
+                  <label for="improve_detroit">
+                    Improve Detroit Issues
+                  </label>
+                </li>
+                <li class="">
+                  <input type="checkbox" id="project_greenlight"/>
+                  <label for="project_greenlight">
+                    Project Greenlight
+                  </label>
+                </li>
+                <li class="">
+                  <input type="checkbox" id="building_permits"/>
+                  <label for="building_permits">
+                    Building Permits
+                  </label>
                 </li>
               </ul>
           </article>
@@ -188,18 +205,18 @@
               "line-color": "#189aca",
               "line-opacity": {
                   stops: [
-                      [8, 1],
-                      [11, 0.5],
-                      [16, 0.05],
+                      [8, 0.75],
+                      [11, 0.4],
+                      [16, 0.04],
                       [18, 0.01]
                   ]
               },
               "line-width": {
                   stops: [
                       [8, 0.1],
-                      [11, 1.5],
-                      [13, 5],
-                      [22, 18]
+                      [11, 1],
+                      [13, 3],
+                      [22, 10]
                   ]
               }
           }
@@ -218,10 +235,10 @@
               "line-color": "yellow",
               "line-opacity": {
                   stops: [
-                      [8, 1],
-                      [11, 0.5],
-                      [16, 0.05],
-                      [18, 0.01]
+                      [8, 0.9],
+                      [11, 0.4],
+                      [16, 0.03],
+                      [18, 0.02]
                   ]
               },
               "line-width": {
@@ -281,7 +298,15 @@
                 "visibility": "none",
                 "icon-image": l['icon'],
                 "icon-ignore-placement": true,
-                "icon-padding": 0
+                "icon-padding": 0,
+                "icon-size": {
+                  stops: [[10, 0.25], [18, 2]]
+                }
+              },
+              "paint": {
+                "icon-opacity": {
+                  stops: [[10, 0.3], [17, 1]]
+                }
               }
             })
           })
@@ -309,6 +334,12 @@
             .setHTML(html)
             .addTo(map)
         })
+
+        // on mouseover, change cursor
+        map.on('mousemove', function (e) {
+            var features = map.queryRenderedFeatures(e.point, { layers: interactive_layers });
+            map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+        });
 
         // on double-click, that's your geometry filter right there
         map.on('dblclick', function(e){
@@ -359,12 +390,15 @@
           })
         }
 
-        $('#commercial-tab input').click(function(){
+        $('#datasets-tab input').click(function(){
           // set the visible layout property
           // we could extend this to populate the dynamic legend..
+          console.log(this.id)
+          var this_source = this.id
           var layers = interactive_layers.filter(function(l){
-            return l.startsWith('mls_sales')
+            return l.startsWith(this_source)
           })
+          console.log(layers)
           if(this.checked){
             layers.forEach(function(l){
               map.setLayoutProperty(l, "visibility", "visible")

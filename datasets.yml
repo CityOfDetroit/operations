@@ -29,7 +29,7 @@
   unit: Issue
   source:
     type: geojson-esri
-    endpoint: need-to-copy-over-from-socrata
+    endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/ImproveDetroit/FeatureServer/0/query
     params:
       where: "1=1"
       outSR: 4326
@@ -40,22 +40,22 @@
     - name: type_tree
       display: Trees
       filter: ["==", "issue_type", "Tree Issue"]
-      icon:
+      icon: cross-11
     - name: type_basin
       display: Blocked Catch Basins
       filter: ["==", "issue_type", "Blocked Catch Basin"]
-      icon:
+      icon: home-11
     - name: type_dumping
       display: Illegal Dumping
       filter: ["==", "issue_type", "Illegal Dumping / Illegal Dump Sites"]
-      icon:
+      icon: building-11
   popup:
     Issue Type: issue_type
-    Ticket Status: ticket_status
-    Issue Description: issue_description
-    Created At: ticket_created_date_time
-    Last Updated At: ticket_last_updated_date_time
-    Closed At: ticket_closed_date_time
+    Ticket Status: ticket_sta
+    Issue Description: issue_desc
+    Created At: ticket_cre
+    Last Updated At: ticket_las
+    Closed At: ticket_clo
 - name: Project GreenLight Partners
   slug: project_greenlight
   unit: Business Partner
@@ -72,11 +72,11 @@
     - name: status_green
       display: Green Status
       filter: ["==", "Status", "Green"]
-      icon:
+      icon: home-11
     - name: status_yellow
       display: Yellow status
       filter: ["==", "Status", "Yellow"]
-      icon:
+      icon: cross-11
   popup:
     Address: Address
     Business: Corporate_Entity
@@ -97,11 +97,11 @@
     - name: type_residential
       display: Residential
       filter: ["==", "residential", "RESIDENTIAL"]
-      icon:
+      icon: home-11
     - name: type_commercial
       display: Commercial
       filter: ["==", "residential", "NON-RESIDENTIAL"]
-      icon:
+      icon: building-11
   popup:
     Address: site_address
     Permit Number: permit_no
@@ -109,52 +109,52 @@
     Permit Description: bld_permit_desc
     Contractor: contractor_last_name
     Estimated Cost: estimated_cost
-- name: City-Owned Commercial Properties
-  slug: pdd_comm_4sale
-  unit: Property
-  source:
-    type: geojson-esri
-    endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/pdd_comm_4sale_april2017/FeatureServer/0/query
-    params:
-      where: "1=1"
-      outSR: 4326
-      outFields: '*'
-      geometryPrecision: 4
-      f: geojson
-  layers:
-    - name: for_sale
-      display: Available for Sale
-      filter: ["==", "avail_for_sale", "Yes"]
-      icon:
-  popup:
-    Address: Address
-    Ownership: Ownership
-    Occupancy Status: Occupancy
-    Property Type: property_type
-    Zoning Type: zoning_type
-- name: Motor City Match Grantees
-  slug: mcm
-  unit: Grantee
-  source:
-    type: geojson-esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/MotorCityMatch_Grants/FeatureServer/0/query
-    params:
-      where: "1=1"
-      outSR: 4326
-      outFields: '*'
-      geometryPrecision: 4
-      f: geojson 
-  layers:
-    - name: grantee
-      display: Cash Grantees
-      filter: []
-      icon: star-15
-    - name: sites
-      display: Available Sites
-      filter: []
-      icon:
-  popup:
-    Name: business_name
-    Address: business_address
-    Award: award_cohort
-    Cash Grant Amount: cash_grant_amount
+# - name: City-Owned Commercial Properties
+#   slug: pdd_comm_4sale
+#   unit: Property
+#   source:
+#     type: geojson-esri
+#     endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/pdd_comm_4sale_april2017/FeatureServer/0/query
+#     params:
+#       where: "1=1"
+#       outSR: 4326
+#       outFields: '*'
+#       geometryPrecision: 4
+#       f: geojson
+#   layers:
+#     - name: for_sale
+#       display: Available for Sale
+#       filter: ["==", "avail_for_sale", "Yes"]
+#       icon:
+#   popup:
+#     Address: Address
+#     Ownership: Ownership
+#     Occupancy Status: Occupancy
+#     Property Type: property_type
+#     Zoning Type: zoning_type
+# - name: Motor City Match Grantees
+#   slug: mcm
+#   unit: Grantee
+#   source:
+#     type: geojson-esri
+#     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/MotorCityMatch_Grants/FeatureServer/0/query
+#     params:
+#       where: "1=1"
+#       outSR: 4326
+#       outFields: '*'
+#       geometryPrecision: 4
+#       f: geojson
+#   layers:
+#     - name: grantee
+#       display: Cash Grantees
+#       filter: []
+#       icon: star-15
+#     - name: sites
+#       display: Available Sites
+#       filter: []
+#       icon:
+#   popup:
+#     Name: business_name
+#     Address: business_address
+#     Award: award_cohort
+#     Cash Grant Amount: cash_grant_amount
