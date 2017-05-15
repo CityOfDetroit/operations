@@ -1,5 +1,6 @@
 - name: 2016 MLS Sales
   slug: mls_sales
+  citation: MLS
   unit: Home Sale
   source:
     type: geojson-esri
@@ -26,6 +27,7 @@
     Close Date: Close_Dateam
 - name: Improve Detroit Issues
   slug: improve_detroit
+  citation: SeeClickFix
   unit: Issue
   source:
     type: geojson-esri
@@ -58,6 +60,7 @@
     Closed At: ticket_clo
 - name: Project GreenLight Partners
   slug: project_greenlight
+  citation: DPD
   unit: Business Partner
   source:
     type: geojson-esri
@@ -83,6 +86,7 @@
     Status: Status
 - name: Building Permits
   slug: building_permits
+  citation: BSEED
   unit: Permit
   source:
     type: geojson-esri
@@ -111,6 +115,7 @@
     Estimated Cost: estimated_cost
 - name: City-Owned Commercial Properties
   slug: pdd_comm_4sale
+  citation: DBA
   unit: Property
   source:
     type: geojson-esri
@@ -134,6 +139,7 @@
     Zoning Type: zoning_type
 - name: Blight Violations
   slug: blight
+  citation: DAH
   unit: Blight Ticket
   source:
     type: geojson-esri
@@ -164,6 +170,7 @@
     Disposition: DISPOSITIO
 - name: Demolitions
   slug: demo
+  citation: DBA
   unit: Demolition
   source:
     type: geojson-esri
@@ -189,6 +196,7 @@
     Price: Price
 # - name: Motor City Match Grantees
 #   slug: mcm
+#   citation: DEGC
 #   unit: Grantee
 #   source:
 #     type: geojson-esri
