@@ -96,8 +96,6 @@
       height: 100vh;
       background: rgb(237,242,240);
       padding: 15px;
-      height: 100vh;
-      overflow: scroll;
       border-top: 1px solid #003b49;
       border-left: 1px solid #003B49;
     }
