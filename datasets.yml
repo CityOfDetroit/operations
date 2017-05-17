@@ -25,6 +25,13 @@
     Sale Price: Sale_Price
     List Price: Original_List_Price
     Close Date: Close_Dateam
+  info:
+    Description: Homes sold in 2016 through conventional financing and land contracts
+    Unit: Home Sale
+    Source: MLS
+    Timeframe: 01/2016 - 12/2016
+    Update Frequency: Static
+    Notes: Does not capture cash sales
 - name: Improve Detroit Issues
   slug: improve_detroit
   citation: SeeClickFix
@@ -58,6 +65,13 @@
     Created At: ticket_cre
     Last Updated At: ticket_las
     Closed At: ticket_clo
+  info:
+    Description: Three main types of issues submitted by residents through the Improve Detroit app
+    Unit: Issue
+    Source: SeeClickFix
+    Timeframe: 01/2016 - Present
+    Update Frequency: Daily
+    Notes: Includes all ticket statuses, from open to closed
 - name: Project GreenLight Partners
   slug: project_greenlight
   citation: DPD
@@ -84,6 +98,13 @@
     Address: Address
     Business: Corporate_Entity
     Status: Status
+  info:
+    Description: Businesses participating in Project Greenlight
+    Unit: Business
+    Source: DPD
+    Timeframe: April 2017
+    Update Frequency: Periodic
+    Notes: None
 - name: Building Permits
   slug: building_permits
   citation: BSEED
@@ -111,6 +132,13 @@
     Permit Description: bld_permit_desc
     Contractor: contractor_last_name
     Estimated Cost: estimated_cost
+  info:
+    Description: Permits issued for all types of construction on residential and non-residential buildings
+    Unit: Permit
+    Source: BSEED
+    Timeframe: 01/2016 - Present
+    Update Frequency: Daily
+    Notes: Includes permits for demolition
 - name: City-Owned Commercial Properties
   slug: pdd_comm_4sale
   citation: DBA
@@ -135,6 +163,13 @@
     Occupancy Status: Occupancy
     Property Type: property_type
     Zoning Type: zoning_type
+  info:
+    Description: Properties owned by and available for sale by the City of Detroit
+    Unit: Property
+    Source: DBA
+    Timeframe: May 2017
+    Update Frequency: Static
+    Notes: None
 - name: Blight Violations
   slug: blight
   citation: DAH
@@ -166,6 +201,13 @@
     Violation Code: VIOLATIO_3
     Violation Description: VIOLATIO_4
     Disposition: DISPOSITION
+  info:
+    Description: Tickets issued for two main types of blight violations
+    Unit: Ticket
+    Source: DAH
+    Timeframe: 01/2016 - Present
+    Update Frequency: Daily
+    Notes: None
 - name: Demolitions
   slug: demo
   citation: DBA
@@ -192,3 +234,10 @@
     Address: Address
     Contractor: Contractor
     Price: Price
+  info:
+    Description: Properties that have been demolished
+    Unit: Property
+    Source: DBA
+    Timeframe: 01/2016 - Present
+    Update Frequency: Daily
+    Notes: Does not include properties in the demolition pipeline.
