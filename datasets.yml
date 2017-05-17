@@ -1,142 +1,142 @@
-- name: 2016 MLS Sales
-  slug: mls_sales
-  citation: MLS
-  unit: Home Sale
-  source:
-    type: geojson-esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0/query
-    params:
-      where: "1=1"
-      outSR: 4326
-      outFields: '*'
-      geometryPrecision: 4
-      f: pgeojson
-  layers:
-    - name: on_contract
-      display: Land Contract Sale
-      filter: ["==", "Land_Contract_YN", "TRUE"]
-      icon: land-contract-15
-    - name: normal_sale
-      display: Non-Contract Sale
-      filter: ["==", "Land_Contract_YN", "FALSE"]
-      icon: non-contract-15
-  popup:
-    Address: FullAddress
-    Sale Price: Sale_Price
-    List Price: Original_List_Price
-    Close Date: Close_Dateam
-- name: Improve Detroit Issues
-  slug: improve_detroit
-  citation: SeeClickFix
-  unit: Issue
-  source:
-    type: geojson-esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/ImproveDetroit/FeatureServer/0/query
-    params:
-      where: "issue_type in ('Tree Issue', 'Blocked Catch Basin', 'Illegal Dumping / Illegal Dump Sites') and (ticket_cre like '%/2017%')"
-      outSR: 4326
-      outFields: 'issue_type, ticket_sta, issue_desc, ticket_cre, ticket_las, ticket_clo'
-      geometryPrecision: 4
-      f: geojson
-  layers:
-    - name: type_tree
-      display: Trees
-      filter: ["==", "issue_type", "Tree Issue"]
-      icon: tree-issue-11
-    - name: type_basin
-      display: Blocked Catch Basins
-      filter: ["==", "issue_type", "Blocked Catch Basin"]
-      icon: catch-basin-11
-    - name: type_dumping
-      display: Illegal Dumping
-      filter: ["==", "issue_type", "Illegal Dumping / Illegal Dump Sites"]
-      icon: illegal-dumping-11
-  popup:
-    Issue Type: issue_type
-    Ticket Status: ticket_sta
-    Issue Description: issue_desc
-    Created At: ticket_cre
-    Last Updated At: ticket_las
-    Closed At: ticket_clo
-- name: Project GreenLight Partners
-  slug: project_greenlight
-  citation: DPD
-  unit: Business Partner
-  source:
-    type: geojson-esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0/query
-    params:
-      where: "1=1"
-      outSR: 4326
-      outFields: '*'
-      geometryPrecision: 4
-      f: geojson
-  layers:
-    - name: status_green
-      display: Green Status
-      filter: ["==", "Status", "Green"]
-      icon: green-light-green-15
-    - name: status_yellow
-      display: Yellow status
-      filter: ["==", "Status", "Yellow"]
-      icon: green-light-yellow-15
-  popup:
-    Address: Address
-    Business: Corporate_Entity
-    Status: Status
-- name: Building Permits
-  slug: building_permits
-  citation: BSEED
-  unit: Permit
-  source:
-    type: geojson-esri
-    endpoint: https://gis.detroitmi.gov/arcgis/rest/services/Socrata/Building_Permits/MapServer/0/query
-    params:
-      where: "1=1"
-      outSR: 4326
-      outFields: '*'
-      geometryPrecision: 4
-      f: geojson
-  layers:
-    - name: type_residential
-      display: Residential
-      filter: ["==", "residential", "RESIDENTIAL"]
-      icon: permit-residential-11
-    - name: type_commercial
-      display: Commercial
-      filter: ["==", "residential", "NON-RESIDENTIAL"]
-      icon: permit-commercial-11
-  popup:
-    Address: site_address
-    Permit Number: permit_no
-    Permit Type: bld_permit_type
-    Permit Description: bld_permit_desc
-    Contractor: contractor_last_name
-    Estimated Cost: estimated_cost
-- name: City-Owned Commercial Properties
-  slug: pdd_comm_4sale
-  citation: DBA
-  unit: Property
-  source:
-    type: geojson-esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/pdd_comm_4sale_april2017/FeatureServer/0/query
-    params:
-      where: "avail_for_sale = 'Yes'"
-      outSR: 4326
-      outFields: 'Address, Ownership, Occupancy, property_type, zoning_type, avail_for_sale'
-      geometryPrecision: 4
-      f: geojson
-  layers:
-    - name: for_sale
-      display: Available for Sale
-      filter: ["==", "avail_for_sale", "Yes"]
-      icon: commercial-sale-11
-  popup:
-    Address: Address
-    Ownership: Ownership
-    Occupancy Status: Occupancy
-    Property Type: property_type
-    Zoning Type: zoning_type
+# - name: 2016 MLS Sales
+#   slug: mls_sales
+#   citation: MLS
+#   unit: Home Sale
+#   source:
+#     type: geojson-esri
+#     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0/query
+#     params:
+#       where: "1=1"
+#       outSR: 4326
+#       outFields: '*'
+#       geometryPrecision: 4
+#       f: pgeojson
+#   layers:
+#     - name: on_contract
+#       display: Land Contract Sale
+#       filter: ["==", "Land_Contract_YN", "TRUE"]
+#       icon: land-contract-15
+#     - name: normal_sale
+#       display: Non-Contract Sale
+#       filter: ["==", "Land_Contract_YN", "FALSE"]
+#       icon: non-contract-15
+#   popup:
+#     Address: FullAddress
+#     Sale Price: Sale_Price
+#     List Price: Original_List_Price
+#     Close Date: Close_Dateam
+# - name: Improve Detroit Issues
+#   slug: improve_detroit
+#   citation: SeeClickFix
+#   unit: Issue
+#   source:
+#     type: geojson-esri
+#     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/ImproveDetroit/FeatureServer/0/query
+#     params:
+#       where: "issue_type in ('Tree Issue', 'Blocked Catch Basin', 'Illegal Dumping / Illegal Dump Sites') and (ticket_cre like '%/2017%')"
+#       outSR: 4326
+#       outFields: 'issue_type, ticket_sta, issue_desc, ticket_cre, ticket_las, ticket_clo'
+#       geometryPrecision: 4
+#       f: geojson
+#   layers:
+#     - name: type_tree
+#       display: Trees
+#       filter: ["==", "issue_type", "Tree Issue"]
+#       icon: tree-issue-11
+#     - name: type_basin
+#       display: Blocked Catch Basins
+#       filter: ["==", "issue_type", "Blocked Catch Basin"]
+#       icon: catch-basin-11
+#     - name: type_dumping
+#       display: Illegal Dumping
+#       filter: ["==", "issue_type", "Illegal Dumping / Illegal Dump Sites"]
+#       icon: illegal-dumping-11
+#   popup:
+#     Issue Type: issue_type
+#     Ticket Status: ticket_sta
+#     Issue Description: issue_desc
+#     Created At: ticket_cre
+#     Last Updated At: ticket_las
+#     Closed At: ticket_clo
+# - name: Project GreenLight Partners
+#   slug: project_greenlight
+#   citation: DPD
+#   unit: Business Partner
+#   source:
+#     type: geojson-esri
+#     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0/query
+#     params:
+#       where: "1=1"
+#       outSR: 4326
+#       outFields: '*'
+#       geometryPrecision: 4
+#       f: geojson
+#   layers:
+#     - name: status_green
+#       display: Green Status
+#       filter: ["==", "Status", "Green"]
+#       icon: green-light-green-15
+#     - name: status_yellow
+#       display: Yellow status
+#       filter: ["==", "Status", "Yellow"]
+#       icon: green-light-yellow-15
+#   popup:
+#     Address: Address
+#     Business: Corporate_Entity
+#     Status: Status
+# - name: Building Permits
+#   slug: building_permits
+#   citation: BSEED
+#   unit: Permit
+#   source:
+#     type: geojson-esri
+#     endpoint: https://gis.detroitmi.gov/arcgis/rest/services/Socrata/Building_Permits/MapServer/0/query
+#     params:
+#       where: "1=1"
+#       outSR: 4326
+#       outFields: '*'
+#       geometryPrecision: 4
+#       f: geojson
+#   layers:
+#     - name: type_residential
+#       display: Residential
+#       filter: ["==", "residential", "RESIDENTIAL"]
+#       icon: permit-residential-11
+#     - name: type_commercial
+#       display: Commercial
+#       filter: ["==", "residential", "NON-RESIDENTIAL"]
+#       icon: permit-commercial-11
+#   popup:
+#     Address: site_address
+#     Permit Number: permit_no
+#     Permit Type: bld_permit_type
+#     Permit Description: bld_permit_desc
+#     Contractor: contractor_last_name
+#     Estimated Cost: estimated_cost
+# - name: City-Owned Commercial Properties
+#   slug: pdd_comm_4sale
+#   citation: DBA
+#   unit: Property
+#   source:
+#     type: geojson-esri
+#     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/pdd_comm_4sale_april2017/FeatureServer/0/query
+#     params:
+#       where: "avail_for_sale = 'Yes'"
+#       outSR: 4326
+#       outFields: 'Address, Ownership, Occupancy, property_type, zoning_type, avail_for_sale'
+#       geometryPrecision: 4
+#       f: geojson
+#   layers:
+#     - name: for_sale
+#       display: Available for Sale
+#       filter: ["==", "avail_for_sale", "Yes"]
+#       icon: commercial-sale-11
+#   popup:
+#     Address: Address
+#     Ownership: Ownership
+#     Occupancy Status: Occupancy
+#     Property Type: property_type
+#     Zoning Type: zoning_type
 - name: Blight Violations
   slug: blight
   citation: DAH
@@ -167,57 +167,51 @@
     Hearing Date: HEARING_DA
     Violation Code: VIOLATIO_3
     Violation Description: VIOLATIO_4
-    Disposition: DISPOSITIO
-- name: Demolitions
-  slug: demo
-  citation: DBA
-  unit: Demolition
-  source:
-    type: geojson-esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Completed_Demolitions/FeatureServer/0/query
-    params:
-      where: "1=1"
-      outSR: 4326
-      outFields: 'Address, Contractor, Price, Comm_Bldg'
-      geometryPrecision: 4
-      f: geojson
-  layers:
-    - name: residential
-      display: Residential
-      filter: ["==", "Comm_Bldg", "No"]
-      icon: residential-demo-11
-    - name: non_residential
-      display: Non-Residential
-      filter: ["==", "Comm_Bldg", "Yes"]
-      icon: commercial-demo-11
-  popup:
-    Address: Address
-    Contractor: Contractor
-    Price: Price
-# - name: Motor City Match Grantees
-#   slug: mcm
-#   citation: DEGC
-#   unit: Grantee
+    Disposition: DISPOSITION
+# - name: Demolitions
+#   slug: demo
+#   citation: DBA
+#   unit: Demolition
 #   source:
 #     type: geojson-esri
-#     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/MotorCityMatch_Grants/FeatureServer/0/query
+#     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Completed_Demolitions/FeatureServer/0/query
 #     params:
 #       where: "1=1"
 #       outSR: 4326
-#       outFields: '*'
+#       outFields: 'Address, Contractor, Price, Comm_Bldg'
 #       geometryPrecision: 4
 #       f: geojson
 #   layers:
-#     - name: grantee
-#       display: Cash Grantees
-#       filter: []
-#       icon: star-15
-#     - name: sites
-#       display: Available Sites
-#       filter: []
-#       icon:
+#     - name: residential
+#       display: Residential
+#       filter: ["==", "Comm_Bldg", "No"]
+#       icon: residential-demo-11
+#     - name: non_residential
+#       display: Non-Residential
+#       filter: ["==", "Comm_Bldg", "Yes"]
+#       icon: commercial-demo-11
 #   popup:
-#     Name: business_name
-#     Address: business_address
-#     Award: award_cohort
-#     Cash Grant Amount: cash_grant_amount
+#     Address: Address
+#     Contractor: Contractor
+#     Price: Price
+- name: "911 Calls for Service"
+  slug: nineoneone
+  citation: DPD
+  unit: Incident
+  source:
+    type: socrata
+    endpoint: https://data.detroitmi.gov/resource/dvu3-6qvr.geojson
+    params:
+        $order: call_timestamp DESC
+        $limit: 1000
+  layers:
+    - name: incidents
+      display: Incidents
+      filter: ["in", "callcode", "372040"]
+      icon: star-15
+    - name: incidents2
+      display: Incidents123423
+      filter: ["in", "callcode", "4234"]
+      icon: starm-15
+  popup:
+    Description: calldescription
