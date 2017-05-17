@@ -13,6 +13,7 @@
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script src='https://unpkg.com/terraformer@1.0.7'></script>
     <script src='https://unpkg.com/terraformer-arcgis-parser@1.0.5'></script>
+    <script src='https://unpkg.com/terraformer-wkt-parser@1.1.2'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/yamljs/0.2.9/yaml.js" integrity="sha256-GRn6x6hwUerbJb4I789gu+K5PI1YuaNzCBT6sZi3trI=" crossorigin="anonymous"></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -40,105 +41,7 @@
       <div id="datasets-tab" class="tab-content current">
         <div data-content class="me-select scrollbar-macosx">
           <article>
-              <ul class="me-select-list">
-                <li class="">
-                  <input type="checkbox" id="blight"/>
-                  <label for="blight">
-                    Blight Violations
-                  </label>
-                  <ul class="sublist">
-                    <li style="background: url('img/blight-graffiti-11.svg') no-repeat">
-                      <span>Graffiti<span id="blight_graffiti_count">()</span></span>
-                    </li>
-                    <li style="background: url('img/blight-auto-11.svg') no-repeat">
-                      <span>Abandoned Vehicles<span id="blight_vehicles_count">()</span></span>
-                    </li>
-                  </ul>
-                </li>
-                <li class="">
-                  <input type="checkbox" id="building_permits"/>
-                  <label for="building_permits">
-                    Building Permits
-                  </label>
-                  <ul class="sublist">
-                    <li style="background: url('img/permit-residential-11.svg') no-repeat">
-                      <span>Residential<span id="building_permits_type_residential_count">()</span></span>
-                    </li>
-                    <li style="background: url('img/permit-commercial-11.svg') no-repeat">
-                      <span>Commercial<span id="building_permits_type_commercial_count">()</span></span>
-                    </li>
-                  </ul>
-                </li>
-                <li class="">
-                  <input type="checkbox" id="pdd_comm_4sale"/>
-                  <label for="pdd_comm_4sale">
-                    City-Owned Commercial
-                  </label>
-                  <ul class="sublist">
-                    <li style="background: url('img/commercial-sale-11.svg') no-repeat">
-                      <span>Available For Sale<span id="pdd_comm_4sale_for_sale_count">()</span></span>
-                    </li>
-                  </ul>
-                </li>
-                <li class="">
-                  <input type="checkbox" id="demo"/>
-                  <label for="demo">
-                    Demolitions
-                  </label>
-                  <ul class="sublist">
-                    <li style="background: url('img/residential-demo-11.svg') no-repeat">
-                      <span>Residential<span id="demo_residential_count">()</span></span>
-                    </li>
-                    <li style="background: url('img/commercial-demo-11.svg') no-repeat">
-                      <span>Non-Residential<span id="demo_non_residential_count">()</span></span>
-                    </li>
-                  </ul>
-                </li>
-                <li class="">
-                  <input type="checkbox" id="mls_sales"/>
-                  <label for="mls_sales">
-                    Home Sales (2016)
-                  </label>
-                  <ul class="sublist">
-                    <li style="background: url('img/non-contract-15.svg') no-repeat">
-                      <span>Non-Contract<span id="mls_sales_normal_sale_count">()</span></span>
-                    </li>
-                    <li style="background: url('img/land-contract-15.svg') no-repeat">
-                      <span>Land Contract<span id="mls_sales_on_contract_count">()</span></span>
-                    </li>
-                  </ul>
-                </li>
-                <li class="">
-                  <input type="checkbox" id="improve_detroit"/>
-                  <label for="improve_detroit">
-                    Improve Detroit
-                  </label>
-                  <ul class="sublist">
-                    <li style="background: url('img/catch-basin-11.svg') no-repeat">
-                      <span>Catch Basin<span id="improve_detroit_type_basin_count">()</span></span>
-                    </li>
-                    <li style="background: url('img/illegal-dumping-11.svg') no-repeat">
-                      <span>Illegal Dumping<span id="improve_detroit_type_dumping_count">()</span></span>
-                    </li>
-                    <li style="background: url('img/tree-issue-11.svg') no-repeat">
-                      <span>Tree Issue<span id="improve_detroit_type_tree_count">()</span></span>
-                    </li>
-                  </ul>
-                </li>
-                <li class="">
-                  <input type="checkbox" id="project_greenlight"/>
-                  <label for="project_greenlight">
-                    Project Greenlight
-                  </label>
-                  <ul class="sublist">
-                    <li style="background: url('img/green-light-green-15.svg') no-repeat">
-                      <span>Active<span id="project_greenlight_status_green_count">()</span></span>
-                    </li>
-                    <li style="background: url('img/green-light-yellow-15.svg') no-repeat">
-                      <span>Pipeline<span id="project_greenlight_status_yellow_count">()</span></span>
-                    </li>
-                  </ul>
-                </li>
+              <ul class="me-select-list" id="sidebar">
               </ul>
           </article>
         </div>
@@ -246,9 +149,7 @@
 
       var sources = []
       var interactive_layers = []
-      var selected_neighborhoods = null
-      var arc_geometry = null
-      var selected_geometry = null
+      var selected_neighborhoods, arc_geometry, socrata_geom, selected_geometry = null
 
       map.on('load', function(){
         // loading the filterable boundary
@@ -348,12 +249,32 @@
 
         var datasets = YAML.load('./datasets.yml')
         // loop through datasets
-        // to-do: generate the sidebar UI here
         datasets.forEach(function(c){
+          // template for our sidebar
+          var dsHTML =
+          `
+          <li class="">
+            <input type="checkbox" id="${c.slug}"/>
+            <label for="${c.slug}">${c.name}</label>
+            <ul class="sublist">
+              ${c.layers.map(l => `
+                <li style="background: url('img/${l.icon}.svg') no-repeat">
+                  <span>${l.display}<span id="${l.name}_count"></span></span>
+                </li>
+                `
+              )}
+            </ul>
+          </li>
+          `
+          var re = /\,/g;
+          dsHTML = dsHTML.replace(re, '')
+          // attach to the sidebar
+          $("#sidebar").append(dsHTML)
           // reduce params to a URI escaped query string
           var query_str = Object.keys(c['source']['params']).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(c['source']['params'][k])}`).join('&');
           // add the source for each dataset
           sources.push(c)
+          console.log(c['source']['endpoint'].concat('?', query_str))
           map.addSource(c['slug'], {
             type: 'geojson',
             // endpoint + ? + query_string
@@ -422,40 +343,42 @@
           // find index of clicked neighborhood
           selected_neighborhoods = features[0]['properties']['slug']
           $('#current_selected').html(features[0]['properties']['name'])
-          console.log(selected_neighborhoods)
-          // var index_of_clicked = selected_neighborhoods.indexOf(features[0]['properties']['slug'])
-          // if (index_of_clicked >= 0) {
-          //   selected_neighborhoods.splice(index_of_clicked, 1)
-          // } else {
-          //   selected_neighborhoods.push(features[0]['properties']['slug'])
-          // }
           var filtered_neighborhoods = neighborhoods['features'].filter(function(f){
             return selected_neighborhoods == f['properties']['slug']
           })
-          console.log(filtered_neighborhoods)
           selected_geometry = turf.simplify(filtered_neighborhoods[0], 0.0005, false)
-          console.log(selected_geometry)
           // this is the one we want to pass to Esri endpoints!
           arc_geometry = Terraformer.ArcGIS.convert(selected_geometry['geometry'])
+          // this is the one we want to pass to Socrata endpoints!
+          socrata_geom = Terraformer.WKT.convert(selected_geometry['geometry'])
           console.log(JSON.stringify(arc_geometry))
+          console.log(JSON.stringify(socrata_geom))
           map.setFilter(boundary_filter + '_selected', ["==", "slug", selected_neighborhoods])
           updateDatasets()
         })
 
         function updateDatasets() {
           // loop through our sources!
+
           sources.forEach(function(s){
-            // assign some additional parameters for the query
-            s['source']['params']['geometryType'] = 'esriGeometryPolygon'
-            // here is where we pass the ArcJSON
-            s['source']['params']['geometry'] = JSON.stringify(arc_geometry)
-            s['source']['params']['spatialRel'] = 'esriSpatialRelIntersects'
-            s['source']['params']['inSR'] = '4326'
+            // send different params based on the source endpoint
+            switch(s['source']['type']){
+              case 'socrata':
+                s['source']['params']['$where'] = `within_polygon(location, ${JSON.stringify(socrata_geom)})`
+                break;
+              case 'esri':
+                s['source']['params']['geometryType'] = 'esriGeometryPolygon'
+                s['source']['params']['geometry'] = JSON.stringify(arc_geometry)
+                s['source']['params']['spatialRel'] = 'esriSpatialRelIntersects'
+                s['source']['params']['inSR'] = '4326'
+                break;
+            }
+
             // create the querystring
             var query_str = Object.keys(s['source']['params']).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(s['source']['params'][k])}`).join('&');
             // this is the URL
             var filtered_ds_url = s['source']['endpoint'].concat('?', query_str)
-
+            console.log(filtered_ds_url)
             // fetch the new dataset
             fetch(filtered_ds_url).then(function(response){
               return response.json()

@@ -3,7 +3,7 @@
   citation: MLS
   unit: Home Sale
   source:
-    type: geojson-esri
+    type: esri
     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0/query
     params:
       where: "1=1"
@@ -30,7 +30,7 @@
   citation: SeeClickFix
   unit: Issue
   source:
-    type: geojson-esri
+    type: esri
     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/ImproveDetroit/FeatureServer/0/query
     params:
       where: "issue_type in ('Tree Issue', 'Blocked Catch Basin', 'Illegal Dumping / Illegal Dump Sites') and (ticket_cre like '%/2017%')"
@@ -63,7 +63,7 @@
   citation: DPD
   unit: Business Partner
   source:
-    type: geojson-esri
+    type: esri
     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0/query
     params:
       where: "1=1"
@@ -89,14 +89,11 @@
   citation: BSEED
   unit: Permit
   source:
-    type: geojson-esri
-    endpoint: https://gis.detroitmi.gov/arcgis/rest/services/Socrata/Building_Permits/MapServer/0/query
+    type: socrata
+    endpoint: https://data.detroitmi.gov/resource/but4-ky7y.geojson
     params:
-      where: "1=1"
-      outSR: 4326
-      outFields: '*'
-      geometryPrecision: 4
-      f: geojson
+        $select: site_location as location, permit_no, site_address, residential, bld_permit_type, bld_permit_desc, contractor_last_name, estimated_cost, permit_issued
+        $order: permit_issued DESC
   layers:
     - name: type_residential
       display: Residential
@@ -108,6 +105,7 @@
       icon: permit-commercial-11
   popup:
     Address: site_address
+    Issued Date: permit_issued
     Permit Number: permit_no
     Permit Type: bld_permit_type
     Permit Description: bld_permit_desc
@@ -118,7 +116,7 @@
   citation: DBA
   unit: Property
   source:
-    type: geojson-esri
+    type: esri
     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/pdd_comm_4sale_april2017/FeatureServer/0/query
     params:
       where: "avail_for_sale = 'Yes'"
@@ -142,7 +140,7 @@
   citation: DAH
   unit: Blight Ticket
   source:
-    type: geojson-esri
+    type: esri
     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/BlightViolations/FeatureServer/0/query
     params:
       where: "VIOLATIO_3 IN ('9-1-111', '9-1-110(a)')"
@@ -167,13 +165,13 @@
     Hearing Date: HEARING_DA
     Violation Code: VIOLATIO_3
     Violation Description: VIOLATIO_4
-    Disposition: DISPOSITIO
+    Disposition: DISPOSITION
 - name: Demolitions
   slug: demo
   citation: DBA
   unit: Demolition
   source:
-    type: geojson-esri
+    type: esri
     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Completed_Demolitions/FeatureServer/0/query
     params:
       where: "1=1"
@@ -194,30 +192,3 @@
     Address: Address
     Contractor: Contractor
     Price: Price
-# - name: Motor City Match Grantees
-#   slug: mcm
-#   citation: DEGC
-#   unit: Grantee
-#   source:
-#     type: geojson-esri
-#     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/MotorCityMatch_Grants/FeatureServer/0/query
-#     params:
-#       where: "1=1"
-#       outSR: 4326
-#       outFields: '*'
-#       geometryPrecision: 4
-#       f: geojson
-#   layers:
-#     - name: grantee
-#       display: Cash Grantees
-#       filter: []
-#       icon: star-15
-#     - name: sites
-#       display: Available Sites
-#       filter: []
-#       icon:
-#   popup:
-#     Name: business_name
-#     Address: business_address
-#     Award: award_cohort
-#     Cash Grant Amount: cash_grant_amount

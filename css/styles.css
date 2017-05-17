@@ -96,6 +96,11 @@
       height: 100vh;
       background: rgb(237,242,240);
       padding: 15px;
+<<<<<<< HEAD
+=======
+      height: 100vh;
+      overflow: scroll;
+>>>>>>> 3e962be79b705618661586b1f3dad3b29e5edfd7
       border-top: 1px solid #003b49;
       border-left: 1px solid #003B49;
     }
