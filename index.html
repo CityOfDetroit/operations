@@ -265,6 +265,8 @@
             </ul>
           </li>
           `
+          var re = /\,/g;
+          dsHTML = dsHTML.replace(re, '')
           // attach to the sidebar
           $("#sidebar").append(dsHTML)
           // reduce params to a URI escaped query string
@@ -356,19 +358,26 @@
 
         function updateDatasets() {
           // loop through our sources!
+
           sources.forEach(function(s){
-            console.log(s)
-            // assign some additional parameters for the query
-            s['source']['params']['geometryType'] = 'esriGeometryPolygon'
-            // here is where we pass the ArcJSON
-            s['source']['params']['geometry'] = JSON.stringify(arc_geometry)
-            s['source']['params']['spatialRel'] = 'esriSpatialRelIntersects'
-            s['source']['params']['inSR'] = '4326'
+            // send different params based on the source endpoint
+            switch(s['source']['type']){
+              case 'socrata':
+                s['source']['params']['$where'] = `within_polygon(location, ${JSON.stringify(socrata_geom)})`
+                break;
+              case 'esri':
+                s['source']['params']['geometryType'] = 'esriGeometryPolygon'
+                s['source']['params']['geometry'] = JSON.stringify(arc_geometry)
+                s['source']['params']['spatialRel'] = 'esriSpatialRelIntersects'
+                s['source']['params']['inSR'] = '4326'
+                break;
+            }
+
             // create the querystring
             var query_str = Object.keys(s['source']['params']).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(s['source']['params'][k])}`).join('&');
             // this is the URL
             var filtered_ds_url = s['source']['endpoint'].concat('?', query_str)
-
+            console.log(filtered_ds_url)
             // fetch the new dataset
             fetch(filtered_ds_url).then(function(response){
               return response.json()
