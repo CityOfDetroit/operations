@@ -84,7 +84,6 @@
     ul.tabs li.current{
       background: rgb(237,242,240);
       font-size: 0.8em;
-      padding-top: 11px;
       border: 1px solid #003B49;
       border-bottom: 0px;
       border-radius: 5px 5px 0px  0px;
@@ -93,6 +92,8 @@
 
     .tab-content{
       display: none;
+      z-index: -100;
+      height: 100vh;
       background: rgb(237,242,240);
       padding: 15px;
       height: 100vh;
@@ -114,6 +115,10 @@
     .me-select li.selected{
       background: rgba(39,153,137,0.25);
     }
+    .me-select li.selected .sublist{
+      opacity: 1;
+      height: auto;
+    }
     .me-select label{
       font-size: 0.75em;
       padding:5px 0px 10px 35px;
@@ -133,6 +138,10 @@
     .me-select ul.sublist{
       padding-left: 35px;
       margin-top:-5px;
+      transition: opacity 1s ease-out;
+      opacity: 0; 
+      height: 0;
+      overflow: hidden;
     }
     .sublist li{
       line-height: 20px;
