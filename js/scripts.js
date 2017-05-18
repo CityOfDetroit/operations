@@ -11,15 +11,7 @@ $(document).ready(function(){
 		$("#"+tab_id).addClass('current');
 	});
 
-	//Checklist Select Class Toggle
-	$('.me-select-list li > input').click(function(){
-		var $target_li = $(this).closest('li');
-		if($target_li.hasClass('selected')){
-			$target_li.removeClass('selected');
-		}else{
-			$target_li.addClass('selected');
-		}
-	});
+
 
 	$('.scrollbar-macosx').scrollbar();
 	/*$('#only-one [data-accordion]').accordion({
