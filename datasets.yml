@@ -32,6 +32,32 @@
     Timeframe: 01/2016 - 12/2016
     Update Frequency: Static
     Notes: Does not capture cash sales
+- name: Side Lot Sales
+  slug: sidelot
+  citation: DLBA
+  unit: Lot Sale
+  source:
+    type: socrata
+    endpoint: https://data.detroitmi.gov/resource/7dw3-p3mq.geojson
+    params:
+      $where: "1=1"
+  layers:
+    - name: sales
+      display: Side Lot Sale
+      filter: [">=", "sale_price", "0"]
+      icon: land-contract-15
+  popup:
+    Address: address
+    Closing Date: closing_date
+    Sale Price: sale_price
+    Purchased By: sold_to
+  info:
+    Description: Homes sold in 2016 through conventional financing and land contracts
+    Unit: Home Sale
+    Source: MLS
+    Timeframe: 01/2016 - 12/2016
+    Update Frequency: Static
+    Notes: Does not capture cash sales
 - name: Improve Detroit Issues
   slug: improve_detroit
   citation: SeeClickFix
@@ -178,7 +204,7 @@
     type: esri
     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/BlightViolations/FeatureServer/0/query
     params:
-      where: "VIOLATIO_3 IN ('9-1-111', '9-1-110(a)')"
+      where: "VIOLATIO_3 IN ('9-1-111', '9-1-110(a)') AND ((HEARING_DA LIKE '%2016%') OR (HEARING_DA LIKE '%2017%'))"
       outSR: 4326
       outFields: 'TICKET_NUM, AGENCY_NAM, VIOLATOR_N, TICKET_ISS, HEARING_DA, VIOLATIO_3, VIOLATIO_4, DISPOSITIO'
       geometryPrecision: 4
