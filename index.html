@@ -17,7 +17,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/yamljs/0.2.9/yaml.js" integrity="sha256-GRn6x6hwUerbJb4I789gu+K5PI1YuaNzCBT6sZi3trI=" crossorigin="anonymous"></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./css/jquery.scrollbar.css" />
     <link rel="stylesheet" type="text/css" href="./css/component.css" />
     <link href='./css/styles.css' rel='stylesheet' />
     <link rel="icon" href="favicon.ico" type="image" sizes="16x16">
@@ -27,10 +26,13 @@
   </head>
   <body>
 
-    <nav id="menu" class="">
+    <nav id="menu" class="shadow">
       <div class="branding">
         <img src="./img/logos/green.png"/>
-        <h1 class="">Neighborhoods<br/><span id="current_selected"></span></h1>
+        <div>
+            <span>Current Neighborhood:</span>
+            <h1 id="current_selected">Detroit - Citywide</h1>
+        </div>
       </div>
 
       <ul class="tabs">
@@ -39,7 +41,7 @@
       </ul>
 
       <div id="datasets-tab" class="tab-content current">
-        <div data-content class="me-select scrollbar-macosx">
+        <div data-content class="me-select">
           <article>
               <ul class="me-select-list" id="sidebar">
               </ul>
@@ -444,12 +446,18 @@
             $target_li.addClass('selected');
           }
         });
+        //Tab Switch Function
+        $('ul.tabs li').click(function(){
+            var tab_id = $(this).attr('data-tab');
 
+            $('ul.tabs li').removeClass('current');
+            $('.tab-content').removeClass('current');
+
+            $(this).addClass('current');
+            $("#"+tab_id).addClass('current');
+        });
       })
 
     </script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <script src="./js/jquery.scrollbar.min.js"></script>
-    <script src="./js/scripts.js"></script>
   </body>
 </html>
