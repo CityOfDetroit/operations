@@ -272,7 +272,7 @@
   unit: Business
   source:
     type: esri
-    endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/MCM_Businesses/FeatureServer/0/query
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/MCM_Businesses/FeatureServer/0/query
     params:
       where: "1=1"
       outSR: 4326
@@ -307,7 +307,7 @@
   unit: Building
   source:
     type: esri
-    endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/MCM_Buildings/FeatureServer/0/query
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/MCM_Buildings/FeatureServer/0/query
     params:
       where: "1=1"
       outSR: 4326
