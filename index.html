@@ -366,11 +366,12 @@
         function updateDatasets() {
           // loop through our sources!
 
-          sources.forEach(function(s){
+          var tempSources = JSON.parse(JSON.stringify(sources))
+          tempSources.forEach(function(s){
             // send different params based on the source endpoint
             switch(s['source']['type']){
               case 'socrata':
-                s['source']['params']['$where'] = `within_polygon(location, ${JSON.stringify(socrata_geom)})`
+                s['source']['params']['$where'] = s['source']['params']['$where'].concat(' and ', `within_polygon(location, ${JSON.stringify(socrata_geom)})`)
                 break;
               case 'esri':
                 s['source']['params']['geometryType'] = 'esriGeometryPolygon'
@@ -396,9 +397,9 @@
                 // get the category and value to filter the new data on
                 if (l['filter']) {
                   var category = l['filter'][1]
-                  var category_value = l['filter'][2]
+                  var values = l['filter'].slice(2)
                   var filtered = json.features.filter(function(f){
-                    return eval(`f.properties.${category}`) == category_value
+                    return values.indexOf(eval(`f.properties.${category}`)) > -1
                   })
                   count = filtered.length
                 }

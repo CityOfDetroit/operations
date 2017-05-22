@@ -1,10 +1,10 @@
-- name: 2016 MLS Sales
+- name: MLS Sales (2016)
   slug: mls_sales
   citation: MLS
   unit: Home Sale
   source:
     type: esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/0/query
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/1/query
     params:
       where: "1=1"
       outSR: 4326
@@ -12,19 +12,24 @@
       geometryPrecision: 4
       f: pgeojson
   layers:
-    - name: on_contract
-      display: Land Contract Sale
-      filter: ["==", "Land_Contract_YN", "TRUE"]
+    - name: cash_sales
+      display: Cash Sales
+      filter: ["==", "Finance_Code", "Cash Sale"]
+      icon: cash-sale-15
+    - name: land_contracts
+      display: Land Contract
+      filter: ["==", "Finance_Code", "LC Sale"]
       icon: land-contract-15
-    - name: normal_sale
+    - name: conventional_sales
       display: Conventional Sale
-      filter: ["==", "Land_Contract_YN", "FALSE"]
+      filter: ["in", "Finance_Code", "CONV Sale", "FHA Sale", "VA Sale"]
       icon: non-contract-15
   popup:
     Address: FullAddress
     Sale Price: Sale_Price
     List Price: Original_List_Price
-    Close Date: Close_Dateam
+    Close Date: Close_Date
+    Type of Sale: Finance_Code
   info:
     Description: Homes sold in 2016 through conventional financing and land contracts
     Unit: Home Sale
@@ -44,7 +49,7 @@
   layers:
     - name: sales
       display: Side Lot Sale
-      icon: land-contract-15
+      icon: side-lot-sale-15
   popup:
     Address: address
     Closing Date: closing_date
@@ -97,7 +102,7 @@
     Timeframe: 01/2016 - Present
     Update Frequency: Daily
     Notes: Includes all ticket statuses, from open to closed
-- name: Project GreenLight Partners
+- name: Project GreenLight
   slug: project_greenlight
   citation: DPD
   unit: Business Partner
@@ -138,8 +143,8 @@
     type: socrata
     endpoint: https://data.detroitmi.gov/resource/but4-ky7y.geojson
     params:
+        $where: date_trunc_y(permit_issued) in ('2016', '2017') and bld_permit_type not in ('Dismantle')
         $select: site_location as location, permit_no, site_address, residential, bld_permit_type, bld_permit_desc, contractor_last_name, estimated_cost, permit_issued
-        $order: permit_issued DESC
   layers:
     - name: type_residential
       display: Residential
@@ -294,7 +299,7 @@
     Award Type: MCM_Award_Type
     Award Amount: MCM_Award_Amount
     Award Round: MCM_Award_Round
-  info: 
+  info:
     Description: Businesses that have received Cash Awards via Motor City Match and are open for business
     Unit: Business
     Source: DEGC
@@ -328,7 +333,7 @@
     Status: Status
     Award Type: MCM_Award_Type
     Award Round: MCM_Award_Round
-  info: 
+  info:
     Description: Buildings and spaces that are available via Motor City Match for commercial tenants
     Unit: Building
     Source: DEGC
