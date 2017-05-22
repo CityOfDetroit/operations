@@ -266,3 +266,72 @@
     Timeframe: 01/2016 - Present
     Update Frequency: Daily
     Notes: Does not include properties in the demolition pipeline.
+- name: Motor City Match Businesses
+  slug: mcm-biz
+  citation: DEGC
+  unit: Business
+  source:
+    type: esri
+    endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/MCM_Businesses/FeatureServer/0/query
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: '*'
+      geometryPrecision: 4
+      f: pgeojson
+  layers:
+    - name: open
+      display: Open Businesses
+      filter: ["==", "Status", "Open"]
+      icon: star-15
+  popup:
+    Address: Address
+    Name: Business_Name
+    Owner: Business_Owner
+    Business Type: Business_Type
+    Description: Business_Description
+    Status: Status
+    Award Type: MCM_Award_Type
+    Award Amount: MCM_Award_Amount
+    Award Round: MCM_Award_Round
+  info: 
+    Description: Businesses that have received Cash Awards via Motor City Match and are open for business
+    Unit: Business
+    Source: DEGC
+    Timeframe: 2015 - Present
+    Update Frequency: Periodic
+    Notes: Does not include Cash grantees who have secured spaces but are not yet open for business because they are seeking additional financing or doing construction
+- name: Motor City Match Buildings
+  slug: mcm-bldgs
+  citation: DEGC
+  unit: Building
+  source:
+    type: esri
+    endpoint: http://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/MCM_Buildings/FeatureServer/0/query
+    params:
+      where: "1=1"
+      outSR: 4326
+      outFields: '*'
+      geometryPrecision: 4
+      f: pgeojson
+  layers:
+    - name: available
+      display: Available Spaces
+      filter: ["==", "Status", "Available"]
+      icon: star-15
+  popup:
+    Address: Descriptive_Address
+    Building Owner: Building_Owner
+    Building Type: Building_Type
+    Tenants: Buildng_Tenants
+    Sq Footage: Building_Sq_Footage
+    Status: Status
+    Award Type: MCM_Award_Type
+    Award Round: MCM_Award_Round
+  info: 
+    Description: Buildings and spaces that are available via Motor City Match for commercial tenants
+    Unit: Building
+    Source: DEGC
+    Timeframe: 2015 - Present
+    Update Frequency: Periodic
+    Notes: A single point is sometimes displayed for a range of nearby addresses being marketed as a bundle or for multiple units in a single building
