@@ -1,7 +1,7 @@
 - name: MLS Sales (2016)
   slug: mls_sales
   citation: MLS
-  unit: Home Sale
+  unit: MLS Home Sale
   source:
     type: esri
     endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/SalesMLS2016/FeatureServer/1/query
@@ -16,6 +16,7 @@
       display: Cash Sales
       filter: ["==", "Finance_Code", "Cash Sale"]
       icon: cash-sale-15
+      size: 1
     - name: land_contracts
       display: Land Contract
       filter: ["==", "Finance_Code", "LC Sale"]
@@ -57,7 +58,7 @@
     Purchased By: sold_to
   info:
     Description: Homes sold in 2016 through conventional financing and land contracts
-    Unit: Home Sale
+    Unit: DLBA Side Lot Sale
     Source: MLS
     Timeframe: 01/2016 - 12/2016
     Update Frequency: Static
@@ -149,11 +150,11 @@
     - name: type_residential
       display: Residential
       filter: ["==", "residential", "RESIDENTIAL"]
-      icon: permit-residential-11
+      icon: permit-res
     - name: type_commercial
       display: Commercial
       filter: ["==", "residential", "NON-RESIDENTIAL"]
-      icon: permit-commercial-11
+      icon: permit-comm
   popup:
     Address: site_address
     Issued Date: permit_issued
