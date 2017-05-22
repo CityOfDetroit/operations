@@ -346,6 +346,15 @@
         map.on('dblclick', function(e){
           // get the neighborhoods we clicked on
           var features = map.queryRenderedFeatures(e.point, { layers: [boundary_filter + '_fill']})
+          if (selected_neighborhoods && features[0]['properties']['slug'] == selected_neighborhoods){
+            selected_neighborhoods = null
+            arc_geometry = null
+            socrata_geom = null
+            map.setFilter(boundary_filter + '_selected', ["==", "slug", ""])
+            updateDatasets();
+            $("#current_selected").html('Detroit - Citywide')
+            return;
+          }
           // find index of clicked neighborhood
           selected_neighborhoods = features[0]['properties']['slug']
           $('#current_selected').html(features[0]['properties']['name'])
@@ -369,18 +378,19 @@
           var tempSources = JSON.parse(JSON.stringify(sources))
           tempSources.forEach(function(s){
             // send different params based on the source endpoint
-            switch(s['source']['type']){
-              case 'socrata':
-                s['source']['params']['$where'] = s['source']['params']['$where'].concat(' and ', `within_polygon(location, ${JSON.stringify(socrata_geom)})`)
-                break;
-              case 'esri':
-                s['source']['params']['geometryType'] = 'esriGeometryPolygon'
-                s['source']['params']['geometry'] = JSON.stringify(arc_geometry)
-                s['source']['params']['spatialRel'] = 'esriSpatialRelIntersects'
-                s['source']['params']['inSR'] = '4326'
-                break;
+            if (socrata_geom && arc_geometry) {
+              switch(s['source']['type']){
+                case 'socrata':
+                  s['source']['params']['$where'] = s['source']['params']['$where'].concat(' and ', `within_polygon(location, ${JSON.stringify(socrata_geom)})`)
+                  break;
+                case 'esri':
+                  s['source']['params']['geometryType'] = 'esriGeometryPolygon'
+                  s['source']['params']['geometry'] = JSON.stringify(arc_geometry)
+                  s['source']['params']['spatialRel'] = 'esriSpatialRelIntersects'
+                  s['source']['params']['inSR'] = '4326'
+                  break;
+              }
             }
-
             // create the querystring
             var query_str = Object.keys(s['source']['params']).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(s['source']['params'][k])}`).join('&');
             // this is the URL
