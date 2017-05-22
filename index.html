@@ -261,7 +261,7 @@
             <ul class="sublist">
               ${c.layers.map(l => `
                 <li style="background: url('img/${l.icon}.svg') no-repeat">
-                  <span>${l.display}<span id="${l.name}_count"></span></span>
+                  <span>${l.display}<span id="${c.slug}_${l.name}_count"></span></span>
                 </li>
                 `
               )}
@@ -286,18 +286,17 @@
           c['layers'].forEach(function(l){
             // add it to all_datasets
             interactive_layers.push(c['slug'].concat('_', l.name))
-            map.addLayer({
+            var layerObject = {
               "id": c['slug'].concat('_', l.name),
               "type": "symbol",
               "source": c['slug'],
-              "filter": l['filter'],
               "layout": {
                 "visibility": "none",
                 "icon-image": l['icon'],
                 "icon-ignore-placement": true,
                 "icon-padding": 0,
                 "icon-size": {
-                  stops: [[9, 0.4], [15.5, 1], [18, 2]]
+                  stops: [[9, 0.7], [13, 0.9], [15.5, 1.4], [18, 2]]
                 }
               },
               "paint": {
@@ -305,7 +304,12 @@
                   stops: [[10, 0.3], [17, 1]]
                 }
               }
-            })
+            }
+
+            if (l['filter']) {
+              layerObject['filter'] = l['filter']
+            }
+            map.addLayer(layerObject)
           })
         })
 
@@ -390,17 +394,22 @@
               // loop through the individual layers of each source
               s['layers'].forEach(function(l){
                 // get the category and value to filter the new data on
-                var category = l['filter'][1]
-                var category_value = l['filter'][2]
-                // filter the data
-                var filtered = json.features.filter(function(f){
-                  return eval(`f.properties.${category}`) == category_value
-                })
+                if (l['filter']) {
+                  var category = l['filter'][1]
+                  var category_value = l['filter'][2]
+                  var filtered = json.features.filter(function(f){
+                    return eval(`f.properties.${category}`) == category_value
+                  })
+                  count = filtered.length
+                }
+                else {
+                  count = json.features.length
+                }
                 // make the span ID to update
                 var span_to_update = s['slug'].concat('_', l['name'], '_count')
                 // update the layer count span with the length of the filtered dataset
-                $('#' + span_to_update).html('('+filtered.length+')')
-                console.log(span_to_update, filtered.length)
+                $('#' + span_to_update).html('('+count+')')
+                console.log(span_to_update, count)
               })
             })
           })

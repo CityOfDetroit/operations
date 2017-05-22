@@ -17,7 +17,7 @@
       filter: ["==", "Land_Contract_YN", "TRUE"]
       icon: land-contract-15
     - name: normal_sale
-      display: Non-Contract Sale
+      display: Conventional Sale
       filter: ["==", "Land_Contract_YN", "FALSE"]
       icon: non-contract-15
   popup:
@@ -44,7 +44,6 @@
   layers:
     - name: sales
       display: Side Lot Sale
-      filter: [">=", "sale_price", "0"]
       icon: land-contract-15
   popup:
     Address: address
