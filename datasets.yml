@@ -15,16 +15,16 @@
     - name: cash_sales
       display: Cash Sales
       filter: ["==", "Finance_Code", "Cash Sale"]
-      icon: cash-sale-15
+      icon: sale-cash
       size: 1
     - name: land_contracts
       display: Land Contract
       filter: ["==", "Finance_Code", "LC Sale"]
-      icon: land-contract-15
+      icon: sale-lc
     - name: conventional_sales
       display: Conventional Sale
       filter: ["in", "Finance_Code", "CONV Sale", "FHA Sale", "VA Sale"]
-      icon: non-contract-15
+      icon: sale-conv
   popup:
     Address: FullAddress
     Sale Price: Sale_Price
@@ -50,7 +50,7 @@
   layers:
     - name: sales
       display: Side Lot Sale
-      icon: side-lot-sale-15
+      icon: sale-sidelot
   popup:
     Address: address
     Closing Date: closing_date
@@ -80,15 +80,15 @@
     - name: type_tree
       display: Trees
       filter: ["==", "issue_type", "Tree Issue"]
-      icon: tree-issue-11
+      icon: improve-tree
     - name: type_basin
       display: Blocked Catch Basins
       filter: ["==", "issue_type", "Blocked Catch Basin"]
-      icon: catch-basin-11
+      icon: improve-catchbasin
     - name: type_dumping
       display: Illegal Dumping
       filter: ["==", "issue_type", "Illegal Dumping / Illegal Dump Sites"]
-      icon: illegal-dumping-11
+      icon: improve-dumping
   popup:
     Issue Type: issue_type
     Ticket Status: ticket_sta
@@ -118,13 +118,13 @@
       f: geojson
   layers:
     - name: status_green
-      display: Green Status
+      display: Active
       filter: ["==", "Status", "Green"]
-      icon: green-light-green-15
+      icon: greenlight-active
     - name: status_yellow
-      display: Yellow status
+      display: Inactive
       filter: ["==", "Status", "Yellow"]
-      icon: green-light-yellow-15
+      icon: greenlight-inactive
   popup:
     Address: Address
     Business: Corporate_Entity
@@ -154,7 +154,7 @@
     - name: type_commercial
       display: Commercial
       filter: ["==", "residential", "NON-RESIDENTIAL"]
-      icon: permit-comm
+      icon: permit-nonres
   popup:
     Address: site_address
     Issued Date: permit_issued
@@ -187,7 +187,7 @@
     - name: for_sale
       display: Available for Sale
       filter: ["==", "avail_for_sale", "Yes"]
-      icon: commercial-sale-11
+      icon: building-avail
   popup:
     Address: Address
     Ownership: Ownership
@@ -218,11 +218,11 @@
     - name: graffiti
       display: Graffiti
       filter:  ["==", "VIOLATIO_3", "9-1-111"]
-      icon: blight-graffiti-11
+      icon: violation-graffiti
     - name: vehicles
       display: Abandoned Vehicles
       filter: ["==", "VIOLATIO_3", "9-1-110(a)"]
-      icon: blight-auto-11
+      icon: violation-vehicle
   popup:
     Ticket Number: TICKET_NUM
     Issuing Agency: AGENCY_NAM
@@ -256,11 +256,11 @@
     - name: residential
       display: Residential
       filter: ["==", "Comm_Bldg", "No"]
-      icon: residential-demo-11
+      icon: demolition-res
     - name: non_residential
       display: Non-Residential
       filter: ["==", "Comm_Bldg", "Yes"]
-      icon: commercial-demo-11
+      icon: demolition-nonres
   popup:
     Address: Address
     Contractor: Contractor
@@ -289,7 +289,7 @@
     - name: open
       display: Open Businesses
       filter: ["==", "Status", "Open"]
-      icon: star-15
+      icon: mcmatch-base
   popup:
     Address: Address
     Name: Business_Name
@@ -324,7 +324,7 @@
     - name: available
       display: Available Spaces
       filter: ["==", "Status", "Available"]
-      icon: star-15
+      icon: building-mcmatch
   popup:
     Address: Descriptive_Address
     Building Owner: Building_Owner
