@@ -17,7 +17,7 @@ height: auto;
 .shadow {
   -webkit-box-shadow:-25px -10px 15px 25px #777;
   -moz-box-shadow:-25px -10px 15px 25px #777;
-  box-shadow:-25px -10px 15px 25px #777; 
+  box-shadow:-25px -10px 15px 25px #777;
 }
 
 .stroke{
@@ -175,7 +175,7 @@ ul.tabs li.current{
   padding-left: 35px;
   margin-top:-5px;
   transition: opacity 1s ease-out;
-  opacity: 0; 
+  opacity: 0;
   height: 0;
   overflow: hidden;
     font-size: 0.85em;
@@ -184,7 +184,7 @@ ul.tabs li.current{
   line-height: 15px;
     margin-bottom: 2px;
 }
-.sublist li span{
+.sublist li span.layer{
   font-size: 0.65em;
   padding:0px 0px 10px 25px;
 }

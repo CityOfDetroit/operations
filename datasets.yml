@@ -244,27 +244,25 @@
   citation: DBA
   unit: Demolition
   source:
-    type: esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Completed_Demolitions/FeatureServer/0/query
+    type: socrata
+    endpoint: https://data.detroitmi.gov/resource/uzpg-2pfj.geojson
     params:
-      where: "1=1"
-      outSR: 4326
-      outFields: 'Address, Contractor, Price, Comm_Bldg'
-      geometryPrecision: 4
-      f: geojson
+      $where: "1=1"
+      $select: 'contractor_name, address, price, commercial, demolition_date as demo_date, location'
   layers:
     - name: residential
       display: Residential
-      filter: ["==", "Comm_Bldg", "No"]
+      filter: ["==", "commercial", "No"]
       icon: demolition-res
     - name: non_residential
       display: Non-Residential
-      filter: ["==", "Comm_Bldg", "Yes"]
+      filter: ["==", "commercial", "Yes"]
       icon: demolition-nonres
   popup:
-    Address: Address
-    Contractor: Contractor
-    Price: Price
+    Address: address
+    Contractor: contractor_name
+    Price: price
+    Demo Date: demo_date
   info:
     Description: Properties that have been demolished
     Unit: Property

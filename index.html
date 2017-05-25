@@ -139,6 +139,9 @@
               [-82.511, 42.600]
           ]
       });
+      map.addControl(new mapboxgl.GeolocateControl());
+      map.addControl(new mapboxgl.NavigationControl());
+
 
       // load the neighborhoods GeoJSON for use
       var neighborhoods_url = 'https://gis.detroitmi.gov/arcgis/rest/services/Boundaries/Neighborhoods/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&geometryPrecision=5&f=geojson'
@@ -261,7 +264,7 @@
             <ul class="sublist">
               ${c.layers.map(l => `
                 <li style="background: url('img/${l.icon}.svg') no-repeat">
-                  <span>${l.display}<span id="${c.slug}_${l.name}_count"></span></span>
+                  <span class="layer">${l.display}<span id="${c.slug}_${l.name}_count" class="count"></span></span>
                 </li>
                 `
               )}
