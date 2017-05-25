@@ -248,6 +248,7 @@
     endpoint: https://data.detroitmi.gov/resource/uzpg-2pfj.geojson
     params:
       $where: "1=1"
+      $limit: 10000
       $select: 'contractor_name, address, price, commercial, demolition_date as demo_date, location'
   layers:
     - name: residential
