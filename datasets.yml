@@ -144,6 +144,7 @@
     type: socrata
     endpoint: https://data.detroitmi.gov/resource/but4-ky7y.geojson
     params:
+        $limit: 50000
         $where: date_trunc_y(permit_issued) in ('2016', '2017') and bld_permit_type not in ('Dismantle')
         $select: site_location as location, permit_no, site_address, residential, bld_permit_type, bld_permit_desc, contractor_last_name, estimated_cost, permit_issued
   layers:
