@@ -38,31 +38,31 @@
     Timeframe: 01/2016 - 12/2016
     Update Frequency: Static
     Notes: Does not capture cash sales
-- name: Side Lot Sales
-  slug: sidelot
-  citation: DLBA
-  unit: Lot Sale
-  source:
-    type: socrata
-    endpoint: https://data.detroitmi.gov/resource/7dw3-p3mq.geojson
-    params:
-      $where: "1=1"
-  layers:
-    - name: sales
-      display: Side Lot Sale
-      icon: sale-sidelot
-  popup:
-    Address: address
-    Closing Date: closing_date
-    Sale Price: sale_price
-    Purchased By: sold_to
-  info:
-    Description: Homes sold in 2016 through conventional financing and land contracts
-    Unit: DLBA Side Lot Sale
-    Source: MLS
-    Timeframe: 01/2016 - 12/2016
-    Update Frequency: Static
-    Notes: Does not capture cash sales
+# - name: Side Lot Sales
+#   slug: sidelot
+#   citation: DLBA
+#   unit: Lot Sale
+#   source:
+#     type: socrata
+#     endpoint: https://data.detroitmi.gov/resource/7dw3-p3mq.geojson
+#     params:
+#       $where: "1=1"
+#   layers:
+#     - name: sales
+#       display: Side Lot Sale
+#       icon: sale-sidelot
+#   popup:
+#     Address: address
+#     Closing Date: closing_date
+#     Sale Price: sale_price
+#     Purchased By: sold_to
+#   info:
+#     Description: Homes sold in 2016 through conventional financing and land contracts
+#     Unit: DLBA Side Lot Sale
+#     Source: MLS
+#     Timeframe: 01/2016 - 12/2016
+#     Update Frequency: Static
+#     Notes: Does not capture cash sales
 - name: Improve Detroit Issues
   slug: improve_detroit
   citation: SeeClickFix
