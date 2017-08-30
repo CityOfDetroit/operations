@@ -121,10 +121,10 @@
       display: Active
       filter: ["==", "Status", "Green"]
       icon: greenlight-active
-    - name: status_yellow
-      display: Inactive
-      filter: ["==", "Status", "Yellow"]
-      icon: greenlight-inactive
+    # - name: status_yellow
+    #   display: Inactive
+    #   filter: ["==", "Status", "Yellow"]
+    #   icon: greenlight-inactive
   popup:
     Address: Address
     Business: Corporate_Entity
