@@ -207,32 +207,34 @@
   citation: DAH
   unit: Blight Ticket
   source:
-    type: esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/BlightViolations/FeatureServer/0/query
+    type: socrata
+    endpoint: https://data.detroitmi.gov/resource/s7hj-n86v.geojson
     params:
-      where: "VIOLATIO_3 IN ('9-1-111', '9-1-110(a)') AND ((HEARING_DA LIKE '%2016%') OR (HEARING_DA LIKE '%2017%'))"
-      outSR: 4326
-      outFields: 'TICKET_NUM, AGENCY_NAM, VIOLATOR_N, TICKET_ISS, HEARING_DA, VIOLATIO_3, VIOLATIO_4, DISPOSITIO'
-      geometryPrecision: 4
-      f: geojson
+      $where: "violation_code IN ('9-1-111', '9-1-111(a)', '9-1-111(b)', '9-1-110(a)') AND date_trunc_y(violation_date) in ('2016', '2017')"
+      $select: location,violation_address,ticket_number, agency_name, violator_name, judgment_amount, violation_date, hearing_date, violation_code, violation_description, disposition, payment_status
+      $limit: 10000
+      $order: violation_date desc
   layers:
     - name: graffiti
       display: Graffiti
-      filter:  ["==", "VIOLATIO_3", "9-1-111"]
+      filter:  ["in", "violation_code", "9-1-111"]
       icon: violation-graffiti
     - name: vehicles
       display: Abandoned Vehicles
-      filter: ["==", "VIOLATIO_3", "9-1-110(a)"]
+      filter: ["==", "violation_code", "9-1-110(a)"]
       icon: violation-vehicle
   popup:
-    Ticket Number: TICKET_NUM
-    Issuing Agency: AGENCY_NAM
-    Violator Name: VIOLATOR_N
-    Issue Date: TICKET_ISS
-    Hearing Date: HEARING_DA
-    Violation Code: VIOLATIO_3
-    Violation Description: VIOLATIO_4
-    Disposition: DISPOSITION
+    Ticket Number: ticket_number
+    Violation Address: violation_address
+    Issuing Agency: agency_name
+    Violator Name: violator_name
+    Issue Date: violation_date
+    Judgement Amount: judgment_amount
+    Hearing Date: hearing_date
+    Violation Code: violation_code
+    Violation Description: violation_description
+    Disposition: disposition
+    Payment Status: payment_status
   info:
     Description: Tickets issued for two main types of blight violations
     Unit: Ticket
