@@ -41,6 +41,7 @@
       </ul>
 
       <div id="datasets-tab" class="tab-content current">
+        <h6 style="margin: .5em 0em;">Double-click a neighborhood to filter data points.</h6>          
         <div data-content class="me-select">
           <article>
               <ul class="me-select-list" id="sidebar">
@@ -349,6 +350,7 @@
         map.on('dblclick', function(e){
           // get the neighborhoods we clicked on
           var features = map.queryRenderedFeatures(e.point, { layers: [boundary_filter + '_fill']})
+          map.fitBounds(turf.bbox(features[0]), { padding: 50 })
           if (selected_neighborhoods && features[0]['properties']['slug'] == selected_neighborhoods){
             selected_neighborhoods = null
             arc_geometry = null
