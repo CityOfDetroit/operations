@@ -25,10 +25,10 @@ map.addControl(new mapboxgl.GeolocateControl({
         enableHighAccuracy: true
     },
     trackUserLocation: true
-}), 'top-left');
+}), 'top-right');
 
 // nav control
-map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
 // load datasets.yml
 const ds = yaml.load('datasets.yml')

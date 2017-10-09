@@ -11,38 +11,40 @@
 </head>
 
 <body>
-  <div class="mw-100 center ph1-ns">
-    <div class="cf ph2-ns">
-      <div class="fl w-100 pa1">
-        <div class="pa2">
-          <span class="fw7 f3">Zoom Nineteen</span>
+    <nav class="db dt-l w-100 border-box pa1 ph2-l">
+      <a class="db dtc-l v-mid mid-gray link dim w-100 w-25-l tc tl-l mb2 mb0-l" href="#" title="Home">
+        <img src="./img/green.png" class="dib w3 h3" alt="Site Name">
+      </a>
+      <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+        <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="#" title="Home">About</a>
+        <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="#" title="How it Works">Source Code</a>
+      </div>
+    </nav>
+    <div class="cf ph2-ns h-75">
+      <div class="fl w-100 w-30-l pa1 h-75" id='legend'>
+        <div>
+          <span class="fw5 f5">Search for an address or intersection:</span>
+          <input id="locate" name="search" placeholder="ex '8515 W Chicago', 'Van Dyke & Harper'" type="text">
+          <div id='layers'>
+            <div class="pa1" id='category-residential'>
+              <span class="fw5 f5">Residential Demolitions</span>
+            </div>
+            <div class="pa1" id='category-commercial'>
+              <span class="fw5 f5">Commercial Demolitions</span>
+            </div>
+            <div class="pa1" id='category-dlba'>
+              <span class="fw5 f5">DLBA Sold Properties</span>
+            </div>
+            <div class="pa1" id='category-permits'>
+              <span class="fw5 f5">Building Permits</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="cf ph2-ns h-75">
       <div class="fl w-100 w-70-l pa1 h-75">
         <div class="outline bg-white h-75" id="map"></div>
       </div>
-      <div class="fl w-100 w-30-l pa2 h-75" id='legend'>
-        <div>
-          <span class="fw5 f5">Search for an address or intersection:</span>
-            <input id="locate" name="search" placeholder="ex '8515 W Chicago', 'Van Dyke & Harper'" type="text">
-            <div id='layers'>
-              <div class="pa1" id='category-residential'>
-                  <span class="fw5 f5">Residential Demolitions</span>
-              </div>
-              <div class="pa1" id='category-commercial'>
-                  <span class="fw5 f5">Commercial Demolitions</span>
-              </div>
-              <div class="pa1" id='category-dlba'>
-                  <span class="fw5 f5">DLBA Sold Properties</span>
-              </div>
-              <div class="pa1" id='category-permits'>
-                  <span class="fw5 f5">Building Permits</span>
-              </div>
-            </div>
-        </div>
-      </div>
+
     </div>
   </div>
   <script src="./bundle.js"></script>
