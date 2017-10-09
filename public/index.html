@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8' />
+  <title></title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.40.1/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.8.1/css/tachyons.min.css" />
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+
+<body>
+  <div class="mw-100 center ph1-ns">
+    <div class="cf ph2-ns">
+      <div class="fl w-100 pa1">
+        <div class="pa2">
+          <span class="fw7 f3">Zoom Nineteen</span>
+        </div>
+      </div>
+    </div>
+    <div class="cf ph2-ns h-75">
+      <div class="fl w-100 w-70-l pa1 h-75">
+        <div class="outline bg-white h-75" id="map"></div>
+      </div>
+      <div class="fl w-100 w-30-l pa2 h-75" id='legend'>
+        <div>
+          <span class="fw5 f5">Search for an address or intersection:</span>
+            <input id="locate" name="search" placeholder="ex '8515 W Chicago', 'Van Dyke & Harper'" type="text">
+            <div id='layers'>
+              <div class="pa1" id='category-residential'>
+                  <span class="fw5 f5">Residential Demolitions</span>
+              </div>
+              <div class="pa1" id='category-commercial'>
+                  <span class="fw5 f5">Commercial Demolitions</span>
+              </div>
+              <div class="pa1" id='category-dlba'>
+                  <span class="fw5 f5">DLBA Sold Properties</span>
+              </div>
+              <div class="pa1" id='category-permits'>
+                  <span class="fw5 f5">Building Permits</span>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./bundle.js"></script>
+</body>
+
+</html>

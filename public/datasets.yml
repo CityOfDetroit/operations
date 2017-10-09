@@ -1,0 +1,482 @@
+res_demos:
+  slug: res_demos
+  name: Residential Demolitions
+  category: residential
+  source:
+    type: socrata
+    url: uzpg-2pfj
+    params:
+      $select: location, address, parcel_id, commercial, demolition_date, price
+      $limit: 100000
+  layers:
+    - name: Completed
+      type: symbol
+      filter: ['in', 'commercial', 'No']
+      layout:
+        visibility: none
+        icon-image: green_square-11
+        icon-size:
+          stops:
+            - [9, 0.1]
+            - [15, 0.75]
+            - [19, 2]
+        icon-allow-overlap: true
+      paint:
+        icon-opacity:
+          stops:
+            - [9, 0.2]
+            - [15, 0.5]
+            - [19, 1]
+      legend:
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: green;"
+  popup:
+    title: Residential Demolition
+    columns:
+      - field: address
+        type: text
+        name: Address
+      - field: demolition_date
+        type: date
+        name: Demolition Date
+      - field: price
+        type: money
+        name: Cost
+contracted_demos:
+  slug: contracted_demos
+  name: Contracted Demolitions
+  category: residential
+  source:
+    type: socrata
+    url: nfx3-ihbp
+    params:
+      $select: address, contractor_name, price, demolish_by_date, commercial_building, location
+      $limit: 1000
+  layers:
+    - name: Contracted
+      type: symbol
+      filter: ['in', 'commercial_building', 'No']
+      layout:
+        visibility: none
+        icon-image: orange_square-11
+        icon-size:
+          stops:
+            - [9, 0.1]
+            - [15, 0.75]
+            - [19, 2]
+        icon-allow-overlap: true
+      paint:
+        icon-opacity:
+          stops:
+            - [9, 0.4]
+            - [15, 0.75]
+            - [19, 1]
+      legend:
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: orange;"
+  popup:
+    title: Contracted Demolitions
+    columns:
+      - field: address
+        type: text
+        name: Address
+      - field: demolish_by_date
+        type: date
+        name: Projected Demolition Date
+      - field: contractor_name
+        type: text
+        name: Contractor
+      - field: price
+        type: money
+        name: Cost
+demo_pipeline:
+  slug: demo_pipeline
+  name: Demolition Pipeline
+  category: residential
+  source:
+    type: socrata
+    url: urqn-dpd3
+    params:
+      $select: address, commercial_building, location
+      $limit: 5000
+  layers:
+    - name: Pipeline
+      type: symbol
+      filter: ['in', 'commercial_building', 'No']
+      layout:
+        visibility: none
+        icon-image: red_square-11
+        icon-size:
+          stops:
+            - [9, 0.1]
+            - [15, 0.75]
+            - [19, 2]
+        icon-allow-overlap: true
+      paint:
+        icon-opacity:
+          stops:
+            - [9, 0.4]
+            - [15, 0.75]
+            - [19, 1]
+      legend:
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: red;"
+  popup:
+    title: Demo Pipeline
+    columns:
+      - field: address
+        type: text
+        name: Address
+comm_demo:
+  slug: comm_demo
+  name: Commercial Demolitions
+  category: commercial
+  source: 
+    type: socrata
+    url: niaj-6fdd
+    params:
+      $select: location, address, parcel_id, status, total_cost, demo_date
+      $limit: 10000
+  layers:
+    - name: Completed
+      type: symbol
+      filter: ['==', 'status', 'Demolished']
+      layout:
+        visibility: none
+        icon-image: green_triangle-11
+        icon-size:
+          stops:
+            - [9, 0.2]
+            - [15, 1]
+            - [19, 4]
+        icon-allow-overlap: true
+      paint:
+        icon-opacity:
+          stops:
+            - [9, 0.5]
+            - [18, 1]
+      legend:
+        - "width: 0;"
+        - "height: 0;"
+        - "border-left: 8px solid transparent;"
+        - "border-right: 8px solid transparent;"
+        - "border-bottom: 13px solid green;"
+        - "margin-bottom: 1px;"
+    - name: Contracted
+      type: symbol
+      filter: ['==', 'status', 'Demo Contracted']
+      layout:
+        visibility: none
+        icon-image: orange_triangle-11
+        icon-size:
+          stops:
+            - [9, 0.2]
+            - [15, 1]
+            - [19, 4]
+        icon-allow-overlap: true
+      paint:
+        icon-opacity:
+          stops:
+            - [9, 0.5]
+            - [18, 1]
+      legend:
+        - "width: 0;"
+        - "height: 0;"
+        - "border-left: 8px solid transparent;"
+        - "border-right: 8px solid transparent;"
+        - "border-bottom: 13px solid orange;"
+        - "margin-bottom: 1px;"
+    - name: Pipeline
+      type: symbol
+      filter: ['==', 'status', 'Demo Pipeline']
+      layout:
+        visibility: none
+        icon-image: red_triangle-11
+        icon-size:
+          stops:
+            - [9, 0.2]
+            - [15, 1]
+            - [19, 4]
+        icon-allow-overlap: true
+      paint:
+        icon-opacity:
+          stops:
+            - [9, 0.5]
+            - [18, 1]
+      legend:
+        - "width: 0;"
+        - "height: 0;"
+        - "border-left: 8px solid transparent;"
+        - "border-right: 8px solid transparent;"
+        - "border-bottom: 13px solid red;"
+        - "margin-bottom: 1px;"
+  popup:
+    title: Commercial Demolition
+    columns:
+      - field: address
+        name: Address
+        type: text
+      - field: status
+        name: Status
+        type: text
+      - field: demo_date
+        name: Demolition Date
+        type: date
+      - field: total_cost
+        name: Cost
+        type: money
+own_it_now:
+  slug: own_it_now
+  name: DLBA Own It Now
+  category: dlba
+  source:
+    type: socrata
+    url: xpyj-nvij
+    params:
+      $select: address, final_sale_price, actual_closing_date, purchaser_type, location
+  layers:
+    - name: Own It Now
+      type: circle
+      layout:
+        visibility: none
+      paint:
+        circle-color: purple
+        circle-radius:
+          stops:
+            - [9, 0]
+            - [9.1, .5]
+            - [14, 3]
+            - [16, 6]
+            - [19, 15]
+        circle-opacity:
+          stops:
+            - [9, 0]
+            - [9.1, 0.5]
+            - [14, 0.75]
+            - [20, 0.95]
+      legend:
+        - "border-radius: 50%;"
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: purple;"
+  popup:
+    title: Own It Now Sale
+    columns:
+      - field: address
+        type: text
+        name: Address
+      - field: actual_closing_date
+        type: date
+        name: Sale Date
+      - field: final_sale_price
+        type: money
+        name: Final Sale Price
+      - field: purchaser_type
+        type: text
+        name: Buyer Type
+auction_closed:
+  slug: auction_closed
+  name: DLBA Closed Auctions
+  category: dlba
+  source:
+    type: socrata
+    url: 3y4n-hi9e
+    params:
+      $select: address, final_sale_price, actual_closing_date, purchaser_type, location
+  layers:
+    - name: Closed Auctions
+      type: circle
+      layout:
+        visibility: none
+      paint:
+        circle-color: violet
+        circle-radius:
+          stops:
+            - [9, 0]
+            - [9.1, .5]
+            - [14, 3]
+            - [16, 6]
+            - [19, 15]
+        circle-opacity:
+          stops:
+            - [9, 0]
+            - [9.1, 0.5]
+            - [14, 0.75]
+            - [20, 0.95]
+      legend:
+        - "border-radius: 50%;"
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: violet;"
+  popup:
+    title: Auction Sale
+    columns:
+      - field: address
+        type: text
+        name: Address
+      - field: actual_closing_date
+        type: date
+        name: Sale Date
+      - field: final_sale_price
+        type: money
+        name: Final Sale Price
+      - field: purchaser_type
+        type: text
+        name: Buyer Type
+side_lot_sales:
+  slug: side_lot_sales
+  name: DLBA Side Lots
+  category: dlba
+  source:
+    type: socrata
+    url: j4fm-e95k
+    params:
+      $select: location, address, parcel_id, final_sale_price, actual_closing_date
+      $limit: 10000
+  layers:
+    - name: Side Lots
+      type: circle
+      layout:
+        visibility: none
+      paint:
+        circle-color: blue
+        circle-radius:
+          stops:
+            - [9, 0]
+            - [9.1, .5]
+            - [14, 3]
+            - [16, 6]
+            - [19, 15]
+        circle-opacity:
+          stops:
+            - [9, 0]
+            - [9.1, 0.1]
+            - [14, 0.25]
+            - [20, 0.75]
+      legend:
+        - "border-radius: 50%;"
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: blue;"
+  popup:
+    title: Side Lot Sale
+    columns:
+    - field: address
+      name: Address
+      type: text
+    - field: parcel_id
+      name: Parcel ID
+      type: text
+    - field: actual_closing_date
+      name: Closing Date
+      type: date
+for_sale:
+  slug: for_sale
+  name: Currently For Sale
+  category: dlba
+  source:
+    type: socrata
+    url: dw4j-vebq
+    params:
+      $select: location, address, parcel_id, listing_date, program
+      $limit: 10000
+  layers:
+    - name: Currently for sale
+      type: circle
+      layout:
+        visibility: none
+      paint:
+        circle-color: skyblue
+        circle-radius:
+          stops:
+            - [9, 0]
+            - [9.1, .5]
+            - [14, 3]
+            - [16, 6]
+            - [19, 15]
+        circle-opacity:
+          stops:
+            - [9, 0]
+            - [9.1, 0.75]
+            - [14, 0.85]
+            - [20, 1]
+      legend:
+        - "border-radius: 50%;"
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: skyblue;"
+  popup:
+    title: DLBA For Sale
+    columns:
+    - field: address
+      name: Address
+      type: text
+    - field: parcel_id
+      name: Parcel ID
+      type: text  
+    - field: listing_date
+      name: Date
+      type: date  
+    - field: program
+      name: Program
+      type: text  
+permits:
+  slug: permits
+  name: Building Permits
+  category: permits
+  source:
+    type: socrata
+    url: but4-ky7y
+    params:
+      $select: permit_issued, site_location, site_address, estimated_cost, bld_permit_desc, bld_permit_type
+      $where: bld_permit_type in ('New', 'Alterations') and date_trunc_y(permit_issued) > '2014-01-01'
+      $limit: 100000
+  layers:
+    - name: Building Permits
+      type: circle
+      layout:
+        visibility: none
+      paint:
+        circle-color: "#aaa"
+        circle-radius:
+          stops:
+            - [9, 0]
+            - [9.1, .5]
+            - [14, 3]
+            - [16, 6]
+            - [19, 10]
+        circle-opacity:
+          stops:
+            - [9, 0]
+            - [9.1, 0.25]
+            - [14, 0.55]
+            - [20, 0.75]
+      legend:
+        - "border-radius: 50%;"
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: #aaa;"
+  popup:
+    title: Building Permit
+    columns:
+    - field: site_address
+      name: Address
+      type: text
+    - field: bld_permit_type
+      name: Permit Type
+      type: text  
+    - field: bld_permit_desc
+      name: Description
+      type: text
+    - field: estimated_cost
+      name: Cost
+      type: money
+    - field: permit_issued
+      name: Date of Issue
+      type: date  
+
+    
+    
