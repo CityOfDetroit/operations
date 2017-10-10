@@ -15,7 +15,7 @@ document.getElementById('map').style.height = `${window.innerHeight * 0.90}px`;
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/cityofdetroit/cj83zovzu08i92snucwtcd2yh',
+    style: 'mapbox://styles/cityofdetroit/cj31o6jko000a2sp5jpraydss',
     center: [-83.091, 42.350],
     zoom: 10.5,
     maxBounds: [
