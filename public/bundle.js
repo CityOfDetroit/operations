@@ -43973,7 +43973,7 @@ var Legend = {
       var style = layer.legend.join("");
       console.log(style);
     }
-    div.innerHTML = '\n          <div id="' + layer.layer_name + '_icon" class="legend-icon" style="' + (layer.legend ? layer.legend.join("") : '') + '"> </div>\n          <input type="checkbox" class="layer-toggle" id="' + layer.layer_name + '" value="' + layer.layer_name + '">\n          <label for="' + layer.layer_name + '">' + layer.name + ' <a href="https://data.detroitmi.gov/d/' + url + '">(source)</a></label>';
+    div.innerHTML = '\n          <div id="' + layer.layer_name + '_icon" class="legend-icon ml1 mr4" style="' + (layer.legend ? layer.legend.join("") : '') + '"> </div>\n          <input type="checkbox" class="layer-toggle mr1 ml1" id="' + layer.layer_name + '" value="' + layer.layer_name + '">\n          <label for="' + layer.layer_name + '">' + layer.name + ' <a href="https://data.detroitmi.gov/d/' + url + '">(source)</a></label>';
     categoryUl.appendChild(div);
     return div;
   }
@@ -44050,7 +44050,8 @@ var _ = require('lodash');
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjajhmenkzejYwNm56MnFvNmF1anhmaXN6In0.hOESlZup6yOhJB8bH9kiWA';
 
-document.getElementById('map').style.height = window.innerHeight - 70 + 'px';
+// document.getElementById('map').style.height = `${window.innerHeight - 68}px`;
+document.getElementById('map').style.height = window.innerHeight * 0.90 + 'px';
 
 var map = new mapboxgl.Map({
     container: 'map',
