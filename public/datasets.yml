@@ -115,3 +115,83 @@ greenlight:
       - field: Corporate_Entity
         type: text
         name: Business Name
+permits:
+  slug: permits
+  name: Building Permits
+  category: permits
+  source:
+    type: socrata
+    url: but4-ky7y
+    params:
+      $select: permit_issued, site_location, residential, site_address, estimated_cost, bld_permit_desc, bld_permit_type
+      $where: bld_permit_type in ('New', 'Alterations') and date_trunc_y(permit_issued) > '2014-01-01'
+      $limit: 100000
+  layers:
+    - name: Residential Permits
+      type: circle
+      filter: ["==", "residential", "RESIDENTIAL"]
+      layout:
+        visibility: none
+      paint:
+        circle-color: orange
+        circle-radius:
+          stops:
+            - [9, 0]
+            - [9.1, .5]
+            - [14, 3]
+            - [16, 6]
+            - [19, 10]
+        circle-opacity:
+          stops:
+            - [9, 0]
+            - [9.1, 0.25]
+            - [14, 0.55]
+            - [20, 0.75]
+      legend:
+        - "border-radius: 50%;"
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: orange;"
+    - name: Commercial Permits
+      type: circle
+      filter: ["==", "residential", "NON-RESIDENTIAL"]
+      layout:
+        visibility: none
+      paint:
+        circle-color: purple
+        circle-radius:
+          stops:
+            - [9, 0]
+            - [9.1, .5]
+            - [14, 3]
+            - [16, 6]
+            - [19, 10]
+        circle-opacity:
+          stops:
+            - [9, 0]
+            - [9.1, 0.25]
+            - [14, 0.55]
+            - [20, 0.75]
+      legend:
+        - "border-radius: 50%;"
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: purple;"
+  popup:
+    title: Building Permit
+    columns:
+    - field: site_address
+      name: Address
+      type: text
+    - field: bld_permit_type
+      name: Permit Type
+      type: text  
+    - field: bld_permit_desc
+      name: Description
+      type: text
+    - field: estimated_cost
+      name: Cost
+      type: money
+    - field: permit_issued
+      name: Date of Issue
+      type: date  
