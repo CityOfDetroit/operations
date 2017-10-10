@@ -18,15 +18,14 @@ improve_detroit:
         icon-image: improve-tree
         icon-size:
           stops:
-            - [9, 0.1]
-            - [15, 0.75]
-            - [19, 2]
+            - [9, 0.5]
+            - [15, 1.75]
+            - [19, 3]
         icon-allow-overlap: true
       paint:
         icon-opacity:
           stops:
             - [9, 0.2]
-            - [15, 0.5]
             - [19, 1]
     - name: Blocked Catch Basin
       type: symbol
@@ -36,33 +35,31 @@ improve_detroit:
         icon-image: improve-catchbasin
         icon-size:
           stops:
-            - [9, 0.1]
-            - [15, 0.75]
-            - [19, 2]
+            - [9, 0.5]
+            - [15, 1.75]
+            - [19, 3]
         icon-allow-overlap: true
       paint:
         icon-opacity:
           stops:
             - [9, 0.2]
-            - [15, 0.5]
             - [19, 1]
     - name: Illegal Dumping
       type: symbol
-      filter: ["==", "issue_type", "Illegal Dumping / Illegal Dump Sites"]
+      filter: ["in", "issue_type", "Illegal Dumping", "Illegal Dump Sites"]
       layout:
         visibility: none
         icon-image: improve-dumping
         icon-size:
           stops:
-            - [9, 0.1]
-            - [15, 0.75]
-            - [19, 2]
+            - [9, 0.5]
+            - [15, 1.75]
+            - [19, 3]
         icon-allow-overlap: true
       paint:
         icon-opacity:
           stops:
             - [9, 0.2]
-            - [15, 0.5]
             - [19, 1]
   popup:
     title: Improve Detroit Issue
@@ -79,3 +76,42 @@ improve_detroit:
       - field: ticket_closed_date_time
         type: date
         name: Ticket Close Time
+greenlight:
+  slug: greenlight
+  name: Project Greenlight
+  category: greenlight
+  source:
+    type: esri
+    url: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0
+    params:
+      outFields: '*'
+      outSR: 4326
+      where: 1=1
+      f: geojson
+  layers:
+    - name: Active Location
+      type: symbol
+      filter: ["==", "Status", "Green"]
+      layout:
+        visibility: none
+        icon-image: greenlight-active
+        icon-size:
+          stops:
+            - [9, 0.5]
+            - [15, 1.75]
+            - [19, 3]
+        icon-allow-overlap: true
+      paint:
+        icon-opacity:
+          stops:
+            - [9, 0.2]
+            - [19, 1]
+  popup:
+    title: Greenlight Location
+    columns:
+      - field: Address
+        type: text
+        name: Address
+      - field: Corporate_Entity
+        type: text
+        name: Business Name

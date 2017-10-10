@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 import Helpers from './helpers.js'
 import Socrata from './socrata.js'
+import Esri from './esri.js'
 import Map from './map.js'
 import Legend from './legend.js'
 import Locate from './locate.js'
@@ -47,12 +48,12 @@ map.on('load', function() {
         // get URL based on the source.type
         switch (ds.source.type) {
             case "socrata":
-                let url = Socrata.makeURL(ds.source.url, 'geojson', ds.source.params)
-                Map.addGeoJsonSource(map, ds.slug, url)
+                let sodaUrl = Socrata.makeURL(ds.source.url, 'geojson', ds.source.params)
+                Map.addGeoJsonSource(map, ds.slug, sodaUrl)
                 break
             case "esri":
-                // let url = Esri.makeURL(...)
-                // Map.addGeoJsonSource(map, ds.slug, url)
+                let esriUrl = Esri.makeURL(ds.source.url, 'geojson', ds.source.params)
+                Map.addGeoJsonSource(map, ds.slug, esriUrl)
                 break
         }
 
