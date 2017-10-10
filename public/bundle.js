@@ -44057,7 +44057,8 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/cityofdetroit/cj83zovzu08i92snucwtcd2yh',
     center: [-83.091, 42.350],
-    zoom: 10.5
+    zoom: 10.5,
+    maxBounds: [[-83.317803, 42.235192], [-82.880451, 42.47023]]
 });
 
 // geolocation control
