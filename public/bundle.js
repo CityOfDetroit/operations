@@ -43929,7 +43929,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Esri = {
   makeURL: function makeURL(url, type, params) {
-    console.log(url + '/query?' + _helpers2.default.makeParamString(params));
     return url + '/query?' + _helpers2.default.makeParamString(params);
   }
 };
@@ -44083,8 +44082,12 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/cityofdetroit/cj31o6jko000a2sp5jpraydss',
     center: [-83.091, 42.350],
-    zoom: 10.5,
-    maxBounds: [[-83.317803, 42.235192], [-82.880451, 42.47023]]
+    // center: [42.350, -83.091],
+    zoom: 10.5
+    // maxBounds: [
+    //     [-83.317803, 42.235192],
+    //     [-82.880451, 42.47023]
+    // ]
 });
 
 // geolocation control
@@ -44107,14 +44110,17 @@ map.on('load', function () {
 
     // loop through datasets
     _.each(ds, function (ds) {
+        console.log(ds);
         // get URL based on the source.type
         switch (ds.source.type) {
             case "socrata":
                 var sodaUrl = _socrata2.default.makeURL(ds.source.url, 'geojson', ds.source.params);
                 _map2.default.addGeoJsonSource(map, ds.slug, sodaUrl);
+                console.log(sodaUrl);
                 break;
             case "esri":
                 var esriUrl = _esri2.default.makeURL(ds.source.url, 'geojson', ds.source.params);
+                console.log(esriUrl);
                 _map2.default.addGeoJsonSource(map, ds.slug, esriUrl);
                 break;
         }

@@ -19,8 +19,8 @@ improve_detroit:
         icon-size:
           stops:
             - [9, 0.5]
-            - [15, 1.75]
-            - [19, 3]
+            - [15, 1]
+            - [19, 1.75]
         icon-allow-overlap: true
       paint:
         icon-opacity:
@@ -36,8 +36,8 @@ improve_detroit:
         icon-size:
           stops:
             - [9, 0.5]
-            - [15, 1.75]
-            - [19, 3]
+            - [15, 1]
+            - [19, 1.75]
         icon-allow-overlap: true
       paint:
         icon-opacity:
@@ -53,8 +53,8 @@ improve_detroit:
         icon-size:
           stops:
             - [9, 0.5]
-            - [15, 1.75]
-            - [19, 3]
+            - [15, 1]
+            - [19, 1.75]
         icon-allow-overlap: true
       paint:
         icon-opacity:
@@ -98,8 +98,8 @@ greenlight:
         icon-size:
           stops:
             - [9, 0.5]
-            - [15, 1.75]
-            - [19, 3]
+            - [15, 1]
+            - [19, 1.75]
         icon-allow-overlap: true
       paint:
         icon-opacity:
@@ -118,7 +118,7 @@ greenlight:
 permits:
   slug: permits
   name: Building Permits
-  category: permits
+  category: housing
   source:
     type: socrata
     url: but4-ky7y
@@ -194,4 +194,62 @@ permits:
       type: money
     - field: permit_issued
       name: Date of Issue
-      type: date  
+      type: date
+sales: 
+  slug: sales
+  name: Recent Sales
+  category: housing
+  source:
+    type: socrata
+    url: 9xku-658c
+    params:
+      $select: location, address, grantee, grantor, sale_date, sale_price, terms
+      $where: >
+       terms = 'VALID ARMS LENGTH' 
+       and sale_price > 10000 
+       and date_trunc_y(sale_date) = '2017-01-01T00:00:00.000'
+  layers:
+    - name: Property Sale
+      type: symbol
+      layout:
+        visibility: none
+        icon-image: improve-tree
+        icon-size:
+          stops:
+            - [9, 0.5]
+            - [15, 1.25]
+            - [19, 2]
+        icon-allow-overlap: true
+      paint:
+        icon-opacity:
+          stops:
+            - [9, 0.2]
+            - [19, 1]
+      legend:
+        - "border-radius: 50%;"
+        - "width: 15px;"
+        - "height: 15px;"
+        - "background: orange;"
+          
+  popup:
+    title: Property Sale
+    columns:
+      - field: address
+        type: text
+        name: Address
+      - field: grantee
+        type: text
+        name: Sold to
+      - field: grantor
+        type: text
+        name: Sold by
+      - field: sale_date
+        type: date
+        name: Sale Date
+      - field: sale_price
+        type: money
+        name: Sale Price
+      - field: terms
+        type: text
+        name: Sale Terms
+

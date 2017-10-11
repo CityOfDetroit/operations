@@ -18,11 +18,12 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/cityofdetroit/cj31o6jko000a2sp5jpraydss',
     center: [-83.091, 42.350],
+    // center: [42.350, -83.091],
     zoom: 10.5,
-    maxBounds: [
-        [-83.317803, 42.235192],
-        [-82.880451, 42.47023]
-    ]
+    // maxBounds: [
+    //     [-83.317803, 42.235192],
+    //     [-82.880451, 42.47023]
+    // ]
 })
 
 // geolocation control
@@ -45,14 +46,17 @@ map.on('load', function() {
 
     // loop through datasets
     _.each(ds, (ds => {
+        console.log(ds)
         // get URL based on the source.type
         switch (ds.source.type) {
             case "socrata":
                 let sodaUrl = Socrata.makeURL(ds.source.url, 'geojson', ds.source.params)
                 Map.addGeoJsonSource(map, ds.slug, sodaUrl)
+                console.log(sodaUrl)
                 break
             case "esri":
                 let esriUrl = Esri.makeURL(ds.source.url, 'geojson', ds.source.params)
+                console.log(esriUrl)
                 Map.addGeoJsonSource(map, ds.slug, esriUrl)
                 break
         }
