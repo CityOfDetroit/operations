@@ -43987,20 +43987,15 @@ var _ = require('lodash');
 
 var Legend = {
 
-  addLayer: function addLayer(categoryUl, layer, url) {
-    var div = document.createElement("div");
-    div.classList = ['layer-item'];
-    // if (layer.legend.style) {
-    //   let style = layer.legend.style.join("")
-    //   console.log(style)
-    // }
+  addLayer: function addLayer(layerTable, layer, url) {
+    var tr = document.createElement("tr");
     var legendDiv = '';
     if (layer.legend) {
-      legendDiv += '\n        <div id="' + layer.layer_name + '_icon" \n        class="legend-icon" \n        style="' + (layer.legend.style ? layer.legend.style.join("") : '') + '"> \n        ' + (layer.legend.image ? '<img src=' + layer.legend.image + '>' : '') + '\n        </div>\n      ';
+      legendDiv += '<div id="' + layer.layer_name + '_icon" class="legend-icon" style="' + (layer.legend.style ? layer.legend.style.join("") : '') + '">' + (layer.legend.image ? '<img src=' + layer.legend.image + '>' : '') + '</div>';
     }
-    div.innerHTML = '\n          ' + (legendDiv ? legendDiv : '') + '\n          <input type="checkbox" class="layer-toggle mr1 ml1" id="' + layer.layer_name + '" value="' + layer.layer_name + '">\n          <label for="' + layer.layer_name + '">' + layer.name + ' <a href="https://data.detroitmi.gov/d/' + url + '">(source)</a></label>';
-    categoryUl.appendChild(div);
-    return div;
+    tr.innerHTML = '\n          <td class=\'tc w-5 v-mid\'>' + (legendDiv ? legendDiv : '') + '</td>\n          <td class=\'w-auto fw3 f5 mr2\'><label for="' + layer.layer_name + '">' + layer.name + '</label></td>\n          <td class=\'tc w-5 v-mid ml2\'><input type="checkbox" class="layer-toggle" id="' + layer.layer_name + '" value="' + layer.layer_name + '"></td>\n          <td class=\'tc w-5 v-mid\'><a href="https://data.detroitmi.gov/d/' + url + '" class=\'f7 fw6 db dark-blue no-underline underline-hover\'>data</a></td>\n          ';
+    layerTable.appendChild(tr);
+    return tr;
   }
 };
 
@@ -44111,6 +44106,7 @@ var ds = yaml.load('datasets.yml');
 map.on('load', function () {
 
     var interactiveLayers = [];
+    var categories = [];
 
     // loop through datasets
     _.each(ds, function (ds) {
@@ -44129,14 +44125,20 @@ map.on('load', function () {
                 break;
         }
 
+        var layerTable = document.querySelector('#layers-table');
+        if (categories.indexOf(ds.category) == -1) {
+            var thead = document.createElement("tr");
+            thead.innerHTML = '<th></th><th class=\'fw5 f6 tl pv1 w-50\'>' + ds.category + '<th>';
+            layerTable.appendChild(thead);
+            categories.push(ds.category);
+        }
+
         // loop through layers
         _.each(ds.layers, function (l) {
             // replace the name & push to interactiveLayers
             l.layer_name = ds.slug + '_' + _helpers2.default.makeSlug(l.name);
             interactiveLayers.push(l.layer_name);
-            var catUl = document.querySelector('#category-' + ds.category);
-            console.log(catUl || 'couldnt find!');
-            _legend2.default.addLayer(catUl, l, ds.source.url);
+            _legend2.default.addLayer(layerTable, l, ds.source.url);
             map.addLayer({
                 "id": l.layer_name,
                 "type": l.type,

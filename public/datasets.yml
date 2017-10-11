@@ -1,7 +1,7 @@
 improve_detroit:
   slug: improve_detroit
   name: Improve Detroit
-  category: improvedetroit
+  category: Improve Detroit
   source:
     type: socrata
     url: j7tb-epek
@@ -85,7 +85,7 @@ improve_detroit:
 greenlight:
   slug: greenlight
   name: Project Greenlight
-  category: greenlight
+  category: Greenlight
   source:
     type: esri
     url: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0
@@ -126,7 +126,7 @@ greenlight:
 permits:
   slug: permits
   name: Building Permits
-  category: housing
+  category: Housing
   source:
     type: socrata
     url: but4-ky7y
@@ -208,7 +208,7 @@ permits:
 sales: 
   slug: sales
   name: Recent Sales
-  category: housing
+  category: Housing
   source:
     type: socrata
     url: 9xku-658c

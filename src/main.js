@@ -43,6 +43,7 @@ const ds = yaml.load('datasets.yml')
 map.on('load', function() {
 
     let interactiveLayers = []
+    let categories = []
 
     // loop through datasets
     _.each(ds, (ds => {
@@ -61,14 +62,20 @@ map.on('load', function() {
                 break
         }
 
+        let layerTable = document.querySelector('#layers-table')
+        if (categories.indexOf(ds.category) == -1) {
+            let thead = document.createElement("tr")
+            thead.innerHTML = `<th></th><th class='fw5 f6 tl pv1 w-50'>${ds.category}<th>`
+            layerTable.appendChild(thead)
+            categories.push(ds.category)
+        }
+
         // loop through layers
         _.each(ds.layers, (l => {
             // replace the name & push to interactiveLayers
             l.layer_name = `${ds.slug}_${Helpers.makeSlug(l.name)}`;
             interactiveLayers.push(l.layer_name)
-            let catUl = document.querySelector(`#category-${ds.category}`)
-            console.log(catUl || 'couldnt find!')
-            Legend.addLayer(catUl, l, ds.source.url)                        
+            Legend.addLayer(layerTable, l, ds.source.url)                        
             map.addLayer({
                 "id": l.layer_name,
                 "type": l.type,
