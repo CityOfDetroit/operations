@@ -1,3 +1,76 @@
+res_demos:
+  slug: res_demos
+  name: Residential Demolitions
+  category: Demolitions
+  source:
+    type: socrata
+    url: uzpg-2pfj
+    params:
+      $select: location, address, parcel_id, commercial, demolition_date, price
+      $limit: 100000
+  layers:
+    - name: Residential
+      type: symbol
+      filter: ['in', 'commercial', 'No']
+      layout:
+        visibility: none
+        icon-image: green_square-11
+        icon-size:
+          stops:
+            - [9, 0.1]
+            - [15, 0.75]
+            - [19, 2]
+        icon-allow-overlap: true
+      paint:
+        icon-opacity:
+          stops:
+            - [9, 0.2]
+            - [15, 0.5]
+            - [19, 1]
+      legend:
+        image: './img/green_square-11.svg'
+  popup:
+    title: Residential Demolition
+    columns:
+      - field: address
+        type: text
+        name: Address
+      - field: demolition_date
+        type: date
+        name: Demolition Date
+      - field: price
+        type: money
+        name: Cost
+comm_demo:
+  slug: comm_demo
+  name: Commercial Demolitions
+  category: Demolitions
+  source: 
+    type: socrata
+    url: niaj-6fdd
+    params:
+      $select: location, address, parcel_id, status, total_cost, demo_date
+      $limit: 10000
+  layers:
+    - name: Commercial
+      type: symbol
+      filter: ['==', 'status', 'Demolished']
+      layout:
+        visibility: none
+        icon-image: green_triangle-11
+        icon-size:
+          stops:
+            - [9, 0.2]
+            - [15, 1]
+            - [19, 2]
+        icon-allow-overlap: true
+      paint:
+        icon-opacity:
+          stops:
+            - [9, 0.5]
+            - [18, 1]
+      legend:
+        image: './img/green_triangle-11.svg'
 improve_detroit:
   slug: improve_detroit
   name: Improve Detroit

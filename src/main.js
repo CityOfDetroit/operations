@@ -16,14 +16,14 @@ document.getElementById('map').style.height = `${window.innerHeight * 0.90}px`;
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/cityofdetroit/cj31o6jko000a2sp5jpraydss',
+    style: 'mapbox://styles/cityofdetroit/cj8nmxq507v1a2ss2panbuxya',
     center: [-83.091, 42.350],
     // center: [42.350, -83.091],
-    zoom: 10.5,
-    // maxBounds: [
-    //     [-83.317803, 42.235192],
-    //     [-82.880451, 42.47023]
-    // ]
+    zoom: 10,
+    maxBounds: [
+        [-83.327803, 42.085192],
+        [-82.870451, 42.62023]
+    ]
 })
 
 // geolocation control
@@ -65,7 +65,7 @@ map.on('load', function() {
         let layerTable = document.querySelector('#layers-table')
         if (categories.indexOf(ds.category) == -1) {
             let thead = document.createElement("tr")
-            thead.innerHTML = `<th></th><th class='fw5 f6 tl pv1 w-50'>${ds.category}<th>`
+            thead.innerHTML = `<th></th><th class='fw5 f6 f7-m tl pv1'>${ds.category}<th>`
             layerTable.appendChild(thead)
             categories.push(ds.category)
         }

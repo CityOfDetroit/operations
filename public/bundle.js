@@ -43993,7 +43993,7 @@ var Legend = {
     if (layer.legend) {
       legendDiv += '<div id="' + layer.layer_name + '_icon" class="legend-icon" style="' + (layer.legend.style ? layer.legend.style.join("") : '') + '">' + (layer.legend.image ? '<img src=' + layer.legend.image + '>' : '') + '</div>';
     }
-    tr.innerHTML = '\n          <td class=\'tc w-5 v-mid\'>' + (legendDiv ? legendDiv : '') + '</td>\n          <td class=\'w-auto fw3 f5 mr2\'><label for="' + layer.layer_name + '">' + layer.name + '</label></td>\n          <td class=\'tc w-5 v-mid ml2\'><input type="checkbox" class="layer-toggle" id="' + layer.layer_name + '" value="' + layer.layer_name + '"></td>\n          <td class=\'tc w-5 v-mid\'><a href="https://data.detroitmi.gov/d/' + url + '" class=\'f7 fw6 db dark-blue no-underline underline-hover\'>data</a></td>\n          ';
+    tr.innerHTML = '\n          <td class=\'tc w1 v-mid\'>' + (legendDiv ? legendDiv : '') + '</td>\n          <td class=\'w-auto fw3 f5 f7-m mr2\'><label for="' + layer.layer_name + '">' + layer.name + '</label></td>\n          <td class=\'tc w1 v-mid\'><input type="checkbox" class="layer-toggle" id="' + layer.layer_name + '" value="' + layer.layer_name + '"></td>\n          <td class=\'tc w1 v-mid source\'><a href="https://data.detroitmi.gov/d/' + url + '" class=\'f7 fw6 db dark-blue no-underline underline-hover\'>data</a></td>\n          ';
     layerTable.appendChild(tr);
     return tr;
   }
@@ -44079,14 +44079,11 @@ document.getElementById('map').style.height = window.innerHeight * 0.90 + 'px';
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/cityofdetroit/cj31o6jko000a2sp5jpraydss',
+    style: 'mapbox://styles/cityofdetroit/cj8nmxq507v1a2ss2panbuxya',
     center: [-83.091, 42.350],
     // center: [42.350, -83.091],
-    zoom: 10.5
-    // maxBounds: [
-    //     [-83.317803, 42.235192],
-    //     [-82.880451, 42.47023]
-    // ]
+    zoom: 10,
+    maxBounds: [[-83.327803, 42.085192], [-82.870451, 42.62023]]
 });
 
 // geolocation control
@@ -44128,7 +44125,7 @@ map.on('load', function () {
         var layerTable = document.querySelector('#layers-table');
         if (categories.indexOf(ds.category) == -1) {
             var thead = document.createElement("tr");
-            thead.innerHTML = '<th></th><th class=\'fw5 f6 tl pv1 w-50\'>' + ds.category + '<th>';
+            thead.innerHTML = '<th></th><th class=\'fw5 f6 f7-m tl pv1\'>' + ds.category + '<th>';
             layerTable.appendChild(thead);
             categories.push(ds.category);
         }

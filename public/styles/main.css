@@ -8,6 +8,12 @@ input[type=checkbox] {
   transform: translate(-2px,4px) scale(1.5);
 }
 
+@media(max-width: 1020px) {
+  input[type=checkbox] {
+    transform: scale(1);
+  }
+}
+
 .legend-icon {
   position: relative;
   vertical-align: middle;
