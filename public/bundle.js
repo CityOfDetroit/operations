@@ -43990,11 +43990,15 @@ var Legend = {
   addLayer: function addLayer(categoryUl, layer, url) {
     var div = document.createElement("div");
     div.classList = ['layer-item'];
+    // if (layer.legend.style) {
+    //   let style = layer.legend.style.join("")
+    //   console.log(style)
+    // }
+    var legendDiv = '';
     if (layer.legend) {
-      var style = layer.legend.join("");
-      console.log(style);
+      legendDiv += '\n        <div id="' + layer.layer_name + '_icon" \n        class="legend-icon" \n        style="' + (layer.legend.style ? layer.legend.style.join("") : '') + '"> \n        ' + (layer.legend.image ? '<img src=' + layer.legend.image + '>' : '') + '\n        </div>\n      ';
     }
-    div.innerHTML = '\n          <div id="' + layer.layer_name + '_icon" class="legend-icon ml1 mr4" style="' + (layer.legend ? layer.legend.join("") : '') + '"> </div>\n          <input type="checkbox" class="layer-toggle mr1 ml1" id="' + layer.layer_name + '" value="' + layer.layer_name + '">\n          <label for="' + layer.layer_name + '">' + layer.name + ' <a href="https://data.detroitmi.gov/d/' + url + '">(source)</a></label>';
+    div.innerHTML = '\n          ' + (legendDiv ? legendDiv : '') + '\n          <input type="checkbox" class="layer-toggle mr1 ml1" id="' + layer.layer_name + '" value="' + layer.layer_name + '">\n          <label for="' + layer.layer_name + '">' + layer.name + ' <a href="https://data.detroitmi.gov/d/' + url + '">(source)</a></label>';
     categoryUl.appendChild(div);
     return div;
   }
