@@ -109,7 +109,7 @@
   unit: Business Partner
   source:
     type: esri
-    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ProjectGreenlight/FeatureServer/0/query
+    endpoint: https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/project_greenlight/FeatureServer/0/query
     params:
       where: "1=1"
       outSR: 4326
@@ -119,16 +119,14 @@
   layers:
     - name: status_green
       display: Active
-      filter: ["==", "Status", "Green"]
       icon: greenlight-active
     # - name: status_yellow
     #   display: Inactive
     #   filter: ["==", "Status", "Yellow"]
     #   icon: greenlight-inactive
   popup:
-    Address: Address
-    Business: Corporate_Entity
-    Status: Status
+    Address: address
+    Business: business_name
   info:
     Description: Businesses participating in Project Greenlight
     Unit: Business
